@@ -1,10 +1,17 @@
 import { div } from "framer-motion/client";
 import Image from "next/image";
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
+import { LandingMain } from "../components/LandingMain";
 
 export default function Home() {
   return (
-    <div>
-      <h1 className="text-3xl font-bold">Crave Buddy</h1>
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <main className="flex-grow">
+        <LandingMain />
+      </main>
+      <Footer />
     </div>
   );
 }
