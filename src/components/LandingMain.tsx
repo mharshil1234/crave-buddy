@@ -4,14 +4,12 @@ import { useState, useEffect } from "react";
 import { RestaurantCard } from "./RestaurantCard"
 
 type Restaurant = {
-    info: {
         id: string;
         name: string;
         cloudinaryImageId: string;
         areaName: string;
-        cuisines: string[];
+        cuisines: string;
         avgRatingString: string;
-    };
 };
 
 export function LandingMain() {
@@ -20,19 +18,22 @@ export function LandingMain() {
 
     useEffect(() => {
 
-        async function fetchRestaurants() {
+        async function fetchRestaurants(lat: number, lng: number) {
 
             try {
 
-                const response = await fetch("/api/restaurant/get-restaurants", {
+                const response = await fetch(`/api/restaurant/get-restaurants?lat=${lat}&lng=${lng}`, {
                     method: "GET"
                 });
                 const data = await response.json();
-                const restaurantsData = data?.data?.cards?.find((x: any) =>
+
+                /*const restaurantsData = data?.data?.cards?.find((x: any) =>
                 x?.card?.card?.gridElements?.infoWithStyle?.restaurants
                 )
-                ?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
-                setRestaurants(restaurantsData);
+                ?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];*/
+
+                setRestaurants(data);
+
 
             } catch (error) {
 
@@ -42,7 +43,12 @@ export function LandingMain() {
 
         }
 
-        fetchRestaurants();
+        navigator.geolocation.getCurrentPosition((position) => {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            
+            fetchRestaurants(lat, lng);
+        });
 
     }, [])
     
@@ -56,7 +62,7 @@ export function LandingMain() {
 
                 {restaurants.map((restaurant) => {
 
-                    const info = restaurant.info;
+                    const info = restaurant;
 
                     return (
                         <RestaurantCard
@@ -64,7 +70,7 @@ export function LandingMain() {
                             id={info.id}
                             image={`https://media-assets.swiggy.com/swiggy/image/upload/${info.cloudinaryImageId}`}
                             name={info.name}
-                            cuisine={info.cuisines.join(", ")}
+                            cuisine={info.cuisines}
                             location={info.areaName}
                             rating={info.avgRatingString}
                         />

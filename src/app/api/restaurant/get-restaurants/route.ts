@@ -1,17 +1,30 @@
-export async function GET() {
+import { NextRequest, NextResponse } from "next/server";
+import { pool } from "@/lib/db";
 
-    const response = await fetch(
-        "https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.97530&lng=77.59100&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING",
-        {
-            method: "GET",
-            headers: {
-                "User-Agent": "Mozilla/5.0",
-            },
-            cache: "no-store",
-        }
-    );
+export async function GET(req: NextRequest) {
 
-    const data = await response.json();
+    try {
 
-    return Response.json(data);
+        const searchParams = req.nextUrl.searchParams;
+        
+        const lat = searchParams.get("lat");
+        const lng = searchParams.get("lng");
+
+        const response = await pool.query(
+            `
+            SELECT * FROM RESTAURANTS
+            LIMIT 20
+            `
+        );
+
+        return NextResponse.json(response.rows);
+    
+    } catch (error) {
+
+        console.error("Error fetching Restaurants:", error);
+        return NextResponse.json(
+            { error: "Failed to fetch Restaurants", details: error },
+            { status: 502 }
+        );
+    }
 }

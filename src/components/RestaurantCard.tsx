@@ -11,7 +11,7 @@ type CardProps = {
     location?: string;
 }
 
-export function RestaurantCard({ id,image, name, cuisine, rating, location }: CardProps) {
+export function RestaurantCard({ id, image, name, cuisine, rating, location }: CardProps) {
 
     const router = useRouter();
 
