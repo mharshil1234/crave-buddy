@@ -1,0 +1,1912 @@
+            [
+                {
+                    "info": {
+                      "id": "502999",
+                      "name": "BOX8 - Desi Meals",
+                      "cloudinaryImageId": "RX_THUMBNAIL/IMAGES/VENDOR/2025/3/26/d119b3fc-a01e-428e-9b8b-9b94051a0c3e_502999.jpg",
+                      "locality": "Lakshmi Road",
+                      "areaName": "Central Bangalore",
+                      "costForTwo": "₹200 for two",
+                      "cuisines": [
+                        "North Indian",
+                        "Biryani",
+                        "Thalis",
+                        "Home Food"
+                      ],
+                      "avgRating": 4.4,
+                      "parentId": "10655",
+                      "avgRatingString": "4.4",
+                      "totalRatingsString": "2.7K+",
+                      "sla": {
+                        "deliveryTime": 15,
+                        "lastMileTravel": 4.5,
+                        "serviceability": "SERVICEABLE",
+                        "slaString": "10-20 mins",
+                        "lastMileTravelString": "4.5 km",
+                        "iconType": "ICON_TYPE_EMPTY"
+                      },
+                      "availability": {
+                        "nextCloseTime": "2026-05-27 02:00:00",
+                        "opened": true
+                      },
+                      "badges": {
+                        "imageBadges": [
+                          {
+                            "imageId": "brand_cards/Badges%202026/67_Best%20in%20Mughlai2026.png",
+                            "description": "Best in Mughlai"
+                          }
+                        ]
+                      },
+                      "isOpen": true,
+                      "type": "F",
+                      "badgesV2": {
+                        "entityBadges": {
+                          "imageBased": {
+                            "badgeObject": [
+                              {
+                                "attributes": {
+                                  "description": "Best in Mughlai",
+                                  "imageId": "brand_cards/Badges%202026/67_Best%20in%20Mughlai2026.png",
+                                  "theme": ""
+                                }
+                              }
+                            ]
+                          },
+                          "textBased": {
+
+                          },
+                          "textExtendedBadges": {
+
+                          }
+                        }
+                      },
+                      "aggregatedDiscountInfoV3": {
+                        "header": "ITEMS",
+                        "subHeader": "AT ₹99"
+                      },
+                      "differentiatedUi": {
+                        "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                        "differentiatedUiMediaDetails": {
+                          "lottie": {
+
+                          },
+                          "video": {
+
+                          }
+                        }
+                      },
+                      "reviewsSummary": {
+
+                      },
+                      "displayType": "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+                      "restaurantOfferPresentationInfo": {
+
+                      },
+                      "externalRatings": {
+                        "aggregatedRating": {
+                          "rating": "--"
+                        }
+                      },
+                      "ratingsDisplayPreference": "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+                    },
+                    "analytics": {
+                      "context": "seo-data-d1dcd59a-100a-44d8-bdd9-4dcdb6684ad2"
+                    },
+                    "cta": {
+                      "link": "https://www.swiggy.com/city/bangalore/box8-desi-meals-lakshmi-road-central-bangalore-rest502999",
+                      "type": "WEBLINK"
+                    }
+                  },
+                  {
+                    "info": {
+                      "id": "622202",
+                      "name": "MOJO Pizza - 2X Toppings",
+                      "cloudinaryImageId": "RX_THUMBNAIL/IMAGES/VENDOR/2024/12/12/e7ccd786-be92-4743-8e0c-f3d3a577d48f_622202.jpg",
+                      "locality": "Langford Road",
+                      "areaName": "Central Bangalore",
+                      "costForTwo": "₹250 for two",
+                      "cuisines": [
+                        "Pizzas",
+                        "Italian",
+                        "Fast Food",
+                        "Desserts"
+                      ],
+                      "avgRating": 4.6,
+                      "parentId": "11329",
+                      "avgRatingString": "4.6",
+                      "totalRatingsString": "975",
+                      "sla": {
+                        "deliveryTime": 25,
+                        "lastMileTravel": 4.5,
+                        "serviceability": "SERVICEABLE",
+                        "slaString": "20-30 mins",
+                        "lastMileTravelString": "4.5 km",
+                        "iconType": "ICON_TYPE_EMPTY"
+                      },
+                      "availability": {
+                        "nextCloseTime": "2026-05-27 02:00:00",
+                        "opened": true
+                      },
+                      "badges": {
+
+                      },
+                      "isOpen": true,
+                      "type": "F",
+                      "badgesV2": {
+                        "entityBadges": {
+                          "imageBased": {
+
+                          },
+                          "textBased": {
+
+                          },
+                          "textExtendedBadges": {
+
+                          }
+                        }
+                      },
+                      "aggregatedDiscountInfoV3": {
+                        "header": "ITEMS",
+                        "subHeader": "AT ₹99"
+                      },
+                      "differentiatedUi": {
+                        "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                        "differentiatedUiMediaDetails": {
+                          "lottie": {
+
+                          },
+                          "video": {
+
+                          }
+                        }
+                      },
+                      "reviewsSummary": {
+
+                      },
+                      "displayType": "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+                      "restaurantOfferPresentationInfo": {
+
+                      },
+                      "externalRatings": {
+                        "aggregatedRating": {
+                          "rating": "--"
+                        }
+                      },
+                      "ratingsDisplayPreference": "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+                    },
+                    "analytics": {
+                      "context": "seo-data-d1dcd59a-100a-44d8-bdd9-4dcdb6684ad2"
+                    },
+                    "cta": {
+                      "link": "https://www.swiggy.com/city/bangalore/mojo-pizza-2x-toppings-langford-road-central-bangalore-rest622202",
+                      "type": "WEBLINK"
+                    }
+                  },
+                  {
+                    "info": {
+                      "id": "503003",
+                      "name": "ZAZA Mughal Biryani",
+                      "cloudinaryImageId": "RX_THUMBNAIL/IMAGES/VENDOR/2024/9/17/d26bdfca-3b50-41ea-87e1-e7f9a6b0581d_503003.jpg",
+                      "locality": "Lakshmi Nagar Road",
+                      "areaName": "Central Bangalore",
+                      "costForTwo": "₹250 for two",
+                      "cuisines": [
+                        "Biryani",
+                        "North Indian",
+                        "Awadhi"
+                      ],
+                      "avgRating": 4.4,
+                      "parentId": "22473",
+                      "avgRatingString": "4.4",
+                      "totalRatingsString": "1.2K+",
+                      "sla": {
+                        "deliveryTime": 15,
+                        "lastMileTravel": 4.5,
+                        "serviceability": "SERVICEABLE",
+                        "slaString": "10-20 mins",
+                        "lastMileTravelString": "4.5 km",
+                        "iconType": "ICON_TYPE_EMPTY"
+                      },
+                      "availability": {
+                        "nextCloseTime": "2026-05-27 02:00:00",
+                        "opened": true
+                      },
+                      "badges": {
+                        "imageBadges": [
+                          {
+                            "imageId": "brand_cards/Badges%202026/67_Best%20in%20Mughlai2026.png",
+                            "description": "Best in Mughlai"
+                          }
+                        ]
+                      },
+                      "isOpen": true,
+                      "type": "F",
+                      "badgesV2": {
+                        "entityBadges": {
+                          "imageBased": {
+                            "badgeObject": [
+                              {
+                                "attributes": {
+                                  "description": "Best in Mughlai",
+                                  "imageId": "brand_cards/Badges%202026/67_Best%20in%20Mughlai2026.png",
+                                  "theme": ""
+                                }
+                              }
+                            ]
+                          },
+                          "textBased": {
+
+                          },
+                          "textExtendedBadges": {
+
+                          }
+                        }
+                      },
+                      "aggregatedDiscountInfoV3": {
+                        "header": "ITEMS",
+                        "subHeader": "AT ₹129"
+                      },
+                      "differentiatedUi": {
+                        "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                        "differentiatedUiMediaDetails": {
+                          "lottie": {
+
+                          },
+                          "video": {
+
+                          }
+                        }
+                      },
+                      "reviewsSummary": {
+
+                      },
+                      "displayType": "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+                      "restaurantOfferPresentationInfo": {
+
+                      },
+                      "externalRatings": {
+                        "aggregatedRating": {
+                          "rating": "--"
+                        }
+                      },
+                      "ratingsDisplayPreference": "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+                    },
+                    "analytics": {
+                      "context": "seo-data-d1dcd59a-100a-44d8-bdd9-4dcdb6684ad2"
+                    },
+                    "cta": {
+                      "link": "https://www.swiggy.com/city/bangalore/zaza-mughal-biryani-lakshmi-nagar-road-central-bangalore-rest503003",
+                      "type": "WEBLINK"
+                    }
+                  },
+                  {
+                    "info": {
+                      "id": "503002",
+                      "name": "NH1 Bowls - Highway To North",
+                      "cloudinaryImageId": "RX_THUMBNAIL/IMAGES/VENDOR/2024/11/8/aea607a6-5ce6-4fe6-b7d1-7ba2bacdc647_503002.jpg",
+                      "locality": "Lakshmi Road",
+                      "areaName": "Central Bangalore",
+                      "costForTwo": "₹250 for two",
+                      "cuisines": [
+                        "North Indian",
+                        "Punjabi",
+                        "Home Food"
+                      ],
+                      "avgRating": 4.5,
+                      "parentId": "22452",
+                      "avgRatingString": "4.5",
+                      "totalRatingsString": "1.0K+",
+                      "sla": {
+                        "deliveryTime": 15,
+                        "lastMileTravel": 4.5,
+                        "serviceability": "SERVICEABLE",
+                        "slaString": "10-20 mins",
+                        "lastMileTravelString": "4.5 km",
+                        "iconType": "ICON_TYPE_EMPTY"
+                      },
+                      "availability": {
+                        "nextCloseTime": "2026-05-27 02:00:00",
+                        "opened": true
+                      },
+                      "badges": {
+
+                      },
+                      "isOpen": true,
+                      "type": "F",
+                      "badgesV2": {
+                        "entityBadges": {
+                          "imageBased": {
+
+                          },
+                          "textBased": {
+
+                          },
+                          "textExtendedBadges": {
+
+                          }
+                        }
+                      },
+                      "aggregatedDiscountInfoV3": {
+                        "header": "ITEMS",
+                        "subHeader": "AT ₹99"
+                      },
+                      "differentiatedUi": {
+                        "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                        "differentiatedUiMediaDetails": {
+                          "lottie": {
+
+                          },
+                          "video": {
+
+                          }
+                        }
+                      },
+                      "reviewsSummary": {
+
+                      },
+                      "displayType": "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+                      "restaurantOfferPresentationInfo": {
+
+                      },
+                      "externalRatings": {
+                        "aggregatedRating": {
+                          "rating": "--"
+                        }
+                      },
+                      "ratingsDisplayPreference": "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+                    },
+                    "analytics": {
+                      "context": "seo-data-d1dcd59a-100a-44d8-bdd9-4dcdb6684ad2"
+                    },
+                    "cta": {
+                      "link": "https://www.swiggy.com/city/bangalore/nh1-bowls-highway-to-north-lakshmi-road-central-bangalore-rest503002",
+                      "type": "WEBLINK"
+                    }
+                  },
+                  {
+                    "info": {
+                      "id": "643832",
+                      "name": "WeFit - Protein Bowls, Salads & Sandwiches",
+                      "cloudinaryImageId": "RX_THUMBNAIL/IMAGES/VENDOR/2025/2/3/c64e7364-7909-417f-a850-ea89f41c318e_643832.jpg",
+                      "locality": "Langford Road",
+                      "areaName": "Central Bangalore",
+                      "costForTwo": "₹250 for two",
+                      "cuisines": [
+                        "Healthy Food",
+                        "Salads",
+                        "Keto",
+                        "Snacks"
+                      ],
+                      "avgRating": 4.7,
+                      "parentId": "355285",
+                      "avgRatingString": "4.7",
+                      "totalRatingsString": "998",
+                      "sla": {
+                        "deliveryTime": 25,
+                        "lastMileTravel": 4.5,
+                        "serviceability": "SERVICEABLE",
+                        "slaString": "20-30 mins",
+                        "lastMileTravelString": "4.5 km",
+                        "iconType": "ICON_TYPE_EMPTY"
+                      },
+                      "availability": {
+                        "nextCloseTime": "2026-05-27 02:00:00",
+                        "opened": true
+                      },
+                      "badges": {
+                        "imageBadges": [
+                          {
+                            "imageId": "Health%20Hub/RX%20BADGE/BADGE2.png",
+                            "description": "EatRight"
+                          }
+                        ]
+                      },
+                      "isOpen": true,
+                      "type": "F",
+                      "badgesV2": {
+                        "entityBadges": {
+                          "imageBased": {
+                            "badgeObject": [
+                              {
+                                "attributes": {
+                                  "description": "EatRight",
+                                  "imageId": "Health%20Hub/RX%20BADGE/BADGE2.png",
+                                  "theme": ""
+                                }
+                              }
+                            ]
+                          },
+                          "textBased": {
+
+                          },
+                          "textExtendedBadges": {
+
+                          }
+                        }
+                      },
+                      "aggregatedDiscountInfoV3": {
+                        "header": "ITEMS",
+                        "subHeader": "AT ₹99"
+                      },
+                      "differentiatedUi": {
+                        "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                        "differentiatedUiMediaDetails": {
+                          "lottie": {
+
+                          },
+                          "video": {
+
+                          }
+                        }
+                      },
+                      "reviewsSummary": {
+
+                      },
+                      "displayType": "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+                      "restaurantOfferPresentationInfo": {
+
+                      },
+                      "externalRatings": {
+                        "aggregatedRating": {
+                          "rating": "--"
+                        }
+                      },
+                      "ratingsDisplayPreference": "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+                    },
+                    "analytics": {
+                      "context": "seo-data-d1dcd59a-100a-44d8-bdd9-4dcdb6684ad2"
+                    },
+                    "cta": {
+                      "link": "https://www.swiggy.com/city/bangalore/wefit-protein-bowls-salads-and-sandwiches-langford-road-central-bangalore-rest643832",
+                      "type": "WEBLINK"
+                    }
+                  },
+                  {
+                    "info": {
+                      "id": "681612",
+                      "name": "LeanCrust Pizza- ThinCrust Experts",
+                      "cloudinaryImageId": "RX_THUMBNAIL/IMAGES/VENDOR/2024/8/30/14414940-565f-4b31-8880-eb44478a5ec0_681612.jpg",
+                      "locality": "Lakshmi Road",
+                      "areaName": "Central Bangalore",
+                      "costForTwo": "₹300 for two",
+                      "cuisines": [
+                        "Pizzas",
+                        "Italian",
+                        "Desserts"
+                      ],
+                      "avgRating": 4.6,
+                      "parentId": "11216",
+                      "avgRatingString": "4.6",
+                      "totalRatingsString": "597",
+                      "sla": {
+                        "deliveryTime": 25,
+                        "lastMileTravel": 4.5,
+                        "serviceability": "SERVICEABLE",
+                        "slaString": "20-30 mins",
+                        "lastMileTravelString": "4.5 km",
+                        "iconType": "ICON_TYPE_EMPTY"
+                      },
+                      "availability": {
+                        "nextCloseTime": "2026-05-27 02:00:00",
+                        "opened": true
+                      },
+                      "badges": {
+
+                      },
+                      "isOpen": true,
+                      "type": "F",
+                      "badgesV2": {
+                        "entityBadges": {
+                          "imageBased": {
+
+                          },
+                          "textBased": {
+
+                          },
+                          "textExtendedBadges": {
+
+                          }
+                        }
+                      },
+                      "aggregatedDiscountInfoV3": {
+                        "header": "ITEMS",
+                        "subHeader": "AT ₹129"
+                      },
+                      "differentiatedUi": {
+                        "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                        "differentiatedUiMediaDetails": {
+                          "lottie": {
+
+                          },
+                          "video": {
+
+                          }
+                        }
+                      },
+                      "reviewsSummary": {
+
+                      },
+                      "displayType": "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+                      "restaurantOfferPresentationInfo": {
+
+                      },
+                      "externalRatings": {
+                        "aggregatedRating": {
+                          "rating": "--"
+                        }
+                      },
+                      "ratingsDisplayPreference": "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+                    },
+                    "analytics": {
+                      "context": "seo-data-d1dcd59a-100a-44d8-bdd9-4dcdb6684ad2"
+                    },
+                    "cta": {
+                      "link": "https://www.swiggy.com/city/bangalore/leancrust-pizza-thincrust-experts-lakshmi-road-central-bangalore-rest681612",
+                      "type": "WEBLINK"
+                    }
+                  },
+                  {
+                    "info": {
+                      "id": "750396",
+                      "name": "Daily Kitchen - Everyday Homely Meals",
+                      "cloudinaryImageId": "RX_THUMBNAIL/IMAGES/VENDOR/2025/6/10/05595a0f-d3f2-474e-8183-3ef3d67f3ead_750396.jpg",
+                      "locality": "Lakshmi Road",
+                      "areaName": "Central Bangalore",
+                      "costForTwo": "₹250 for two",
+                      "cuisines": [
+                        "Home Food",
+                        "Indian",
+                        "North Indian",
+                        "Thalis"
+                      ],
+                      "avgRating": 4.4,
+                      "parentId": "444382",
+                      "avgRatingString": "4.4",
+                      "totalRatingsString": "890",
+                      "sla": {
+                        "deliveryTime": 15,
+                        "lastMileTravel": 4.5,
+                        "serviceability": "SERVICEABLE",
+                        "slaString": "10-20 mins",
+                        "lastMileTravelString": "4.5 km",
+                        "iconType": "ICON_TYPE_EMPTY"
+                      },
+                      "availability": {
+                        "nextCloseTime": "2026-05-27 02:00:00",
+                        "opened": true
+                      },
+                      "badges": {
+
+                      },
+                      "isOpen": true,
+                      "type": "F",
+                      "badgesV2": {
+                        "entityBadges": {
+                          "imageBased": {
+
+                          },
+                          "textBased": {
+
+                          },
+                          "textExtendedBadges": {
+
+                          }
+                        }
+                      },
+                      "aggregatedDiscountInfoV3": {
+                        "header": "ITEMS",
+                        "subHeader": "AT ₹119"
+                      },
+                      "differentiatedUi": {
+                        "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                        "differentiatedUiMediaDetails": {
+                          "lottie": {
+
+                          },
+                          "video": {
+
+                          }
+                        }
+                      },
+                      "reviewsSummary": {
+
+                      },
+                      "displayType": "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+                      "restaurantOfferPresentationInfo": {
+
+                      },
+                      "externalRatings": {
+                        "aggregatedRating": {
+                          "rating": "--"
+                        }
+                      },
+                      "ratingsDisplayPreference": "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+                    },
+                    "analytics": {
+                      "context": "seo-data-d1dcd59a-100a-44d8-bdd9-4dcdb6684ad2"
+                    },
+                    "cta": {
+                      "link": "https://www.swiggy.com/city/bangalore/daily-kitchen-everyday-homely-meals-lakshmi-road-central-bangalore-rest750396",
+                      "type": "WEBLINK"
+                    }
+                  },
+                  {
+                    "info": {
+                      "id": "616273",
+                      "name": "Bhatti Chicken - Grilled, NOT Fried!",
+                      "cloudinaryImageId": "RX_THUMBNAIL/IMAGES/VENDOR/2025/8/18/bf83be15-d815-4dfe-8fd6-4f9a4090d23a_616273.JPG",
+                      "locality": "Langford Road",
+                      "areaName": "Central Bangalore",
+                      "costForTwo": "₹250 for two",
+                      "cuisines": [
+                        "North Indian",
+                        "Snacks",
+                        "Fast Food",
+                        "Tandoor"
+                      ],
+                      "avgRating": 4.5,
+                      "parentId": "355286",
+                      "avgRatingString": "4.5",
+                      "totalRatingsString": "145",
+                      "sla": {
+                        "deliveryTime": 25,
+                        "lastMileTravel": 4.5,
+                        "serviceability": "SERVICEABLE",
+                        "slaString": "20-30 mins",
+                        "lastMileTravelString": "4.5 km",
+                        "iconType": "ICON_TYPE_EMPTY"
+                      },
+                      "availability": {
+                        "nextCloseTime": "2026-05-27 02:00:00",
+                        "opened": true
+                      },
+                      "badges": {
+                        "imageBadges": [
+                          {
+                            "imageId": "brand_cards/Badges%202026/77_Best%20in%20Snacks2026.png",
+                            "description": "Best in Snacks"
+                          }
+                        ]
+                      },
+                      "isOpen": true,
+                      "type": "F",
+                      "badgesV2": {
+                        "entityBadges": {
+                          "imageBased": {
+                            "badgeObject": [
+                              {
+                                "attributes": {
+                                  "description": "Best in Snacks",
+                                  "imageId": "brand_cards/Badges%202026/77_Best%20in%20Snacks2026.png",
+                                  "theme": ""
+                                }
+                              }
+                            ]
+                          },
+                          "textBased": {
+
+                          },
+                          "textExtendedBadges": {
+
+                          }
+                        }
+                      },
+                      "aggregatedDiscountInfoV3": {
+                        "header": "ITEMS",
+                        "subHeader": "AT ₹129"
+                      },
+                      "differentiatedUi": {
+                        "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                        "differentiatedUiMediaDetails": {
+                          "lottie": {
+
+                          },
+                          "video": {
+
+                          }
+                        }
+                      },
+                      "reviewsSummary": {
+
+                      },
+                      "displayType": "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+                      "restaurantOfferPresentationInfo": {
+
+                      },
+                      "externalRatings": {
+                        "aggregatedRating": {
+                          "rating": "--"
+                        }
+                      },
+                      "ratingsDisplayPreference": "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+                    },
+                    "analytics": {
+                      "context": "seo-data-d1dcd59a-100a-44d8-bdd9-4dcdb6684ad2"
+                    },
+                    "cta": {
+                      "link": "https://www.swiggy.com/city/bangalore/bhatti-chicken-grilled-not-fried-langford-road-central-bangalore-rest616273",
+                      "type": "WEBLINK"
+                    }
+                  },
+                  {
+                    "info": {
+                      "id": "503000",
+                      "name": "Itminaan Matka Biryani - Slow Cooked",
+                      "cloudinaryImageId": "RX_THUMBNAIL/IMAGES/VENDOR/2026/3/24/d860db50-bbce-44e9-8e17-59278a89b278_503000.JPG",
+                      "locality": "Lakshmi Road",
+                      "areaName": "Central Bangalore",
+                      "costForTwo": "₹250 for two",
+                      "cuisines": [
+                        "Biryani",
+                        "North Indian",
+                        "Mughlai"
+                      ],
+                      "avgRating": 4.3,
+                      "parentId": "107673",
+                      "avgRatingString": "4.3",
+                      "totalRatingsString": "123",
+                      "sla": {
+                        "deliveryTime": 25,
+                        "lastMileTravel": 4.5,
+                        "serviceability": "SERVICEABLE",
+                        "slaString": "20-30 mins",
+                        "lastMileTravelString": "4.5 km",
+                        "iconType": "ICON_TYPE_EMPTY"
+                      },
+                      "availability": {
+                        "nextCloseTime": "2026-05-27 02:00:00",
+                        "opened": true
+                      },
+                      "badges": {
+
+                      },
+                      "isOpen": true,
+                      "type": "F",
+                      "badgesV2": {
+                        "entityBadges": {
+                          "imageBased": {
+
+                          },
+                          "textBased": {
+
+                          },
+                          "textExtendedBadges": {
+
+                          }
+                        }
+                      },
+                      "aggregatedDiscountInfoV3": {
+                        "header": "ITEMS",
+                        "subHeader": "AT ₹139"
+                      },
+                      "differentiatedUi": {
+                        "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                        "differentiatedUiMediaDetails": {
+                          "lottie": {
+
+                          },
+                          "video": {
+
+                          }
+                        }
+                      },
+                      "reviewsSummary": {
+
+                      },
+                      "displayType": "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+                      "restaurantOfferPresentationInfo": {
+
+                      },
+                      "externalRatings": {
+                        "aggregatedRating": {
+                          "rating": "--"
+                        }
+                      },
+                      "ratingsDisplayPreference": "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+                    },
+                    "analytics": {
+                      "context": "seo-data-d1dcd59a-100a-44d8-bdd9-4dcdb6684ad2"
+                    },
+                    "cta": {
+                      "link": "https://www.swiggy.com/city/bangalore/itminaan-matka-biryani-slow-cooked-lakshmi-road-central-bangalore-rest503000",
+                      "type": "WEBLINK"
+                    }
+                  },
+                  {
+                    "info": {
+                      "id": "596949",
+                      "name": "Olio - The Wood Fired Pizzeria",
+                      "cloudinaryImageId": "RX_THUMBNAIL/IMAGES/VENDOR/2025/12/24/b05f51b2-9e6e-456e-950a-abc16a3cf540_596949.JPG",
+                      "locality": "Koramangala",
+                      "areaName": "Koramangala",
+                      "costForTwo": "₹300 for two",
+                      "cuisines": [
+                        "Pizzas",
+                        "Pastas",
+                        "Italian",
+                        "Fast Food",
+                        "Snacks",
+                        "Beverages",
+                        "Desserts"
+                      ],
+                      "avgRating": 4.3,
+                      "parentId": "11633",
+                      "avgRatingString": "4.3",
+                      "totalRatingsString": "2.0K+",
+                      "sla": {
+                        "deliveryTime": 81,
+                        "lastMileTravel": 6.2,
+                        "serviceability": "SERVICEABLE",
+                        "slaString": "80-90 mins",
+                        "lastMileTravelString": "6.2 km",
+                        "iconType": "ICON_TYPE_EMPTY"
+                      },
+                      "availability": {
+                        "nextCloseTime": "2026-05-27 06:00:00",
+                        "opened": true
+                      },
+                      "badges": {
+                        "imageBadges": [
+                          {
+                            "imageId": "newg.png",
+                            "description": "Gourmet"
+                          }
+                        ]
+                      },
+                      "isOpen": true,
+                      "type": "F",
+                      "badgesV2": {
+                        "entityBadges": {
+                          "imageBased": {
+                            "badgeObject": [
+                              {
+                                "attributes": {
+                                  "description": "Gourmet",
+                                  "imageId": "newg.png",
+                                  "theme": ""
+                                }
+                              }
+                            ]
+                          },
+                          "textBased": {
+
+                          },
+                          "textExtendedBadges": {
+
+                          }
+                        }
+                      },
+                      "aggregatedDiscountInfoV3": {
+                        "header": "65% OFF",
+                        "subHeader": "UPTO ₹130"
+                      },
+                      "differentiatedUi": {
+                        "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                        "differentiatedUiMediaDetails": {
+                          "lottie": {
+
+                          },
+                          "video": {
+
+                          }
+                        }
+                      },
+                      "reviewsSummary": {
+
+                      },
+                      "displayType": "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+                      "restaurantOfferPresentationInfo": {
+
+                      },
+                      "externalRatings": {
+                        "aggregatedRating": {
+                          "rating": "4.1",
+                          "ratingCount": "250"
+                        },
+                        "source": "GOOGLE",
+                        "sourceIconImageId": "v1704440323/google_ratings/rating_google_tag"
+                      },
+                      "ratingsDisplayPreference": "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+                    },
+                    "analytics": {
+                      "context": "seo-data-d1dcd59a-100a-44d8-bdd9-4dcdb6684ad2"
+                    },
+                    "cta": {
+                      "link": "https://www.swiggy.com/city/bangalore/olio-the-wood-fired-pizzeria-koramangala-rest596949",
+                      "type": "WEBLINK"
+                    }
+                  },
+                  {
+                    "info": {
+                      "id": "245536",
+                      "name": "Brik Oven - Original Sourdough Pizzas",
+                      "cloudinaryImageId": "RX_THUMBNAIL/IMAGES/VENDOR/2025/12/10/c4cab2c7-767d-4493-9c56-0641d2f471ba_245536.JPG",
+                      "locality": "High Grounds",
+                      "areaName": "High Grounds",
+                      "costForTwo": "₹800 for two",
+                      "cuisines": [
+                        "Italian",
+                        "Pizzas",
+                        "sandwich",
+                        "Salads",
+                        "Desserts"
+                      ],
+                      "avgRating": 4.4,
+                      "parentId": "488952",
+                      "avgRatingString": "4.4",
+                      "totalRatingsString": "6.6K+",
+                      "sla": {
+                        "deliveryTime": 47,
+                        "lastMileTravel": 1.8,
+                        "serviceability": "SERVICEABLE",
+                        "slaString": "45-50 mins",
+                        "lastMileTravelString": "1.8 km",
+                        "iconType": "ICON_TYPE_EMPTY"
+                      },
+                      "availability": {
+                        "nextCloseTime": "2026-05-26 23:00:00",
+                        "opened": true
+                      },
+                      "badges": {
+                        "imageBadges": [
+                          {
+                            "imageId": "newg.png",
+                            "description": "Gourmet"
+                          }
+                        ]
+                      },
+                      "isOpen": true,
+                      "type": "F",
+                      "badgesV2": {
+                        "entityBadges": {
+                          "imageBased": {
+                            "badgeObject": [
+                              {
+                                "attributes": {
+                                  "description": "Gourmet",
+                                  "imageId": "newg.png",
+                                  "theme": ""
+                                }
+                              }
+                            ]
+                          },
+                          "textBased": {
+
+                          },
+                          "textExtendedBadges": {
+
+                          }
+                        }
+                      },
+                      "aggregatedDiscountInfoV3": {
+                        "header": "₹50 OFF",
+                        "subHeader": "ABOVE ₹299",
+                        "discountTag": "FLAT DEAL"
+                      },
+                      "differentiatedUi": {
+                        "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                        "differentiatedUiMediaDetails": {
+                          "lottie": {
+
+                          },
+                          "video": {
+
+                          }
+                        }
+                      },
+                      "reviewsSummary": {
+
+                      },
+                      "displayType": "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+                      "restaurantOfferPresentationInfo": {
+
+                      },
+                      "externalRatings": {
+                        "aggregatedRating": {
+                          "rating": "4.4",
+                          "ratingCount": "1.3K+"
+                        },
+                        "source": "GOOGLE",
+                        "sourceIconImageId": "v1704440323/google_ratings/rating_google_tag"
+                      },
+                      "ratingsDisplayPreference": "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+                    },
+                    "analytics": {
+                      "context": "seo-data-d1dcd59a-100a-44d8-bdd9-4dcdb6684ad2"
+                    },
+                    "cta": {
+                      "link": "https://www.swiggy.com/city/bangalore/brik-oven-original-sourdough-pizzas-high-grounds-rest245536",
+                      "type": "WEBLINK"
+                    }
+                  },
+                  {
+                    "info": {
+                      "id": "219460",
+                      "name": "Go Native",
+                      "cloudinaryImageId": "RX_THUMBNAIL/IMAGES/VENDOR/2025/8/4/bd36fdbc-0fb8-4ff5-b0c6-95e5b9b659ad_219460.jpg",
+                      "locality": "Ashok Nagar",
+                      "areaName": "Ashok Nagar",
+                      "costForTwo": "₹600 for two",
+                      "cuisines": [
+                        "Healthy Food",
+                        "Pizzas",
+                        "briyani"
+                      ],
+                      "avgRating": 4.6,
+                      "veg": true,
+                      "parentId": "10539",
+                      "avgRatingString": "4.6",
+                      "totalRatingsString": "1.6K+",
+                      "sla": {
+                        "deliveryTime": 51,
+                        "lastMileTravel": 1.4,
+                        "serviceability": "SERVICEABLE",
+                        "slaString": "50-60 mins",
+                        "lastMileTravelString": "1.4 km",
+                        "iconType": "ICON_TYPE_EMPTY"
+                      },
+                      "availability": {
+                        "nextCloseTime": "2026-05-26 22:00:00",
+                        "opened": true
+                      },
+                      "badges": {
+                        "imageBadges": [
+                          {
+                            "imageId": "Health%20Hub/RX%20BADGE/BADGE2.png",
+                            "description": "EatRight"
+                          },
+                          {
+                            "imageId": "newg.png",
+                            "description": "Gourmet"
+                          }
+                        ]
+                      },
+                      "isOpen": true,
+                      "type": "F",
+                      "badgesV2": {
+                        "entityBadges": {
+                          "imageBased": {
+                            "badgeObject": [
+                              {
+                                "attributes": {
+                                  "description": "EatRight",
+                                  "imageId": "Health%20Hub/RX%20BADGE/BADGE2.png",
+                                  "theme": ""
+                                }
+                              },
+                              {
+                                "attributes": {
+                                  "description": "Gourmet",
+                                  "imageId": "newg.png",
+                                  "theme": ""
+                                }
+                              }
+                            ]
+                          },
+                          "textBased": {
+
+                          },
+                          "textExtendedBadges": {
+
+                          }
+                        }
+                      },
+                      "aggregatedDiscountInfoV3": {
+                        "header": "₹150 OFF",
+                        "subHeader": "ABOVE ₹999",
+                        "discountTag": "FLAT DEAL"
+                      },
+                      "differentiatedUi": {
+                        "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                        "differentiatedUiMediaDetails": {
+                          "lottie": {
+
+                          },
+                          "video": {
+
+                          }
+                        }
+                      },
+                      "reviewsSummary": {
+
+                      },
+                      "displayType": "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+                      "restaurantOfferPresentationInfo": {
+
+                      },
+                      "externalRatings": {
+                        "aggregatedRating": {
+                          "rating": "4.6",
+                          "ratingCount": "1.7K+"
+                        },
+                        "source": "GOOGLE",
+                        "sourceIconImageId": "v1704440323/google_ratings/rating_google_tag"
+                      },
+                      "ratingsDisplayPreference": "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+                    },
+                    "analytics": {
+                      "context": "seo-data-d1dcd59a-100a-44d8-bdd9-4dcdb6684ad2"
+                    },
+                    "cta": {
+                      "link": "https://www.swiggy.com/city/bangalore/go-native-ashok-nagar-rest219460",
+                      "type": "WEBLINK"
+                    }
+                  },
+                  {
+                    "info": {
+                      "id": "146304",
+                      "name": "Hyderabad Biryaani House",
+                      "cloudinaryImageId": "taavokxehqfaugbzzhzk",
+                      "locality": "Victoria Road",
+                      "areaName": "Victoria Road",
+                      "costForTwo": "₹499 for two",
+                      "cuisines": [
+                        "Biryani",
+                        "Chinese",
+                        "Tandoor"
+                      ],
+                      "avgRating": 4.4,
+                      "parentId": "2403",
+                      "avgRatingString": "4.4",
+                      "totalRatingsString": "10K+",
+                      "sla": {
+                        "deliveryTime": 55,
+                        "lastMileTravel": 4,
+                        "serviceability": "SERVICEABLE",
+                        "slaString": "55-65 mins",
+                        "lastMileTravelString": "4.0 km",
+                        "iconType": "ICON_TYPE_EMPTY"
+                      },
+                      "availability": {
+                        "nextCloseTime": "2026-05-26 23:00:00",
+                        "opened": true
+                      },
+                      "badges": {
+
+                      },
+                      "isOpen": true,
+                      "type": "F",
+                      "badgesV2": {
+                        "entityBadges": {
+                          "imageBased": {
+
+                          },
+                          "textBased": {
+
+                          },
+                          "textExtendedBadges": {
+
+                          }
+                        }
+                      },
+                      "aggregatedDiscountInfoV3": {
+                        "header": "ITEMS",
+                        "subHeader": "AT ₹49"
+                      },
+                      "differentiatedUi": {
+                        "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                        "differentiatedUiMediaDetails": {
+                          "lottie": {
+
+                          },
+                          "video": {
+
+                          }
+                        }
+                      },
+                      "reviewsSummary": {
+
+                      },
+                      "displayType": "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+                      "restaurantOfferPresentationInfo": {
+
+                      },
+                      "externalRatings": {
+                        "aggregatedRating": {
+                          "rating": "--"
+                        }
+                      },
+                      "ratingsDisplayPreference": "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+                    },
+                    "analytics": {
+                      "context": "seo-data-d1dcd59a-100a-44d8-bdd9-4dcdb6684ad2"
+                    },
+                    "cta": {
+                      "link": "https://www.swiggy.com/city/bangalore/hyderabad-biryaani-house-victoria-road-rest146304",
+                      "type": "WEBLINK"
+                    }
+                  },
+                  {
+                    "info": {
+                      "id": "395357",
+                      "name": "McDonald's Gourmet Burger Collection",
+                      "cloudinaryImageId": "fh5fahgxshwu6a7jk0cl",
+                      "locality": "100 ft Ring Road",
+                      "areaName": "Koramangala",
+                      "costForTwo": "₹600 for two",
+                      "cuisines": [
+                        "Burgers",
+                        "Beverages",
+                        "Cafe",
+                        "Desserts"
+                      ],
+                      "avgRating": 4.2,
+                      "parentId": "10761",
+                      "avgRatingString": "4.2",
+                      "totalRatingsString": "177",
+                      "sla": {
+                        "deliveryTime": 74,
+                        "lastMileTravel": 7.3,
+                        "serviceability": "SERVICEABLE",
+                        "slaString": "70-80 mins",
+                        "lastMileTravelString": "7.3 km",
+                        "iconType": "ICON_TYPE_EMPTY"
+                      },
+                      "availability": {
+                        "nextCloseTime": "2026-05-26 23:00:00",
+                        "opened": true
+                      },
+                      "badges": {
+
+                      },
+                      "isOpen": true,
+                      "aggregatedDiscountInfoV2": {
+
+                      },
+                      "type": "F",
+                      "badgesV2": {
+                        "entityBadges": {
+                          "imageBased": {
+
+                          },
+                          "textBased": {
+
+                          },
+                          "textExtendedBadges": {
+
+                          }
+                        }
+                      },
+                      "differentiatedUi": {
+                        "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                        "differentiatedUiMediaDetails": {
+                          "lottie": {
+
+                          },
+                          "video": {
+
+                          }
+                        }
+                      },
+                      "reviewsSummary": {
+
+                      },
+                      "displayType": "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+                      "restaurantOfferPresentationInfo": {
+
+                      },
+                      "externalRatings": {
+                        "aggregatedRating": {
+                          "rating": "--"
+                        }
+                      },
+                      "ratingsDisplayPreference": "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+                    },
+                    "analytics": {
+                      "context": "seo-data-d1dcd59a-100a-44d8-bdd9-4dcdb6684ad2"
+                    },
+                    "cta": {
+                      "link": "https://www.swiggy.com/city/bangalore/mcdonalds-gourmet-burger-collection-100-ft-ring-road-koramangala-rest395357",
+                      "type": "WEBLINK"
+                    }
+                  },
+                  {
+                    "info": {
+                      "id": "816990",
+                      "name": "The Dessert Heaven - Pastry, Brownie and Cakes",
+                      "cloudinaryImageId": "RX_THUMBNAIL/IMAGES/VENDOR/2026/5/13/9fd122e9-34d5-43c5-b6aa-2e1e86fbe3e2_816990.JPG",
+                      "locality": "Shivajinagara",
+                      "areaName": "ADUGODI",
+                      "costForTwo": "₹200 for two",
+                      "cuisines": [
+                        "Bakery",
+                        "Desserts",
+                        "Beverages",
+                        "Ice Cream",
+                        "Sweets",
+                        "Juices",
+                        "Bengali"
+                      ],
+                      "avgRating": 4.4,
+                      "parentId": "506176",
+                      "avgRatingString": "4.4",
+                      "totalRatingsString": "101",
+                      "sla": {
+                        "deliveryTime": 73,
+                        "lastMileTravel": 6.2,
+                        "serviceability": "SERVICEABLE",
+                        "slaString": "70-80 mins",
+                        "lastMileTravelString": "6.2 km",
+                        "iconType": "ICON_TYPE_EMPTY"
+                      },
+                      "availability": {
+                        "nextCloseTime": "2026-05-27 01:00:00",
+                        "opened": true
+                      },
+                      "badges": {
+                        "imageBadges": [
+                          {
+                            "imageId": "v1695133679/badges/Pure_Veg111.png",
+                            "description": "pureveg"
+                          }
+                        ]
+                      },
+                      "isOpen": true,
+                      "type": "F",
+                      "badgesV2": {
+                        "entityBadges": {
+                          "imageBased": {
+                            "badgeObject": [
+                              {
+                                "attributes": {
+                                  "description": "pureveg",
+                                  "imageId": "v1695133679/badges/Pure_Veg111.png",
+                                  "theme": ""
+                                }
+                              }
+                            ]
+                          },
+                          "textBased": {
+
+                          },
+                          "textExtendedBadges": {
+
+                          }
+                        }
+                      },
+                      "aggregatedDiscountInfoV3": {
+                        "header": "ITEMS",
+                        "subHeader": "AT ₹69"
+                      },
+                      "differentiatedUi": {
+                        "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                        "differentiatedUiMediaDetails": {
+                          "lottie": {
+
+                          },
+                          "video": {
+
+                          }
+                        }
+                      },
+                      "reviewsSummary": {
+
+                      },
+                      "displayType": "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+                      "restaurantOfferPresentationInfo": {
+
+                      },
+                      "externalRatings": {
+                        "aggregatedRating": {
+                          "rating": "--"
+                        }
+                      },
+                      "ratingsDisplayPreference": "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+                    },
+                    "analytics": {
+                      "context": "seo-data-d1dcd59a-100a-44d8-bdd9-4dcdb6684ad2"
+                    },
+                    "cta": {
+                      "link": "https://www.swiggy.com/city/bangalore/the-dessert-heaven-pastry-brownie-and-cakes-shivajinagara-adugodi-rest816990",
+                      "type": "WEBLINK"
+                    }
+                  },
+                  {
+                    "info": {
+                      "id": "558775",
+                      "name": "HRX by EatFit",
+                      "cloudinaryImageId": "RX_THUMBNAIL/IMAGES/VENDOR/2026/1/4/9f4c8f7c-f57d-4cc6-a530-0e1618ea360a_558775.JPG",
+                      "locality": "LASKAR HOSUR ROAD",
+                      "areaName": "BTM",
+                      "costForTwo": "₹450 for two",
+                      "cuisines": [
+                        "Healthy Food",
+                        "Salads",
+                        "Burgers"
+                      ],
+                      "avgRating": 4.3,
+                      "parentId": "624615",
+                      "avgRatingString": "4.3",
+                      "totalRatingsString": "524",
+                      "sla": {
+                        "deliveryTime": 66,
+                        "lastMileTravel": 6.2,
+                        "serviceability": "SERVICEABLE",
+                        "slaString": "65-75 mins",
+                        "lastMileTravelString": "6.2 km",
+                        "iconType": "ICON_TYPE_EMPTY"
+                      },
+                      "availability": {
+                        "nextCloseTime": "2026-05-27 00:00:00",
+                        "opened": true
+                      },
+                      "badges": {
+                        "imageBadges": [
+                          {
+                            "imageId": "Health%20Hub/RX%20BADGE/BADGE2.png",
+                            "description": "EatRight"
+                          }
+                        ]
+                      },
+                      "isOpen": true,
+                      "type": "F",
+                      "badgesV2": {
+                        "entityBadges": {
+                          "imageBased": {
+                            "badgeObject": [
+                              {
+                                "attributes": {
+                                  "description": "EatRight",
+                                  "imageId": "Health%20Hub/RX%20BADGE/BADGE2.png",
+                                  "theme": ""
+                                }
+                              }
+                            ]
+                          },
+                          "textBased": {
+
+                          },
+                          "textExtendedBadges": {
+
+                          }
+                        }
+                      },
+                      "aggregatedDiscountInfoV3": {
+                        "header": "ITEMS",
+                        "subHeader": "AT ₹79"
+                      },
+                      "differentiatedUi": {
+                        "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                        "differentiatedUiMediaDetails": {
+                          "lottie": {
+
+                          },
+                          "video": {
+
+                          }
+                        }
+                      },
+                      "reviewsSummary": {
+
+                      },
+                      "displayType": "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+                      "restaurantOfferPresentationInfo": {
+
+                      },
+                      "externalRatings": {
+                        "aggregatedRating": {
+                          "rating": "--"
+                        }
+                      },
+                      "ratingsDisplayPreference": "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+                    },
+                    "analytics": {
+                      "context": "seo-data-d1dcd59a-100a-44d8-bdd9-4dcdb6684ad2"
+                    },
+                    "cta": {
+                      "link": "https://www.swiggy.com/city/bangalore/hrx-by-eatfit-laskar-hosur-road-btm-rest558775",
+                      "type": "WEBLINK"
+                    }
+                  },
+                  {
+                    "info": {
+                      "id": "420143",
+                      "name": "Minus 30",
+                      "cloudinaryImageId": "84dfb731ca567d0cd955a5f33ffeba3a",
+                      "locality": "Old Airport Road",
+                      "areaName": "Shivaji Nagar",
+                      "costForTwo": "₹600 for two",
+                      "cuisines": [
+                        "Ice Cream",
+                        "Desserts",
+                        "Healthy Food",
+                        "Beverages"
+                      ],
+                      "avgRating": 4.7,
+                      "veg": true,
+                      "parentId": "292823",
+                      "avgRatingString": "4.7",
+                      "totalRatingsString": "881",
+                      "sla": {
+                        "deliveryTime": 41,
+                        "lastMileTravel": 1.2,
+                        "serviceability": "SERVICEABLE",
+                        "slaString": "40-45 mins",
+                        "lastMileTravelString": "1.2 km",
+                        "iconType": "ICON_TYPE_EMPTY"
+                      },
+                      "availability": {
+                        "nextCloseTime": "2026-05-26 23:59:00",
+                        "opened": true
+                      },
+                      "badges": {
+                        "imageBadges": [
+                          {
+                            "imageId": "Health%20Hub/RX%20BADGE/BADGE2.png",
+                            "description": "EatRight"
+                          },
+                          {
+                            "imageId": "newg.png",
+                            "description": "Gourmet"
+                          }
+                        ]
+                      },
+                      "isOpen": true,
+                      "type": "F",
+                      "badgesV2": {
+                        "entityBadges": {
+                          "imageBased": {
+                            "badgeObject": [
+                              {
+                                "attributes": {
+                                  "description": "EatRight",
+                                  "imageId": "Health%20Hub/RX%20BADGE/BADGE2.png",
+                                  "theme": ""
+                                }
+                              },
+                              {
+                                "attributes": {
+                                  "description": "Gourmet",
+                                  "imageId": "newg.png",
+                                  "theme": ""
+                                }
+                              }
+                            ]
+                          },
+                          "textBased": {
+
+                          },
+                          "textExtendedBadges": {
+
+                          }
+                        }
+                      },
+                      "aggregatedDiscountInfoV3": {
+                        "header": "ITEMS",
+                        "subHeader": "AT ₹99"
+                      },
+                      "differentiatedUi": {
+                        "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                        "differentiatedUiMediaDetails": {
+                          "lottie": {
+
+                          },
+                          "video": {
+
+                          }
+                        }
+                      },
+                      "reviewsSummary": {
+
+                      },
+                      "displayType": "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+                      "restaurantOfferPresentationInfo": {
+
+                      },
+                      "externalRatings": {
+                        "aggregatedRating": {
+                          "rating": "3.1",
+                          "ratingCount": "8"
+                        },
+                        "source": "GOOGLE",
+                        "sourceIconImageId": "v1704440323/google_ratings/rating_google_tag"
+                      },
+                      "ratingsDisplayPreference": "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+                    },
+                    "analytics": {
+                      "context": "seo-data-d1dcd59a-100a-44d8-bdd9-4dcdb6684ad2"
+                    },
+                    "cta": {
+                      "link": "https://www.swiggy.com/city/bangalore/minus-30-old-airport-road-shivaji-nagar-rest420143",
+                      "type": "WEBLINK"
+                    }
+                  },
+                  {
+                    "info": {
+                      "id": "14360",
+                      "name": "Plan B",
+                      "cloudinaryImageId": "cgegcurjvfk83vtgmckc",
+                      "locality": "Ashok Nagar",
+                      "areaName": "Central Bangalore",
+                      "costForTwo": "₹1200 for two",
+                      "cuisines": [
+                        "American"
+                      ],
+                      "avgRating": 4.3,
+                      "parentId": "2212",
+                      "avgRatingString": "4.3",
+                      "totalRatingsString": "3.2K+",
+                      "sla": {
+                        "deliveryTime": 59,
+                        "lastMileTravel": 3,
+                        "serviceability": "SERVICEABLE",
+                        "slaString": "55-65 mins",
+                        "lastMileTravelString": "3.0 km",
+                        "iconType": "ICON_TYPE_EMPTY"
+                      },
+                      "availability": {
+                        "nextCloseTime": "2026-05-27 01:00:00",
+                        "opened": true
+                      },
+                      "badges": {
+                        "imageBadges": [
+                          {
+                            "imageId": "newg.png",
+                            "description": "Gourmet"
+                          }
+                        ]
+                      },
+                      "isOpen": true,
+                      "type": "F",
+                      "badgesV2": {
+                        "entityBadges": {
+                          "imageBased": {
+                            "badgeObject": [
+                              {
+                                "attributes": {
+                                  "description": "Gourmet",
+                                  "imageId": "newg.png",
+                                  "theme": ""
+                                }
+                              }
+                            ]
+                          },
+                          "textBased": {
+
+                          },
+                          "textExtendedBadges": {
+
+                          }
+                        }
+                      },
+                      "aggregatedDiscountInfoV3": {
+                        "header": "50% OFF",
+                        "subHeader": "UPTO ₹100"
+                      },
+                      "differentiatedUi": {
+                        "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                        "differentiatedUiMediaDetails": {
+                          "lottie": {
+
+                          },
+                          "video": {
+
+                          }
+                        }
+                      },
+                      "reviewsSummary": {
+
+                      },
+                      "displayType": "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+                      "restaurantOfferPresentationInfo": {
+
+                      },
+                      "externalRatings": {
+                        "aggregatedRating": {
+                          "rating": "4.1",
+                          "ratingCount": "5.0K+"
+                        },
+                        "source": "GOOGLE",
+                        "sourceIconImageId": "v1704440323/google_ratings/rating_google_tag"
+                      },
+                      "ratingsDisplayPreference": "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+                    },
+                    "analytics": {
+                      "context": "seo-data-d1dcd59a-100a-44d8-bdd9-4dcdb6684ad2"
+                    },
+                    "cta": {
+                      "link": "https://www.swiggy.com/city/bangalore/plan-b-ashok-nagar-central-bangalore-rest14360",
+                      "type": "WEBLINK"
+                    }
+                  },
+                  {
+                    "info": {
+                      "id": "30531",
+                      "name": "Hotel Empire",
+                      "cloudinaryImageId": "RX_THUMBNAIL/IMAGES/VENDOR/2025/7/27/239d51de-e734-4eb9-8d55-a817dd8cd1e7_30531.JPG",
+                      "locality": "Castle Street",
+                      "areaName": "Ashok Nagar",
+                      "costForTwo": "₹450 for two",
+                      "cuisines": [
+                        "North Indian",
+                        "Tandoor"
+                      ],
+                      "avgRating": 4.5,
+                      "parentId": "475",
+                      "avgRatingString": "4.5",
+                      "totalRatingsString": "41K+",
+                      "sla": {
+                        "deliveryTime": 64,
+                        "lastMileTravel": 3.5,
+                        "serviceability": "SERVICEABLE",
+                        "slaString": "60-70 mins",
+                        "lastMileTravelString": "3.5 km",
+                        "iconType": "ICON_TYPE_EMPTY"
+                      },
+                      "availability": {
+                        "nextCloseTime": "2026-05-27 02:45:00",
+                        "opened": true
+                      },
+                      "badges": {
+
+                      },
+                      "isOpen": true,
+                      "aggregatedDiscountInfoV2": {
+
+                      },
+                      "type": "F",
+                      "badgesV2": {
+                        "entityBadges": {
+                          "imageBased": {
+
+                          },
+                          "textBased": {
+
+                          },
+                          "textExtendedBadges": {
+
+                          }
+                        }
+                      },
+                      "differentiatedUi": {
+                        "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                        "differentiatedUiMediaDetails": {
+                          "lottie": {
+
+                          },
+                          "video": {
+
+                          }
+                        }
+                      },
+                      "reviewsSummary": {
+
+                      },
+                      "displayType": "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+                      "restaurantOfferPresentationInfo": {
+
+                      },
+                      "externalRatings": {
+                        "aggregatedRating": {
+                          "rating": "4.6",
+                          "ratingCount": "13K+"
+                        },
+                        "source": "GOOGLE",
+                        "sourceIconImageId": "v1704440323/google_ratings/rating_google_tag"
+                      },
+                      "ratingsDisplayPreference": "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+                    },
+                    "analytics": {
+                      "context": "seo-data-d1dcd59a-100a-44d8-bdd9-4dcdb6684ad2"
+                    },
+                    "cta": {
+                      "link": "https://www.swiggy.com/city/bangalore/hotel-empire-castle-street-ashok-nagar-rest30531",
+                      "type": "WEBLINK"
+                    }
+                  },
+                  {
+                    "info": {
+                      "id": "472793",
+                      "name": "Home Plate by EatFit",
+                      "cloudinaryImageId": "RX_THUMBNAIL/IMAGES/VENDOR/2026/1/13/1a023016-4bcc-4ecc-b5e8-635fbe053fdd_472793.JPG",
+                      "locality": "LASKAR HOSUR ROAD",
+                      "areaName": "ADUGODI",
+                      "costForTwo": "₹250 for two",
+                      "cuisines": [
+                        "North Indian",
+                        "Home Food",
+                        "Healthy Food",
+                        "Indian",
+                        "Punjabi",
+                        "South Indian",
+                        "Rajasthani",
+                        "Maharashtrian",
+                        "Snacks",
+                        "Desserts"
+                      ],
+                      "avgRating": 4.3,
+                      "parentId": "301197",
+                      "avgRatingString": "4.3",
+                      "totalRatingsString": "704",
+                      "sla": {
+                        "deliveryTime": 72,
+                        "lastMileTravel": 6.2,
+                        "serviceability": "SERVICEABLE",
+                        "slaString": "70-80 mins",
+                        "lastMileTravelString": "6.2 km",
+                        "iconType": "ICON_TYPE_EMPTY"
+                      },
+                      "availability": {
+                        "nextCloseTime": "2026-05-27 00:00:00",
+                        "opened": true
+                      },
+                      "badges": {
+                        "imageBadges": [
+                          {
+                            "imageId": "Health%20Hub/RX%20BADGE/BADGE2.png",
+                            "description": "EatRight"
+                          },
+                          {
+                            "imageId": "v1695133679/badges/Pure_Veg111.png",
+                            "description": "pureveg"
+                          }
+                        ]
+                      },
+                      "isOpen": true,
+                      "type": "F",
+                      "badgesV2": {
+                        "entityBadges": {
+                          "imageBased": {
+                            "badgeObject": [
+                              {
+                                "attributes": {
+                                  "description": "EatRight",
+                                  "imageId": "Health%20Hub/RX%20BADGE/BADGE2.png",
+                                  "theme": ""
+                                }
+                              },
+                              {
+                                "attributes": {
+                                  "description": "pureveg",
+                                  "imageId": "v1695133679/badges/Pure_Veg111.png",
+                                  "theme": ""
+                                }
+                              }
+                            ]
+                          },
+                          "textBased": {
+
+                          },
+                          "textExtendedBadges": {
+
+                          }
+                        }
+                      },
+                      "aggregatedDiscountInfoV3": {
+                        "header": "ITEMS",
+                        "subHeader": "AT ₹149"
+                      },
+                      "differentiatedUi": {
+                        "displayType": "ADS_UI_DISPLAY_TYPE_ENUM_DEFAULT",
+                        "differentiatedUiMediaDetails": {
+                          "lottie": {
+
+                          },
+                          "video": {
+
+                          }
+                        }
+                      },
+                      "reviewsSummary": {
+
+                      },
+                      "displayType": "RESTAURANT_DISPLAY_TYPE_DEFAULT",
+                      "restaurantOfferPresentationInfo": {
+
+                      },
+                      "externalRatings": {
+                        "aggregatedRating": {
+                          "rating": "--"
+                        }
+                      },
+                      "ratingsDisplayPreference": "RATINGS_DISPLAY_PREFERENCE_SHOW_SWIGGY"
+                    },
+                    "analytics": {
+                      "context": "seo-data-d1dcd59a-100a-44d8-bdd9-4dcdb6684ad2"
+                    },
+                    "cta": {
+                      "link": "https://www.swiggy.com/city/bangalore/home-plate-by-eatfit-laskar-hosur-road-adugodi-rest472793",
+                      "type": "WEBLINK"
+                    }
+                  }
+                ]
