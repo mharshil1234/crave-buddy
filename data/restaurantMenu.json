@@ -1,0 +1,335 @@
+{
+  "502999": {
+    "name": "BOX8 - Desi Meals",
+    "restaurantImg": "RX_THUMBNAIL/IMAGES/VENDOR/2025/3/26/d119b3fc-a01e-428e-9b8b-9b94051a0c3e_502999.jpg",
+    "location": "Lakshmi Road, Central Bangalore",
+    "cuisines": [
+      "North Indian",
+      "Biryani",
+      "Thalis",
+      "Home Food"
+    ],
+    "rating": 4.4,
+    "priceForTwo": 200,
+    "deliveryTime": "10-20 mins",
+    "menu": [
+      {
+        "id": "502999_1",
+        "name": "Paneer Tikka Meal Box",
+        "description": "Paneer tikka with dal, rice and roti",
+        "price": 229,
+        "veg": true,
+        "category": "Meal Box",
+        "rating": 4.5,
+        "img": "https://example.com/menu/paneer-tikka-box.jpg"
+      },
+      {
+        "id": "502999_2",
+        "name": "Butter Chicken Rice Bowl",
+        "description": "Creamy butter chicken with jeera rice",
+        "price": 249,
+        "veg": false,
+        "category": "Rice Bowl",
+        "rating": 4.7,
+        "img": "https://example.com/menu/butter-chicken-bowl.jpg"
+      },
+      {
+        "id": "502999_3",
+        "name": "Rajma Chawal",
+        "description": "Classic rajma served with rice",
+        "price": 169,
+        "veg": true,
+        "category": "Comfort Food",
+        "rating": 4.3,
+        "img": "https://example.com/menu/rajma.jpg"
+      },
+      {
+        "id": "502999_4",
+        "name": "Chicken Biryani",
+        "description": "Dum cooked spicy chicken biryani",
+        "price": 289,
+        "veg": false,
+        "category": "Biryani",
+        "rating": 4.6,
+        "img": "https://example.com/menu/chicken-biryani.jpg"
+      },
+      {
+        "id": "502999_5",
+        "name": "Veg Thali",
+        "description": "2 sabzis, dal, rice and roti",
+        "price": 199,
+        "veg": true,
+        "category": "Thali",
+        "rating": 4.4,
+        "img": "https://example.com/menu/veg-thali.jpg"
+      },
+      {
+        "id": "502999_6",
+        "name": "Chicken Tikka Wrap",
+        "description": "Chicken tikka rolled in rumali roti",
+        "price": 189,
+        "veg": false,
+        "category": "Wraps",
+        "rating": 4.5,
+        "img": "https://example.com/menu/chicken-wrap.jpg"
+      },
+      {
+        "id": "502999_7",
+        "name": "Dal Makhani Combo",
+        "description": "Dal makhani with naan and rice",
+        "price": 219,
+        "veg": true,
+        "category": "Meal Box",
+        "rating": 4.3,
+        "img": "https://example.com/menu/dal-makhani.jpg"
+      },
+      {
+        "id": "502999_8",
+        "name": "Gulab Jamun",
+        "description": "Soft gulab jamuns in sugar syrup",
+        "price": 79,
+        "veg": true,
+        "category": "Dessert",
+        "rating": 4.8,
+        "img": "https://example.com/menu/gulab.jpg"
+      }
+    ]
+  },
+
+  "622202": {
+    "name": "MOJO Pizza",
+    "restaurantImg": "RX_THUMBNAIL/IMAGES/VENDOR/2024/12/12/e7ccd786-be92-4743-8e0c-f3d3a577d48f_622202.jpg",
+    "location": "Langford Road, Central Bangalore",
+    "cuisines": [
+      "Pizzas",
+      "Italian",
+      "Fast Food",
+      "Desserts"
+    ],
+    "rating": 4.6,
+    "priceForTwo": 250,
+    "deliveryTime": "20-30 mins",
+    "menu": [
+      {
+        "id": "622202_1",
+        "name": "Farmhouse Pizza",
+        "description": "Loaded with fresh veggies and mozzarella",
+        "price": 349,
+        "veg": true,
+        "category": "Pizza",
+        "rating": 4.6,
+        "img": "https://example.com/menu/farmhouse.jpg"
+      },
+      {
+        "id": "622202_2",
+        "name": "Pepperoni Blast",
+        "description": "Double pepperoni loaded pizza",
+        "price": 429,
+        "veg": false,
+        "category": "Pizza",
+        "rating": 4.7,
+        "img": "https://example.com/menu/pepperoni.jpg"
+      },
+      {
+        "id": "622202_3",
+        "name": "Cheesy Garlic Bread",
+        "description": "Garlic bread with cheese topping",
+        "price": 149,
+        "veg": true,
+        "category": "Sides",
+        "rating": 4.5,
+        "img": "https://example.com/menu/garlic-bread.jpg"
+      },
+      {
+        "id": "622202_4",
+        "name": "BBQ Chicken Pizza",
+        "description": "BBQ chicken with capsicum and onions",
+        "price": 399,
+        "veg": false,
+        "category": "Pizza",
+        "rating": 4.6,
+        "img": "https://example.com/menu/bbq.jpg"
+      },
+      {
+        "id": "622202_5",
+        "name": "Paneer Makhani Pizza",
+        "description": "Indian style paneer makhani pizza",
+        "price": 369,
+        "veg": true,
+        "category": "Pizza",
+        "rating": 4.4,
+        "img": "https://example.com/menu/paneer-pizza.jpg"
+      },
+      {
+        "id": "622202_6",
+        "name": "Chicken Wings",
+        "description": "Spicy peri peri wings",
+        "price": 229,
+        "veg": false,
+        "category": "Sides",
+        "rating": 4.5,
+        "img": "https://example.com/menu/wings.jpg"
+      },
+      {
+        "id": "622202_7",
+        "name": "Mexican Veg Pizza",
+        "description": "Spicy Mexican style veggie pizza",
+        "price": 359,
+        "veg": true,
+        "category": "Pizza",
+        "rating": 4.3,
+        "img": "https://example.com/menu/mexican.jpg"
+      },
+      {
+        "id": "622202_8",
+        "name": "Chocolate Lava Cake",
+        "description": "Warm chocolate filled cake",
+        "price": 109,
+        "veg": true,
+        "category": "Dessert",
+        "rating": 4.8,
+        "img": "https://example.com/menu/lava.jpg"
+      }
+    ]
+  },
+
+  "503003": {
+    "name": "ZAZA Mughal Biryani",
+    "restaurantImg": "RX_THUMBNAIL/IMAGES/VENDOR/2024/9/17/d26bdfca-3b50-41ea-87e1-e7f9a6b0581d_503003.jpg",
+    "location": "Lakshmi Nagar Road, Central Bangalore",
+    "cuisines": [
+      "Biryani",
+      "North Indian",
+      "Awadhi"
+    ],
+    "rating": 4.4,
+    "priceForTwo": 250,
+    "deliveryTime": "10-20 mins",
+    "menu": [
+      {
+        "id": "503003_1",
+        "name": "Lucknowi Chicken Biryani",
+        "description": "Authentic Awadhi style biryani",
+        "price": 319,
+        "veg": false,
+        "category": "Biryani",
+        "rating": 4.7,
+        "img": "https://example.com/menu/lucknowi.jpg"
+      },
+      {
+        "id": "503003_2",
+        "name": "Paneer Dum Biryani",
+        "description": "Slow cooked paneer biryani",
+        "price": 279,
+        "veg": true,
+        "category": "Biryani",
+        "rating": 4.4,
+        "img": "https://example.com/menu/paneer-biryani.jpg"
+      },
+      {
+        "id": "503003_3",
+        "name": "Mutton Keema Biryani",
+        "description": "Keema layered spicy biryani",
+        "price": 389,
+        "veg": false,
+        "category": "Biryani",
+        "rating": 4.8,
+        "img": "https://example.com/menu/keema.jpg"
+      }
+    ]
+  },
+
+  "643832": {
+    "name": "WeFit - Protein Bowls",
+    "restaurantImg": "RX_THUMBNAIL/IMAGES/VENDOR/2025/2/3/c64e7364-7909-417f-a850-ea89f41c318e_643832.jpg",
+    "location": "Langford Road, Central Bangalore",
+    "cuisines": [
+      "Healthy Food",
+      "Salads",
+      "Keto",
+      "Snacks"
+    ],
+    "rating": 4.7,
+    "priceForTwo": 250,
+    "deliveryTime": "20-30 mins",
+    "menu": [
+      {
+        "id": "643832_1",
+        "name": "Grilled Chicken Protein Bowl",
+        "description": "High protein grilled chicken bowl",
+        "price": 329,
+        "veg": false,
+        "category": "Healthy Bowl",
+        "rating": 4.8,
+        "img": "https://example.com/menu/protein-bowl.jpg"
+      },
+      {
+        "id": "643832_2",
+        "name": "Paneer Keto Salad",
+        "description": "Low carb paneer salad",
+        "price": 289,
+        "veg": true,
+        "category": "Salads",
+        "rating": 4.5,
+        "img": "https://example.com/menu/keto.jpg"
+      },
+      {
+        "id": "643832_3",
+        "name": "Protein Smoothie",
+        "description": "Banana whey protein smoothie",
+        "price": 189,
+        "veg": true,
+        "category": "Beverages",
+        "rating": 4.6,
+        "img": "https://example.com/menu/smoothie.jpg"
+      }
+    ]
+  },
+
+  "596949": {
+    "name": "Olio - The Wood Fired Pizzeria",
+    "restaurantImg": "RX_THUMBNAIL/IMAGES/VENDOR/2025/12/24/b05f51b2-9e6e-456e-950a-abc16a3cf540_596949.JPG",
+    "location": "Koramangala, Bangalore",
+    "cuisines": [
+      "Pizzas",
+      "Pastas",
+      "Italian",
+      "Desserts"
+    ],
+    "rating": 4.3,
+    "priceForTwo": 300,
+    "deliveryTime": "80-90 mins",
+    "menu": [
+      {
+        "id": "596949_1",
+        "name": "Wood Fired Margherita",
+        "description": "Classic Neapolitan style pizza",
+        "price": 399,
+        "veg": true,
+        "category": "Pizza",
+        "rating": 4.6,
+        "img": "https://example.com/menu/woodfired.jpg"
+      },
+      {
+        "id": "596949_2",
+        "name": "Chicken Alfredo Pasta",
+        "description": "Creamy alfredo pasta with chicken",
+        "price": 349,
+        "veg": false,
+        "category": "Pasta",
+        "rating": 4.5,
+        "img": "https://example.com/menu/alfredo.jpg"
+      },
+      {
+        "id": "596949_3",
+        "name": "Tiramisu",
+        "description": "Classic Italian coffee dessert",
+        "price": 199,
+        "veg": true,
+        "category": "Dessert",
+        "rating": 4.7,
+        "img": "https://example.com/menu/tiramisu.jpg"
+      }
+    ]
+  }
+}
