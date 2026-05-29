@@ -65,7 +65,7 @@ export default function RestaurantPage() {
 
                     <Search />
 
-                    <MenuList menu={restaurantMenu} />
+                    <MenuList menu={restaurantMenu} restaurantId={id} />
 
                 </div>
             </div>

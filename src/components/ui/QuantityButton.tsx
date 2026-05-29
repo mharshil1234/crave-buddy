@@ -1,36 +1,36 @@
 import { useState } from "react"
 
-export function QuantityButton() {
+export function QuantityButton({ quantity }: { quantity: number }) {
 
-    const [quantity, setQuantity] = useState(0);
+    const [localQuantity, setLocalQuantity] = useState(quantity);
 
     return (
         <div className="absolute bottom-[0.2rem] left-1/2 -translate-x-1/2 bg-white w-[70%] h-10 rounded-xl shadow-lg flex items-center justify-center">
 
-            {quantity == 0 && (
+            {localQuantity == 0 && (
                 <button
-                    onClick={() => setQuantity(1)}
+                    onClick={() => setLocalQuantity(1)}
                     className="w-full h-full font-bold text-green-600 rounded-xl hover:cursor-pointer hover:bg-gray-200"
                 >
                     ADD
                 </button>
             )}
 
-            {quantity > 0 && (
+            {localQuantity > 0 && (
                 <div className="flex items-center justify-between w-full px-1">
                     <button
-                        onClick={() => setQuantity(quantity - 1)}
+                        onClick={() => setLocalQuantity(localQuantity - 1)}
                         className="w-8 h-8 flex items-center justify-center text-green-600 font-bold text-xl rounded-xl hover:bg-gray-200 cursor-pointer transition-colors"
                     >
                         -
                     </button>
 
                     <span className="font-bold text-green-600">
-                        {quantity}
+                        {localQuantity}
                     </span>
 
                     <button
-                        onClick={() => setQuantity(quantity + 1)}
+                        onClick={() => setLocalQuantity(localQuantity + 1)}
                         className="w-8 h-8 flex items-center justify-center text-green-600 font-bold text-xl rounded-xl hover:bg-gray-200 cursor-pointer transition-colors"
                     >
                         +
