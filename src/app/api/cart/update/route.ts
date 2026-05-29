@@ -35,10 +35,10 @@ export async function POST(req: NextRequest) {
             cart[restaurantId][itemId] = quantity;
         }
 
-        await redis.set(key, cart);
+        await redis.set(key, cart, { ex: 60 * 60 * 24 * 7 });
 
         return NextResponse.json(
-            { status: "success", message: "Cart updated successfully" },
+            { status: "success", message: "Cart updated successfully", cartId, cart },
             { status: 200 }
         )
     }
