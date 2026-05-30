@@ -1,11 +1,11 @@
 import { useState, useEffect, use } from "react";
 import type { MenuItem } from "@/types/restaurant";
 import { MenuItemCard } from "@/components/RestaurantPage/MenuItemCard";
-import { Menu } from "lucide-react";
+import { useCartStore } from "@/stores/cartStore";
 
 export function MenuList({ menu, restaurantId }: { menu: MenuItem[] | null; restaurantId: string }) {
 
-    const [cart, setCart] = useState<Record<string, number>>({});
+    const setCart = useCartStore((state) => state.setCart);
 
     useEffect(() => {
 
@@ -29,7 +29,7 @@ export function MenuList({ menu, restaurantId }: { menu: MenuItem[] | null; rest
     return (
         <div className="w-full mt-8">
             {menu?.map((item) => (
-                <MenuItemCard key={item.id} item={item} quantity={cart[item.id] || 0} />
+                <MenuItemCard key={item.id} item={item} restaurantId={restaurantId} />
             ))}
         </div>
     )

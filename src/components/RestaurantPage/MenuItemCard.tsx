@@ -4,7 +4,7 @@ import { VegNonVegIcon } from "../ui/VegNonVegIcon"
 import { QuantityButton } from "../ui/QuantityButton"
 import { useState } from "react";
 
-export function MenuItemCard({ item, quantity }: { item: MenuItem; quantity: number }) {
+export function MenuItemCard({ item, restaurantId }: { item: MenuItem; restaurantId: string }) {
 
     const [expanded, setExpanded] = useState(false);
 
@@ -34,7 +34,7 @@ export function MenuItemCard({ item, quantity }: { item: MenuItem; quantity: num
             </div>
             <div className="w-45 h-45 relative">
                 <img src="/restaurant.jpeg" alt={item.name} className="w-full h-full object-cover rounded-lg" width={128} height={128} />
-                <QuantityButton quantity={quantity} />
+                <QuantityButton itemId={item.id} restaurantId={restaurantId} />
             </div>
         </div>
     )
