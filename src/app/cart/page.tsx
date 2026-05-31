@@ -1,3 +1,5 @@
+"use client";
+
 import { Header } from "@/components/CartPage/Header";
 import { MainCart } from "@/components/CartPage/MainCart";  
 
