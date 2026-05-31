@@ -1,5 +1,8 @@
 import { useState, useEffect, use } from "react";
 import { useCartStore } from "@/stores/cartStore";
+import { RestaurantCartCard } from "./RestaurantCartCard";
+import { map } from "zod";
+
 export function MainCart() {
 
     const cart = useCartStore((state) => state.cart);
@@ -29,10 +32,11 @@ export function MainCart() {
 
     return (
         <div className="p-8 px-40 flex justify-center items-center">
-            <div className="w-200 py-8 bg-white p-4">
-                <h1>Main Cart</h1>
+            <div className="w-200 py-8 bg-white p-4 flex flex-col gap-4">
+                {cart && Object.entries(cart).map(([restaurantId]) => (
+                    <RestaurantCartCard key={restaurantId} restaurantId={restaurantId} />
+                ))} 
             </div>
-
         </div>
     )
 }
