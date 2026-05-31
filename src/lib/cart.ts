@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { randomUUID } from "crypto";
 import { redis } from "@/lib/redis";
+import { getRestaurantByid } from "@/lib/restaurant";
 
 export async function getCartId() {
     const cookieStore = await cookies();
@@ -56,4 +57,43 @@ export async function updateCart(restaurantId: string, itemId: string, newQuanti
         cartId,
         cart
     }
+}
+
+export async function getCartDetails() {
+    const { cart } = await getCart();
+    const result: Record<string, any> = {};
+    for (const [restaurantId, itemsList] of Object.entries(cart)) {
+        const restaurantDetails = await getRestaurantByid({
+            lat: 0,
+            lng: 0,
+            restaurantId
+        });
+        const menuMap = new Map<string, any>(restaurantDetails.data.menu.map((item: any) => [item.id, item]));
+        let restaurantTotal = 0;
+        const items = [];
+        for (const [itemId, quantity] of Object.entries(itemsList)) {
+            const item = menuMap.get(itemId);
+            if (!item) {
+                continue;
+            }
+            const itemTotal = item.price * quantity;
+            restaurantTotal += itemTotal;
+            items.push({
+                id: item.id,
+                name: item.name,
+                price: item.price,
+                img: item.img,
+                quantity,
+                total: itemTotal
+            });
+        }
+        result[restaurantId] = {
+            restaurantId,
+            restaurantName: restaurantDetails.data.name,
+            restaurantImg: restaurantDetails.data.img,
+            restaurantTotal,
+            items
+        }
+    }
+    return { result };
 }
