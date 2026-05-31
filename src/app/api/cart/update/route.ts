@@ -1,4 +1,4 @@
-import { getCartId } from "@/lib/cart";
+import { updateCart } from "@/lib/cart";
 import { NextRequest, NextResponse } from "next/server";
 import { redis } from "@/lib/redis";
 
@@ -14,28 +14,7 @@ export async function POST(req: NextRequest) {
             )
         }
 
-        const cartId = await getCartId();
-
-        const key = `cart:${cartId}`;
-
-        let cart = (await redis.get<Record<string, Record<string, number>>>(key)) || {};
-
-        if(newQuantity === 0) {
-            if(cart[restaurantId]) {
-                delete cart[restaurantId][itemId];
-                if(Object.keys(cart[restaurantId]).length === 0) {
-                    delete cart[restaurantId];
-                }
-            }
-        }
-        else {
-            if(!cart[restaurantId]) {
-                cart[restaurantId] = {};
-            }
-            cart[restaurantId][itemId] = newQuantity;
-        }
-
-        await redis.set(key, cart, { ex: 60 * 60 * 24 * 7 });
+        const { cartId, cart } = await updateCart(restaurantId, itemId, newQuantity);
 
         return NextResponse.json(
             { status: "success", message: "Cart updated successfully", cartId, cart },

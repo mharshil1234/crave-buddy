@@ -1,15 +1,11 @@
 import { redis } from "@/lib/redis";
-import { getCartId } from "@/lib/cart";
+import { getCart } from "@/lib/cart";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET() {
     try {
 
-        const cartId = await getCartId();
-
-        const key = `cart:${cartId}`;
-
-        const cart = await redis.get<Record<string, Record<string, number>>>(key) || {};
+        const { cartId, cart } = await getCart();
         
         return NextResponse.json(
             { cartId, cart },

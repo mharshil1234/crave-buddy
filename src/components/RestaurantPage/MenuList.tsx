@@ -1,4 +1,4 @@
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import type { MenuItem } from "@/types/restaurant";
 import { MenuItemCard } from "@/components/RestaurantPage/MenuItemCard";
 import { useCartStore } from "@/stores/cartStore";
