@@ -2,11 +2,14 @@ import { useState, useEffect, use } from "react";
 import { useCartStore } from "@/stores/cartStore";
 import { RestaurantCartCard } from "./RestaurantCartCard";
 import { map } from "zod";
+import { ca } from "zod/locales";
 
 export function MainCart() {
 
     const cart = useCartStore((state) => state.cart);
     const setCart = useCartStore((state) => state.setCart);
+
+    const [cartDetails, setCartDetails] = useState<Record<string, any> | null>({});
 
     useEffect(() => {
         async function fetchCart() {
@@ -15,7 +18,7 @@ export function MainCart() {
 
                 const response = await fetch("/api/cart/get", {
                     method: "GET"
-                })
+                });
 
                 const data = await response.json();
                 const cartData = data?.cart || {};
@@ -27,7 +30,25 @@ export function MainCart() {
             }
         }
 
+        async function fetchCartDetails() {
+
+            try {
+                const respone = await fetch("/api/cart/get-details", {
+                    method: "GET"
+                });
+
+                const data = await respone.json();
+                const cartDetailsData = data?.cartDetails || {};
+                setCartDetails(cartDetailsData);
+            }
+            catch (error) {
+                console.log("Error fetching cart details: ", error);
+            }
+
+        }
+
         fetchCart();
+        fetchCartDetails();
     }, []);
 
     return (
