@@ -64,8 +64,8 @@ export async function getCartDetails() {
     const result: Record<string, any> = {};
     for (const [restaurantId, itemsList] of Object.entries(cart)) {
         const restaurantDetails = await getRestaurantByid({
-            lat: 0,
-            lng: 0,
+            lat: "0",
+            lng: "0",
             restaurantId
         });
         const menuMap = new Map<string, any>(restaurantDetails.data.menu.map((item: any) => [item.id, item]));
