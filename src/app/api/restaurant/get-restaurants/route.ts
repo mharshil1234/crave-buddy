@@ -1,23 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
-import { pool } from "@/lib/db";
+import { getRestaurants } from "@/lib/restaurant";
 
 export async function GET(req: NextRequest) {
 
     try {
 
-        const searchParams = req.nextUrl.searchParams;
-        
-        const lat = searchParams.get("lat");
-        const lng = searchParams.get("lng");
+        const lat: string = req.nextUrl.searchParams.get("lat") ?? "0";
+        const lng: string = req.nextUrl.searchParams.get("lng") ?? "0";
 
-        const response = await pool.query(
-            `
-            SELECT * FROM RESTAURANTS
-            LIMIT 20
-            `
-        );
+        const RestaurantsData = await getRestaurants({
+            lat,
+            lng
+        });
 
-        return NextResponse.json(response.rows);
+        return NextResponse.json(RestaurantsData);
     
     } catch (error) {
 
