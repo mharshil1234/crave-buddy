@@ -18,3 +18,17 @@ export type MenuItem = {
     rating: number;
     img: string;
 }
+
+export type restaurantCartData = {
+    restaurantName: string;
+    restaurantImg: string;
+    restaurantTotal: number;
+    items: {
+        id: string;
+        name: string;
+        price: number;
+        img: string;
+        quantity: number;
+        total: number;
+    }[]
+}
