@@ -6,7 +6,6 @@ type ItemCardProps = {
     itemName: string;
     itemPrice: number;
     itemImg: string;
-    quantity: number;
     itemTotal: number;
 };
 
