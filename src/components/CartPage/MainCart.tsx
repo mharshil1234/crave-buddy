@@ -1,33 +1,31 @@
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import { useCartStore } from "@/stores/cartStore";
 import { RestaurantCartCard } from "./RestaurantCartCard";
+import type { restaurantCartData } from "@/types/restaurant";
+
+function getCartFromDetails(cartDetails: Record<string, restaurantCartData>) {
+    return Object.values(cartDetails).reduce<Record<string, number>>((items, restaurantData) => {
+        const restaurantItems = restaurantData.items.reduce<Record<string, number>>((itemQuantities, item) => {
+            return {
+                ...itemQuantities,
+                [item.id]: item.quantity
+            };
+        }, {});
+
+        return {
+            ...items,
+            ...restaurantItems
+        };
+    }, {});
+}
 
 export function MainCart() {
 
-    const cart = useCartStore((state) => state.cart);
     const setCart = useCartStore((state) => state.setCart);
 
-    const [cartDetails, setCartDetails] = useState<Record<string, any> | null>({});
+    const [cartDetails, setCartDetails] = useState<Record<string, restaurantCartData> | null>({});
 
     useEffect(() => {
-        async function fetchCart() {
-
-            try {
-
-                const response = await fetch("/api/cart/get", {
-                    method: "GET"
-                });
-
-                const data = await response.json();
-                const cartData = data?.cart || {};
-                setCart(cartData);
-
-            }
-            catch (error) {
-                console.log("Error fetching cart: ", error);
-            }
-        }
-
         async function fetchCartDetails() {
 
             try {
@@ -38,6 +36,7 @@ export function MainCart() {
                 const data = await respone.json();
                 const cartDetailsData = data?.cartDetails || {};
                 setCartDetails(cartDetailsData);
+                setCart(getCartFromDetails(cartDetailsData));
             }
             catch (error) {
                 console.log("Error fetching cart details: ", error);
@@ -45,9 +44,8 @@ export function MainCart() {
 
         }
 
-        fetchCart();
         fetchCartDetails();
-    }, []);
+    }, [setCart]);
 
     return (
         <div className="p-8 px-40 flex justify-center items-center">
