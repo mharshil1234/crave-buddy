@@ -17,11 +17,11 @@ export function ItemCard({ itemId, restaurantId, itemName, itemImg, itemTotal }:
                 <span className="truncate">{itemName}</span>
             </div>
 
-            <div className="flex w-40 shrink-0">
+            <div className="ml-auto flex w-40 shrink-0">
                 <QuantityButton itemId={itemId} restaurantId={restaurantId} />
             </div>
 
-            <div className="w-40 shrink-0 text-right font-bold">
+            <div className="ml-auto w-40 shrink-0 text-right font-bold">
                 ₹ {itemTotal}
             </div>
         </div>

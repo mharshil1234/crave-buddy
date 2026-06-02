@@ -26,7 +26,7 @@ export function QuantityButton({ itemId, restaurantId }: { itemId: string; resta
     }
 
     return (
-        <div className="bg-white w-full h-10 rounded-xl shadow-lg flex items-center justify-center">
+        <div className="bg-white w-full h-10 flex items-center justify-center border border-[#cccdce]">
 
             {quantity === 0 && (
                 <button
@@ -41,7 +41,7 @@ export function QuantityButton({ itemId, restaurantId }: { itemId: string; resta
                 <div className="flex items-center justify-between w-full px-1">
                     <button
                         onClick={() => updateItemQuantity(quantity - 1)}
-                        className="w-8 h-8 flex items-center justify-center text-green-600 font-bold text-xl rounded-xl hover:bg-gray-200 cursor-pointer transition-colors"
+                        className="w-8 h-8 flex items-center justify-center text-green-600 font-bold text-xl cursor-pointer transition-colors"
                     >
                         -
                     </button>
@@ -52,7 +52,7 @@ export function QuantityButton({ itemId, restaurantId }: { itemId: string; resta
 
                     <button
                         onClick={() => updateItemQuantity(quantity + 1)}
-                        className="w-8 h-8 flex items-center justify-center text-green-600 font-bold text-xl rounded-xl hover:bg-gray-200 cursor-pointer transition-colors"
+                        className="w-8 h-8 flex items-center justify-center text-green-600 font-bold text-xl cursor-pointer transition-colors"
                     >
                         +
                     </button>
