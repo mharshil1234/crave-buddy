@@ -21,9 +21,10 @@ function getCartFromDetails(cartDetails: Record<string, restaurantCartData>) {
 
 export function MainCart() {
 
+    const cart = useCartStore((state) => state.cart);
     const setCart = useCartStore((state) => state.setCart);
 
-    const [cartDetails, setCartDetails] = useState<Record<string, restaurantCartData> | null>({});
+    const [cartDetails, setCartDetails] = useState<Record<string, restaurantCartData>>({});
 
     useEffect(() => {
         async function fetchCartDetails() {
@@ -50,12 +51,12 @@ export function MainCart() {
     return (
         <div className="p-8 px-40 flex justify-center items-center">
             <div className="w-200 py-8 bg-white p-4 flex flex-col gap-4">
-                {cartDetails && Object.keys(cartDetails).length > 0 ? (
+                {Object.keys(cart).length === 0 ? (
+                    <p>Your cart is empty.</p>
+                ) : (
                     Object.entries(cartDetails).map(([restaurantId, restaurantData]) => (
                         <RestaurantCartCard key={restaurantId} restaurantId={restaurantId} restaurantData={restaurantData} />
                     ))
-                ) : (
-                    <p>Your cart is empty.</p>
                 )}
             </div>
         </div>

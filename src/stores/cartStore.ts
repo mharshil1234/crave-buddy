@@ -10,7 +10,7 @@ export const useCartStore = create<CartState>((set) => ({
     cart: {},
     setCart: (cart) => set({ cart }),
     updateQuantity: (itemId, quantity) => set((state) => {
-        if(quantity<0) {
+        if(quantity<=0) {
             let cartCopy = { ...state.cart };
             delete cartCopy[itemId];
             return { cart: cartCopy };
