@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import type { RestaurantDetails, MenuItem } from "@/types/restaurant";
 import { MainCard } from "@/components/RestaurantPage/MainCard";
-import { Header } from "@/components/RestaurantPage/Header";
+import { Header } from "@/components/Header";
 import { Search } from "@/components/RestaurantPage/Search";
 import { MenuList } from "@/components/RestaurantPage/MenuList";
 
