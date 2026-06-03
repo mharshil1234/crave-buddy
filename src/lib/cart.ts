@@ -83,6 +83,7 @@ export async function getCartDetails() {
                 name: item.name,
                 price: item.price,
                 img: item.img,
+                isVeg: item.veg,
                 quantity,
                 total: itemTotal
             });
