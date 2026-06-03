@@ -28,6 +28,7 @@ export type restaurantCartData = {
         name: string;
         price: number;
         img: string;
+        isVeg: boolean;
         quantity: number;
         total: number;
     }[]

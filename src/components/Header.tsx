@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { ShoppingCart } from "lucide-react";
 
 export function Header() {
   const router = useRouter();
@@ -13,6 +14,8 @@ export function Header() {
       <button className="ml-auto bg-white text-[#ff5200] font-bold py-2 px-4 rounded-xl hover:cursor-pointer" onClick={() => router.push("/mood-board")}>
         Your Mood Board
       </button>
+
+      <ShoppingCart className="ml-10 mr-[10%] text-white hover:cursor-pointer hover:scale-110 transition-transform" onClick={() => router.push("/cart")} />
     
     </div>
 

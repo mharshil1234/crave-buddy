@@ -59,6 +59,7 @@ export function RestaurantCartCard({ restaurantId, restaurantData }: { restauran
                                         itemName={item.name}
                                         itemPrice={item.price}
                                         itemImg="/restaurant.jpeg"
+                                        itemIsVeg={item.isVeg}
                                         itemTotal={itemTotal}
                                     />
                                 )
