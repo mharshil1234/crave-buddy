@@ -1,5 +1,3 @@
-import { div } from "framer-motion/client";
-import Image from "next/image";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import { LandingMain } from "../components/LandingMain";
