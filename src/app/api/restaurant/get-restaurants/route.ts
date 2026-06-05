@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
         const lat: string = req.nextUrl.searchParams.get("lat") ?? "0";
         const lng: string = req.nextUrl.searchParams.get("lng") ?? "0";
 
-        const RestaurantsData = await getRestaurants({
+        const { RestaurantsData } = await getRestaurants({
             lat,
             lng
         });

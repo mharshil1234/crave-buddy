@@ -9,7 +9,7 @@ export async function getRestaurants({ lat, lng }: { lat: string, lng: string })
         `
     );
 
-    return response.rows;
+    return { RestaurantsData: response.rows };
 }
 
 export async function getRestaurantByid({ lat, lng, restaurantId }: { lat: string, lng: string, restaurantId: string }) {
