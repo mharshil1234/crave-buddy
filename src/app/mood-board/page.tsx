@@ -1,18 +1,7 @@
 "use client";
 
 import { useEffect } from "react"
-import { testGeminiAction } from "./actions";
-
 export default function MoodBoard() {
-
-    const testGemini = async () => {
-        const response = await testGeminiAction();
-        console.log("Gemini Response:", response);
-    };
-
-    useEffect(() => {
-        testGemini();
-    }, []);
 
     return (
         <div className="p-4">
