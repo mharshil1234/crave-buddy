@@ -33,13 +33,21 @@ export async function getMoodRestaurants({ lat, lng, query }: { lat: string, lng
         Available restaurants:
         ${JSON.stringify(AIRestaurants)}
 
-        Task:
-        - Select exactly 2 restaurants that best match the user's mood.
-        - Consider cuisine fit, variety, and rating.
-        - Prefer restaurants that naturally match the mood.
-        - Avoid selecting multiple restaurants with nearly identical offerings unless they are clearly the best fit.
+        Interpret the request as a food craving or mood.
 
-        Return only the selected restaurant IDs.
+        Examples:
+        - "something hot" means warm, comforting, freshly cooked food.
+        - "something spicy" means food with strong spice levels.
+        - "movie night" means shareable, indulgent food.
+        - "healthy lunch" means nutritious and balanced food.
+        - "late night craving" means satisfying comfort food.
+
+        Task:
+        - Select exactly 2 restaurants that best satisfy the craving.
+        - Consider cuisine fit before rating.
+        - Prioritize restaurants whose cuisine naturally matches the craving.
+
+        Return only restaurant IDs.
         `;
 
     const response = await generateText({
