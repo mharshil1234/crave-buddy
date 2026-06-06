@@ -62,3 +62,7 @@ export async function getMoodRestaurants({ lat, lng, query }: { lat: string, lng
 
     return response.output.restaurantIds;
 }
+
+export async function getMoodBoard({ lat, lng, query, isVeg }: { lat: string, lng: string, query: string, isVeg: string }) {
+    return getMoodRestaurants({ lat, lng, query});
+}

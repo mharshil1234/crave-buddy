@@ -16,11 +16,11 @@ export function MoodBoardForm() {
         if (!query.trim()) return;
         setLoading(true);
         try {
-            const response = await fetch(`/api/mood-board?lat=0&lng=0&query=${encodeURIComponent(query)}`, {
+            const response = await fetch(`/api/mood-board?lat=0&lng=0&isVeg=${isVeg}&query=${encodeURIComponent(query)}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"
-                },
+                }
             });
             const data = await response.json();
             setRestaurants(data);
