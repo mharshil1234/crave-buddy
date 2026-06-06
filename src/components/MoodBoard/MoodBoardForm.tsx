@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { LoaderModal } from "./LoaderModal";
 
 export function MoodBoardForm() {
 
@@ -57,7 +58,7 @@ export function MoodBoardForm() {
                     </div>
                     <button type="submit">Generate</button>
 
-                    {loading && <p>Loading...</p>}
+                    {<LoaderModal isLoading={loading} />}
                 </form>
             </div>
         </div>

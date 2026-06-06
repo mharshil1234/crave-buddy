@@ -1,12 +1,16 @@
-export function LoaderModal({isLoading}: {isLoading: boolean}) {
+export function LoaderModal({ isLoading }: { isLoading: boolean }) {
 
     if (!isLoading) return null;
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white p-8 rounded-lg shadow-lg">
-                <h2 className="text-xl font-bold mb-4">Generating your mood board...</h2>
-                <p className="text-gray-600">This may take a moment. Please wait.</p>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+            <div className="rounded-xl bg-white p-6 shadow-lg">
+                <div className="flex flex-col items-center gap-4">
+                    <div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-black" />
+                    <p className="text-sm text-gray-600">
+                        Suggesting you the best meals....
+                    </p>
+                </div>
             </div>
         </div>
     );
