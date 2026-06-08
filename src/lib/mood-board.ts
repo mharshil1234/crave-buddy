@@ -49,7 +49,7 @@ export async function getMoodRestaurants({ lat, lng, query }: { lat: string, lng
         - Prioritize restaurants whose cuisine naturally matches the craving.
 
         Return only restaurant IDs.
-        `;
+    `;
 
     const response = await generateText({
         model: geminiFlash,
@@ -77,11 +77,11 @@ type moodRestaurantsMenu = Record<
     }[]
 >;
 
-export async function getMoodRestaurantsMenu({ lat, lng, moodRestaurants }: {lat: string; lng: string; moodRestaurants: string[] }): Promise<moodRestaurantsMenu> {
+export async function getMoodRestaurantsMenu({ lat, lng, moodRestaurants }: { lat: string; lng: string; moodRestaurants: string[] }): Promise<moodRestaurantsMenu> {
     return Object.fromEntries(
         await Promise.all(
             moodRestaurants.map((async (restaurantId) => {
-                const restaurant = await getRestaurantById({lat, lng, restaurantId});
+                const restaurant = await getRestaurantById({ lat, lng, restaurantId });
 
                 return [
                     restaurantId,
@@ -100,9 +100,52 @@ export async function getMoodRestaurantsMenu({ lat, lng, moodRestaurants }: {lat
     )
 }
 
+export async function getMoodMenu({ moodRestaurantsMenuItems, query }: { moodRestaurantsMenuItems: moodRestaurantsMenu; query: string; }) {
+    const prompt = `
+        You are helping create a food mood board.
+
+        User mood:
+        "${query}"
+
+        Selected restaurants and their menus:
+        ${JSON.stringify(moodRestaurantsMenuItems)}
+
+        Interpret the user's mood as a food craving, dining occasion, or desired eating experience.
+
+        Examples:
+
+        * "something hot" → warm, comforting, freshly cooked food
+        * "something spicy" → bold flavors and high spice levels
+        * "movie night" → indulgent, shareable, snackable food
+        * "healthy lunch" → balanced, nutritious, lighter meals
+        * "late night craving" → satisfying comfort food
+        * "treat myself" → premium, indulgent, highly enjoyable dishes
+
+        Task:
+
+        1. For each restaurant, select 2-4 menu items that best match the user's mood.
+        2. Prioritize dishes whose category, description, and overall vibe strongly align with the craving.
+        3. Prefer signature or standout dishes when multiple options are similar.
+        4. Do not recommend items that are a weak match for the mood just to fill slots.
+
+        Return only the best matching item IDs for each restaurant.
+    `;
+
+    const response = await generateText({
+        model: geminiFlash,
+        prompt,
+        output: Output.object({
+            schema: z.object({
+                restaurants: z.record(z.string(), z.array(z.string()).min(1).max(4))
+            })
+        })
+    })
+    return response.output.restaurants;
+}
+
 export async function getMoodBoard({ lat, lng, isVeg, query }: { lat: string, lng: string, isVeg: string, query: string }) {
     const moodRestaurants = await getMoodRestaurants({ lat, lng, query });
-    console.log(moodRestaurants);
-    const moodRestaurantsMenuItems = await getMoodRestaurantsMenu({ lat, lng, moodRestaurants});
-    return moodRestaurantsMenuItems;
+    const moodRestaurantsMenuItems = await getMoodRestaurantsMenu({ lat, lng, moodRestaurants });
+    const moodMenu = await getMoodMenu({ moodRestaurantsMenuItems, query});
+    return moodMenu;
 }
