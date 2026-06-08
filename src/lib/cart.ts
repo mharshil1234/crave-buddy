@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { randomUUID } from "crypto";
 import { redis } from "@/lib/redis";
-import { getRestaurantByid } from "@/lib/restaurant";
+import { getRestaurantById } from "@/lib/restaurant";
 
 export async function getCartId() {
     const cookieStore = await cookies();
@@ -63,7 +63,7 @@ export async function getCartDetails() {
     const { cart } = await getCart();
     const result: Record<string, any> = {};
     for (const [restaurantId, itemsList] of Object.entries(cart)) {
-        const restaurantDetails = await getRestaurantByid({
+        const restaurantDetails = await getRestaurantById({
             lat: "0",
             lng: "0",
             restaurantId

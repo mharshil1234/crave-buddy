@@ -12,7 +12,7 @@ export async function getRestaurants({ lat, lng }: { lat: string, lng: string })
     return { RestaurantsData: response.rows };
 }
 
-export async function getRestaurantByid({ lat, lng, restaurantId }: { lat: string, lng: string, restaurantId: string }) {
+export async function getRestaurantById({ lat, lng, restaurantId }: { lat: string, lng: string, restaurantId: string }) {
     const RestaurantsData = restaurantMenu as Record<string, any>;
 
     const data = RestaurantsData[restaurantId];

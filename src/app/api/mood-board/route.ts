@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
     const isVeg = searchParams.get("isVeg");
     const query = searchParams.get("query");
 
-    if (!lat || !lng || !query || !isVeg) {
+    if (!lat || !lng || !isVeg || !query) {
         return NextResponse.json({ error: "Missing required parameters" }, { status: 400 });
     }
 

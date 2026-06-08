@@ -1,7 +1,8 @@
-import { getRestaurants, getRestaurantByid } from "./restaurant";
+import { getRestaurants, getRestaurantById } from "./restaurant";
 import { geminiFlash, geminiPro } from "./ai";
 import { generateText, Output } from "ai";
 import { z } from "zod";
+import { MenuItem } from "@/types/restaurant";
 
 type AIRestaurant = {
     id: string;
@@ -63,6 +64,45 @@ export async function getMoodRestaurants({ lat, lng, query }: { lat: string, lng
     return response.output.restaurantIds;
 }
 
-export async function getMoodBoard({ lat, lng, query, isVeg }: { lat: string, lng: string, query: string, isVeg: string }) {
-    return getMoodRestaurants({ lat, lng, query});
+type moodRestaurantsMenu = Record<
+    string,
+    {
+        id: string;
+        name: string;
+        isVeg: boolean;
+        description: string;
+        price: number;
+        category: string;
+
+    }[]
+>;
+
+export async function getMoodRestaurantsMenu({ lat, lng, moodRestaurants }: {lat: string; lng: string; moodRestaurants: string[] }): Promise<moodRestaurantsMenu> {
+    return Object.fromEntries(
+        await Promise.all(
+            moodRestaurants.map((async (restaurantId) => {
+                const restaurant = await getRestaurantById({lat, lng, restaurantId});
+
+                return [
+                    restaurantId,
+                    restaurant.data.menu.map((item: MenuItem) => ({
+                        id: item.id,
+                        name: item.name,
+                        isVeg: item.veg,
+                        description: item.description,
+                        price: item.price,
+                        category: item.category
+                    })
+                    )
+                ] as const;
+            }))
+        )
+    )
+}
+
+export async function getMoodBoard({ lat, lng, isVeg, query }: { lat: string, lng: string, isVeg: string, query: string }) {
+    const moodRestaurants = await getMoodRestaurants({ lat, lng, query });
+    console.log(moodRestaurants);
+    const moodRestaurantsMenuItems = await getMoodRestaurantsMenu({ lat, lng, moodRestaurants});
+    return moodRestaurantsMenuItems;
 }
