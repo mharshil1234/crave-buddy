@@ -78,26 +78,40 @@ type moodRestaurantsMenu = Record<
 >;
 
 export async function getMoodRestaurantsMenu({ lat, lng, moodRestaurants }: { lat: string; lng: string; moodRestaurants: string[] }): Promise<moodRestaurantsMenu> {
-    return Object.fromEntries(
+    const entries = (
         await Promise.all(
-            moodRestaurants.map((async (restaurantId) => {
-                const restaurant = await getRestaurantById({ lat, lng, restaurantId });
+            moodRestaurants.map(async (restaurantId) => {
+                try {
+                    const restaurant = await getRestaurantById({
+                        lat,
+                        lng,
+                        restaurantId,
+                    });
 
-                return [
-                    restaurantId,
-                    restaurant.data.menu.map((item: MenuItem) => ({
-                        id: item.id,
-                        name: item.name,
-                        isVeg: item.veg,
-                        description: item.description,
-                        price: item.price,
-                        category: item.category
-                    })
-                    )
-                ] as const;
-            }))
+                    return [
+                        restaurantId,
+                        restaurant.data.menu.map((item: MenuItem) => ({
+                            id: item.id,
+                            name: item.name,
+                            isVeg: item.veg,
+                            description: item.description,
+                            price: item.price,
+                            category: item.category,
+                        })),
+                    ] as const;
+                } catch {
+                    return null;
+                }
+            })
         )
-    )
+    ).filter(
+        (
+            entry
+        ): entry is readonly [string, moodRestaurantsMenu[string]] =>
+            entry !== null
+    );
+
+    return Object.fromEntries(entries);
 }
 
 export async function getMoodMenu({ moodRestaurantsMenuItems, query }: { moodRestaurantsMenuItems: moodRestaurantsMenu; query: string; }) {
@@ -146,6 +160,6 @@ export async function getMoodMenu({ moodRestaurantsMenuItems, query }: { moodRes
 export async function getMoodBoard({ lat, lng, isVeg, query }: { lat: string, lng: string, isVeg: string, query: string }) {
     const moodRestaurants = await getMoodRestaurants({ lat, lng, query });
     const moodRestaurantsMenuItems = await getMoodRestaurantsMenu({ lat, lng, moodRestaurants });
-    const moodMenu = await getMoodMenu({ moodRestaurantsMenuItems, query});
+    const moodMenu = await getMoodMenu({ moodRestaurantsMenuItems, query });
     return moodMenu;
 }
