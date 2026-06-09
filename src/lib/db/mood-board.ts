@@ -13,9 +13,20 @@ export async function createMoodBoard({ userId, query, isVeg, moodBoard }: { use
     .select("id")
     .single();
 
-    if(error) {
-        throw new Error(error.message);
-    }
+    if(error) throw new Error(error.message);
 
     return data.id;
+}
+
+export async function getMoodBoard({ moodBoardId }: { moodBoardId: string; }) {
+
+    const { data, error } = await supabaseAdmin
+    .from("mood_boards")
+    .select("*")
+    .eq("id", moodBoardId)
+    .single()
+
+    if(error) throw new Error(error.message);
+
+    return data;
 }
