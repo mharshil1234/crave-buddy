@@ -1,8 +1,8 @@
-import { supabase } from "../supabase";
+import { supabaseAdmin } from "../supabase";
 
 export async function createMoodBoard({ userId, query, isVeg, moodBoard }: { userId: string; query: string; isVeg: string; moodBoard: unknown; }) {
     
-    const { data, error } = await supabase
+    const { data, error } = await supabaseAdmin
     .from("mood_boards")
     .insert({
         user_id: userId,
