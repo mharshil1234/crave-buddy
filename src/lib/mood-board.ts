@@ -142,6 +142,10 @@ export async function getMoodMenu({ moodRestaurantsMenuItems, query }: { moodRes
         3. Prefer signature or standout dishes when multiple options are similar.
         4. Do not recommend items that are a weak match for the mood just to fill slots.
 
+        You must recommend items for every restaurant provided.
+        Do not return an empty object.
+        Every restaurant ID in the input must appear in the output.
+
         Return only the best matching item IDs for each restaurant.
     `;
 
@@ -149,17 +153,22 @@ export async function getMoodMenu({ moodRestaurantsMenuItems, query }: { moodRes
         model: geminiFlash,
         prompt,
         output: Output.object({
-            schema: z.object({
-                restaurants: z.record(z.string(), z.array(z.string()).min(1).max(4))
-            })
+            schema: z.record(
+                z.string(),
+                z.array(z.string()).min(1).max(4)
+            )
         })
     })
-    return response.output.restaurants;
+    return response.output;
 }
 
 export async function getMoodBoard({ lat, lng, isVeg, query }: { lat: string, lng: string, isVeg: string, query: string }) {
+    console.log("1");
     const moodRestaurants = await getMoodRestaurants({ lat, lng, query });
+    console.log("2", moodRestaurants);
     const moodRestaurantsMenuItems = await getMoodRestaurantsMenu({ lat, lng, moodRestaurants });
+    console.log("3", moodRestaurantsMenuItems);
     const moodMenu = await getMoodMenu({ moodRestaurantsMenuItems, query });
+    console.log("4", moodMenu);
     return moodMenu;
 }
