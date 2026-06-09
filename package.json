@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.80",
+    "@supabase/supabase-js": "^2.108.1",
     "@tailwindcss/vite": "^4.3.0",
     "@tanstack/react-query": "^5.100.10",
     "@upstash/redis": "^1.38.0",
