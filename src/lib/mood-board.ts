@@ -163,6 +163,19 @@ export async function getMoodMenu({ moodRestaurantsMenuItems, query }: { moodRes
 }
 
 export async function getMoodBoard({ lat, lng, isVeg, query }: { lat: string, lng: string, isVeg: string, query: string }) {
+    const useAI = false;
+    if (!useAI) {
+        return {
+            "1234": [
+                "1234_1",
+                "1234_2"
+            ],
+            "12345": [
+                "12345_1",
+                "12345_2"
+            ]
+        }
+    }
     console.log("1");
     const moodRestaurants = await getMoodRestaurants({ lat, lng, query });
     console.log("2", moodRestaurants);
