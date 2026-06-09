@@ -16,8 +16,8 @@ export function MoodBoardForm() {
         if (!query.trim()) return;
         setLoading(true);
         try {
-            const response = await fetch(`/api/mood-board?lat=0&lng=0&isVeg=${isVeg}&query=${encodeURIComponent(query)}`, {
-                method: "GET",
+            const response = await fetch(`/api/mood-board/create?lat=0&lng=0&isVeg=${isVeg}&query=${encodeURIComponent(query)}`, {
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 }
@@ -25,7 +25,7 @@ export function MoodBoardForm() {
             const data = await response.json();
             setRestaurants(data);
         } catch (error) {
-            console.error("Error fetching mood restaurants: ", error);
+            console.error("Error fetching mood board: ", error);
         } finally {
             setLoading(false);
         }

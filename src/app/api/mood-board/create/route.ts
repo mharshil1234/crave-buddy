@@ -1,7 +1,8 @@
 import { getMoodBoard } from "@/lib/mood-board";
+import { createMoodBoard } from "@/lib/db/mood-board";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextRequest) {
+export async function POST(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const lat = searchParams.get("lat");
     const lng = searchParams.get("lng");
@@ -13,10 +14,13 @@ export async function GET(request: NextRequest) {
     }
 
     try {
-        const restaurants = await getMoodBoard({ lat, lng, query, isVeg });
-        return NextResponse.json(restaurants);
+        const moodBoard = await getMoodBoard({ lat, lng, query, isVeg });
+
+        const id = await createMoodBoard({ userId: "1234", query, isVeg, moodBoard })
+
+        return NextResponse.json(id);
     } catch (error) {
-        console.error("Error fetching mood restaurants:", error);
-        return NextResponse.json({ error: "Failed to fetch mood restaurants" }, { status: 500 });
+        console.error("Error to create mood board:", error);
+        return NextResponse.json({ error: "Failed to to create mood board" }, { status: 500 });
     }
 }
