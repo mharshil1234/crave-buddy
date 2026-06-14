@@ -2,14 +2,15 @@
 
 import { useState } from "react";
 import { LoaderModal } from "./LoaderModal";
+import { useRouter } from "next/navigation";
 
 export function MoodBoardForm() {
+
+    const router = useRouter();
 
     const [query, setQuery] = useState("");
     const [isVeg, setIsVeg] = useState(false);
     const [loading, setLoading] = useState(false);
-
-    const [restaurants, setRestaurants] = useState("");
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -22,8 +23,8 @@ export function MoodBoardForm() {
                     "Content-Type": "application/json"
                 }
             });
-            const data = await response.json();
-            setRestaurants(data);
+            const moodBoardId = await response.json();
+            router.push(`/mood-board/${moodBoardId}`);
         } catch (error) {
             console.error("Error fetching mood board: ", error);
         } finally {

@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { createMoodBoard } from "@/lib/db/mood-board";
+import { createMoodBoard, getMoodBoard } from "@/lib/db/mood-board";
 
 async function createMoodBoardTest() {
 
@@ -7,4 +7,10 @@ async function createMoodBoardTest() {
     console.log(id);
 }
 
-createMoodBoardTest();
+async function getMoodBoardTest() {
+    const data = await getMoodBoard({ moodBoardId: "0766ab90-ca75-478d-ab69-bc92909157b6" });
+    console.log(data);
+}
+
+// createMoodBoardTest();
+getMoodBoardTest();
