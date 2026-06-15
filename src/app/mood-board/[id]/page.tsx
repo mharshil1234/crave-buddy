@@ -7,7 +7,6 @@ import { MoodBoardDisplay } from "@/components/UserMoodBoard/MoodBoardDisplay"
 export default function UserMoodBoard() {
 
     const { id } = useParams<{ id: string }>();
-    console.log(id);
 
     return (
         <main>

@@ -6,6 +6,7 @@ type MoodBoard = {
     query: string;
     created_at: string;
     is_veg: boolean;
+    mood_board: Record<string, string[]>;
 };
 
 export function MoodBoardDisplay({ id }: { id: string }) {
@@ -17,7 +18,6 @@ export function MoodBoardDisplay({ id }: { id: string }) {
             try {
                 const response = await fetch(`/api/mood-board/get?id=${id}`);
                 const moodBoardData = await response.json() as MoodBoard;
-                console.log(moodBoardData);
                 setmoodBoard(moodBoardData);
             }
             catch (error) {
@@ -41,7 +41,7 @@ export function MoodBoardDisplay({ id }: { id: string }) {
                     isVeg={moodBoard.is_veg}
                 />
             )}
-            <RestaurantsList />
+            <RestaurantsList mood_board={moodBoard?.mood_board} />
         </div>
     )
 }
