@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
+import { LocationProvider } from "@/components/LocationProvider";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -33,7 +34,10 @@ export default function RootLayout({
       lang="en"
       className={`${dmSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans">{children}</body>
+      <body className="min-h-full flex flex-col font-sans">
+        <LocationProvider />
+        {children}
+      </body>
     </html>
   );
 }
