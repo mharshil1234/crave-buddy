@@ -114,12 +114,20 @@ export async function getMoodRestaurantsMenu({ lat, lng, moodRestaurants }: { la
     return Object.fromEntries(entries);
 }
 
-export async function getMoodMenu({ moodRestaurantsMenuItems, query }: { moodRestaurantsMenuItems: moodRestaurantsMenu; query: string; }) {
+export async function getMoodMenu({ moodRestaurantsMenuItems, query, isVeg }: { moodRestaurantsMenuItems: moodRestaurantsMenu; query: string; isVeg: string }) {
     const prompt = `
         You are helping create a food mood board.
 
         User mood:
         "${query}"
+
+        ${isVeg === "true"
+            ? `
+        IMPORTANT:
+        - Recommend ONLY vegetarian items.
+        - Select only items where isVeg is true.
+        `
+            : ""}
 
         Selected restaurants and their menus:
         ${JSON.stringify(moodRestaurantsMenuItems)}
@@ -181,7 +189,7 @@ export async function getMoodBoard({ lat, lng, isVeg, query }: { lat: string, ln
     console.log("2", moodRestaurants);
     const moodRestaurantsMenuItems = await getMoodRestaurantsMenu({ lat, lng, moodRestaurants });
     console.log("3", moodRestaurantsMenuItems);
-    const moodMenu = await getMoodMenu({ moodRestaurantsMenuItems, query });
+    const moodMenu = await getMoodMenu({ moodRestaurantsMenuItems, query, isVeg });
     console.log("4", moodMenu);
     return moodMenu;
 }
