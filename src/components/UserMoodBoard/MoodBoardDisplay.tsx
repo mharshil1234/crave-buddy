@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
+import { TitleCard } from "./TitleCard";
 
-export function MoodBoardDisplay({id}: {id: string}) {
+export function MoodBoardDisplay({ id }: { id: string }) {
 
     const [moodBoard, setmoodBoard] = useState<any>(null);
 
@@ -20,8 +21,13 @@ export function MoodBoardDisplay({id}: {id: string}) {
     }, []);
 
     return (
-        <div>
-            {}
+        <div
+            className="p-4 flex justify-center items-start min-h-screen"
+            style={{
+                background: "radial-gradient(circle at 15% 20%, #ffd6b8, transparent 50%), radial-gradient(circle at 85% 80%, #c8e2ff, transparent 50%), #fff8f3"
+            }}
+        >
+            <TitleCard userQuery={moodBoard?.query} createdAt={moodBoard?.created_at} />
         </div>
     )
 }
