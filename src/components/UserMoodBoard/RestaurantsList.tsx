@@ -98,16 +98,37 @@ export function RestaurantsList({ mood_board }: { mood_board: Record<string, str
     }, [mood_board, lat, lng, setCart]);
 
     return (
-        <div className="mt-4 flex w-full max-w-200 flex-col gap-4 rounded-2xl bg-white p-8 shadow-xl">
-            {isLoading && <p className="text-gray-600">Loading restaurants...</p>}
+        <section className="flex w-full flex-col gap-4 rounded-2xl border border-gray-200 bg-white/90 p-4 shadow-[0_18px_50px_rgba(15,23,42,0.08)] backdrop-blur sm:p-6">
+            <div className="flex items-center justify-between gap-4 border-b border-gray-100 pb-4">
+                <div>
+                    <h2 className="text-lg font-extrabold text-gray-950">Recommended picks</h2>
+                    <p className="text-sm text-gray-500">Restaurants and dishes matched to your craving.</p>
+                </div>
+            </div>
 
-            {!isLoading && restaurants.length === 0 && (
-                <p className="text-gray-600">No restaurants found for this mood board.</p>
+            {!mood_board && (
+                <div className="flex flex-col gap-3">
+                    <div className="h-28 animate-pulse rounded-xl bg-gray-100" />
+                    <div className="h-28 animate-pulse rounded-xl bg-gray-100" />
+                </div>
             )}
 
-            {!isLoading && restaurants.map((restaurant) => (
+            {mood_board && isLoading && (
+                <div className="flex flex-col gap-3">
+                    <div className="h-28 animate-pulse rounded-xl bg-gray-100" />
+                    <div className="h-28 animate-pulse rounded-xl bg-gray-100" />
+                </div>
+            )}
+
+            {mood_board && !isLoading && restaurants.length === 0 && (
+                <div className="rounded-xl border border-dashed border-gray-300 bg-gray-50 p-6 text-center text-gray-600">
+                    No restaurants found for this mood board.
+                </div>
+            )}
+
+            {mood_board && !isLoading && restaurants.map((restaurant) => (
                 <RestaurantCard key={restaurant.id} restaurant={restaurant} />
             ))}
-        </div>
+        </section>
     );
 }

@@ -12,6 +12,10 @@ type MoodBoard = {
 export function MoodBoardDisplay({ id }: { id: string }) {
 
     const [moodBoard, setmoodBoard] = useState<MoodBoard | null>(null);
+    const restaurantCount = moodBoard ? Object.keys(moodBoard.mood_board).length : 0;
+    const dishCount = moodBoard
+        ? Object.values(moodBoard.mood_board).reduce((total, items) => total + items.length, 0)
+        : 0;
 
     useEffect(() => {
         async function getMoodBoard() {
@@ -29,19 +33,22 @@ export function MoodBoardDisplay({ id }: { id: string }) {
 
     return (
         <div
-            className="flex min-h-screen w-full flex-col items-center p-4"
-            style={{
-                background: "radial-gradient(circle at 15% 20%, #ffd6b8, transparent 50%), radial-gradient(circle at 85% 80%, #c8e2ff, transparent 50%), #fff8f3"
-            }}
+            className="flex min-h-screen w-full flex-col items-center bg-[linear-gradient(180deg,#fff7ed_0%,#f8fafc_44%,#ffffff_100%)] px-4 py-6 sm:px-6 lg:px-8"
         >
-            {moodBoard && (
-                <TitleCard
-                    userQuery={moodBoard.query}
-                    createdAt={moodBoard.created_at}
-                    isVeg={moodBoard.is_veg}
-                />
-            )}
-            <RestaurantsList mood_board={moodBoard?.mood_board} />
+            <div className="flex w-full max-w-5xl flex-col gap-5">
+                {moodBoard ? (
+                    <TitleCard
+                        userQuery={moodBoard.query}
+                        createdAt={moodBoard.created_at}
+                        isVeg={moodBoard.is_veg}
+                        restaurantCount={restaurantCount}
+                        dishCount={dishCount}
+                    />
+                ) : (
+                    <div className="mt-2 h-48 w-full animate-pulse rounded-2xl border border-orange-100 bg-white/80 shadow-sm" />
+                )}
+                <RestaurantsList mood_board={moodBoard?.mood_board} />
+            </div>
         </div>
     )
 }

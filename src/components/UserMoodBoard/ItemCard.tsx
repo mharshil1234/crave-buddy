@@ -11,11 +11,11 @@ type ItemCardProps = {
 
 export function ItemCard({ item, restaurantId }: ItemCardProps) {
     return (
-        <div className="flex w-full items-center gap-4 border-t border-gray-200 py-4 first:border-t-0 first:pt-0 last:pb-0">
+        <div className="flex w-full items-start gap-4 border-t border-gray-200 py-4 first:border-t-0 first:pt-0 last:pb-0">
             <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
                     <VegNonVegIcon veg={item.veg} />
-                    <span className="rounded-md bg-[#256f3a] px-2 py-0.5 text-xs font-bold text-white">
+                    <span className="rounded-full bg-[#256f3a] px-2 py-0.5 text-xs font-bold text-white">
                         <span className="inline-flex items-center gap-1">
                             <Star size={11} fill="white" />
                             {item.rating}
@@ -23,12 +23,12 @@ export function ItemCard({ item, restaurantId }: ItemCardProps) {
                     </span>
                 </div>
 
-                <h3 className="mt-2 truncate text-base font-bold">{item.name}</h3>
+                <h3 className="mt-2 text-base font-extrabold leading-snug text-gray-950">{item.name}</h3>
                 <p className="mt-1 line-clamp-2 text-sm text-gray-600">{item.description}</p>
-                <p className="mt-2 font-bold">₹ {item.price}</p>
+                <p className="mt-2 text-base font-extrabold text-gray-900">₹ {item.price}</p>
             </div>
 
-            <div className="relative h-28 w-28 shrink-0">
+            <div className="relative h-28 w-24 shrink-0 sm:w-28">
                 <Image
                     src="/restaurant.jpeg"
                     alt={item.name}
