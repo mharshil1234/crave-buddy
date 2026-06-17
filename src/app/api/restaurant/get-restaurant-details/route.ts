@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getRestaurantByid } from "@/lib/restaurant";
+import { getRestaurantById } from "@/lib/restaurant";
 
 export async function GET(req: NextRequest) {
 
@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
             return NextResponse.json({ error: "Restaurant ID is required" }, { status: 400 });
         }
 
-        const { data } = await getRestaurantByid({
+        const { data } = await getRestaurantById({
             lat,
             lng,
             restaurantId

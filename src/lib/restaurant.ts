@@ -1,18 +1,17 @@
 import restaurantMenu from "../../data/restaurantMenu.json";
-import { pool } from "@/lib/db";
+import { prisma } from "./prisma";
 
 export async function getRestaurants({ lat, lng }: { lat: string, lng: string }) {
-    const response = await pool.query(
-        `
-        SELECT * FROM RESTAURANTS
-        LIMIT 20
-        `
-    );
+    const restaurantsData = await prisma.restaurants.findMany({
+        take: 20,
+    });
 
-    return response.rows;
+    return {
+        RestaurantsData: restaurantsData,
+    };
 }
 
-export async function getRestaurantByid({ lat, lng, restaurantId }: { lat: string, lng: string, restaurantId: string }) {
+export async function getRestaurantById({ lat, lng, restaurantId }: { lat: string, lng: string, restaurantId: string }) {
     const RestaurantsData = restaurantMenu as Record<string, any>;
 
     const data = RestaurantsData[restaurantId];
