@@ -37,13 +37,13 @@ export function TitleCard({ userQuery, createdAt, isVeg, restaurantCount, dishCo
                     <div className="rounded-xl border border-orange-100 bg-orange-50 px-4 py-3">
                         <p className="text-2xl font-extrabold text-orange-700">{restaurantCount}</p>
                         <p className="text-sm font-semibold text-orange-900">
-                            {restaurantCount === 1 ? "restaurant" : "restaurants"}
+                            {restaurantCount === 1 ? "restaurant" : "restaurants"} matched
                         </p>
                     </div>
                     <div className="rounded-xl border border-emerald-100 bg-emerald-50 px-4 py-3">
                         <p className="text-2xl font-extrabold text-emerald-700">{dishCount}</p>
                         <p className="text-sm font-semibold text-emerald-900">
-                            AI-selected {dishCount === 1 ? "dish" : "dishes"}
+                            {dishCount === 1 ? "dish" : "dishes"} recommended
                         </p>
                     </div>
                 </div>
