@@ -3,11 +3,17 @@
 import { useEffect, useState } from "react";
 import { useLocationStore } from "@/stores/locationStore";
 import { MenuItem } from "@/types/restaurant";
+import { RestaurantCard } from "./RestaurantCard";
 
 type Restaurant = {
     id: string;
     name: string;
     restaurantImg: string;
+    location: string;
+    cuisines: string[];
+    rating: number;
+    priceForTwo: number;
+    deliveryTime: string;
     menu: MenuItem[];
 };
 
@@ -15,6 +21,7 @@ export function RestaurantsList({ mood_board }: { mood_board: Record<string, str
     const { lat, lng } = useLocationStore();
 
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     async function enrichMoodBoard(
         moodBoard: Record<string, string[]>,
@@ -50,13 +57,22 @@ export function RestaurantsList({ mood_board }: { mood_board: Record<string, str
         async function loadRestaurants() {
             if (!mood_board || !lat || !lng) return;
 
-            const enriched = await enrichMoodBoard(
-                mood_board,
-                lat,
-                lng
-            );
+            setIsLoading(true);
 
-            setRestaurants(enriched);
+            try {
+                const enriched = await enrichMoodBoard(
+                    mood_board,
+                    lat,
+                    lng
+                );
+
+                setRestaurants(enriched);
+            } catch (error) {
+                console.log("Error loading mood board restaurants: ", error);
+                setRestaurants([]);
+            } finally {
+                setIsLoading(false);
+            }
         }
 
         loadRestaurants();
@@ -64,10 +80,14 @@ export function RestaurantsList({ mood_board }: { mood_board: Record<string, str
 
     return (
         <div className="mt-4 flex w-full max-w-200 flex-col gap-4 rounded-2xl bg-white p-8 shadow-xl">
-            {restaurants.map((restaurant) => (
-                <div key={restaurant.id}>
-                    {restaurant.name}
-                </div>
+            {isLoading && <p className="text-gray-600">Loading restaurants...</p>}
+
+            {!isLoading && restaurants.length === 0 && (
+                <p className="text-gray-600">No restaurants found for this mood board.</p>
+            )}
+
+            {!isLoading && restaurants.map((restaurant) => (
+                <RestaurantCard key={restaurant.id} restaurant={restaurant} />
             ))}
         </div>
     );
