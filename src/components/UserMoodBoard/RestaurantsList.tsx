@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useLocationStore } from "@/stores/locationStore";
 import { MenuItem } from "@/types/restaurant";
 import { RestaurantCard } from "./RestaurantCard";
+import { useCartStore } from "@/stores/cartStore";
 
 type Restaurant = {
     id: string;
@@ -17,8 +18,18 @@ type Restaurant = {
     menu: MenuItem[];
 };
 
+function getCartItems(cart: Record<string, Record<string, number>>) {
+    return Object.values(cart).reduce<Record<string, number>>((items, restaurantCart) => {
+        return {
+            ...items,
+            ...restaurantCart
+        };
+    }, {});
+}
+
 export function RestaurantsList({ mood_board }: { mood_board: Record<string, string[]> | undefined; }) {
     const { lat, lng } = useLocationStore();
+    const setCart = useCartStore((state) => state.setCart);
 
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -60,13 +71,21 @@ export function RestaurantsList({ mood_board }: { mood_board: Record<string, str
             setIsLoading(true);
 
             try {
-                const enriched = await enrichMoodBoard(
-                    mood_board,
-                    lat,
-                    lng
-                );
+                const [enriched, cartResponse] = await Promise.all([
+                    enrichMoodBoard(
+                        mood_board,
+                        lat,
+                        lng
+                    ),
+                    fetch("/api/cart/get", {
+                        method: "GET"
+                    })
+                ]);
+
+                const cartData = await cartResponse.json();
 
                 setRestaurants(enriched);
+                setCart(getCartItems(cartData?.cart || {}));
             } catch (error) {
                 console.log("Error loading mood board restaurants: ", error);
                 setRestaurants([]);
@@ -76,7 +95,7 @@ export function RestaurantsList({ mood_board }: { mood_board: Record<string, str
         }
 
         loadRestaurants();
-    }, [mood_board, lat, lng]);
+    }, [mood_board, lat, lng, setCart]);
 
     return (
         <div className="mt-4 flex w-full max-w-200 flex-col gap-4 rounded-2xl bg-white p-8 shadow-xl">
