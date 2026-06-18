@@ -1,6 +1,6 @@
 "use client";
 
-import { Header } from "@/components/CartPage/Header";
+import { Header } from "@/components/Header";
 import { MainCart } from "@/components/CartPage/MainCart";  
 
 export default function cartPage() {
