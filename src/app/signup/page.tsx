@@ -116,7 +116,7 @@ export default function SignUpPage() {
 
                         <button
                             type="submit"
-                            className="w-full rounded-xl bg-gradient-to-r from-orange-500 to-red-500 py-3 font-semibold text-white hover:scale-[1.02] transition"
+                            className="w-full rounded-xl bg-gradient-to-r from-orange-500 to-red-500 py-3 font-semibold text-white hover:scale-[1.02] transition hover:cursor-pointer"
                         >
                             Create Account
                         </button>
@@ -134,7 +134,7 @@ export default function SignUpPage() {
                     </div>
 
                     <button
-                        className="w-full rounded-xl border border-white/10 bg-white/5 py-3 text-white hover:bg-white/10 transition"
+                        className="w-full rounded-xl border border-white/10 bg-white/5 py-3 text-white hover:bg-white/10 transition hover:cursor-pointer"
                     >
                         Continue with Google
                     </button>
@@ -142,7 +142,7 @@ export default function SignUpPage() {
                     <p className="mt-6 text-center text-neutral-400">
                         Already have an account?{" "}
                         <a
-                            href="/login"
+                            href="/signin"
                             className="text-orange-400 hover:text-orange-300"
                         >
                             Sign in
