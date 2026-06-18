@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
-import { signIn, useSession } from "@/lib/auth-client";
+import { signIn, useSession, signInWithGoogle } from "@/lib/auth-client";
 
 export default function SignInPage() {
     const router = useRouter();
@@ -42,6 +42,10 @@ export default function SignInPage() {
             toast.success("Welcome back!");
             router.push("/");
         }
+    }
+
+    async function handleGoogleSignIn() {
+        signInWithGoogle();
     }
 
     return (
@@ -104,6 +108,7 @@ export default function SignInPage() {
 
                     <button
                         className="w-full rounded-xl border border-white/10 bg-white/5 py-3 text-white hover:bg-white/10 transition cursor-pointer"
+                        onClick={handleGoogleSignIn}
                     >
                         Continue with Google
                     </button>

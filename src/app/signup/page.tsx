@@ -2,9 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signUp } from "@/lib/auth-client";
+import { signUp, useSession, signInWithGoogle } from "@/lib/auth-client";
 import { Eye, EyeOff } from "lucide-react";
-import { useSession } from "@/lib/auth-client";
 import { useEffect } from "react";
 import { toast } from "sonner";
 
@@ -56,6 +55,10 @@ export default function SignUpPage() {
             toast.success("Welcome to Crave Buddy!")
             router.push("/");
         }
+    }
+
+    async function handleGoogleSignIn() {
+        signInWithGoogle();
     }
 
     const [showPassword, setShowPassword] = useState(false);
@@ -147,6 +150,7 @@ export default function SignUpPage() {
 
                     <button
                         className="w-full rounded-xl border border-white/10 bg-white/5 py-3 text-white hover:bg-white/10 transition hover:cursor-pointer"
+                        onClick={handleGoogleSignIn}
                     >
                         Continue with Google
                     </button>
