@@ -1,0 +1,152 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { signUp } from "@/lib/auth-client";
+import { Eye, EyeOff } from "lucide-react";
+
+export default function SignUpPage() {
+    const router = useRouter();
+    const [error, setError] = useState<string | null>(null);
+
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        setError(null);
+
+        const formData = new FormData(e.currentTarget);
+
+        if (formData.get("password") !== formData.get("confirmPassword")) {
+            setError("Passwords do not match");
+            return;
+        }
+
+        const res = await signUp.email({
+            name: formData.get("name") as string,
+            email: formData.get("email") as string,
+            password: formData.get("password") as string,
+        });
+
+        if (res.error) {
+            setError(res.error.message || "Something went wrong.");
+        } else {
+            router.push("/dashboard");
+        }
+    }
+
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+    return (
+        <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-950 via-neutral-950 to-red-950 p-6">
+            <div className="w-full max-w-md">
+                <div className="backdrop-blur-xl bg-white/10 border border-white/10 rounded-3xl p-8 shadow-2xl">
+                    <div className="mb-8 text-center">
+                        <h1 className="text-4xl font-bold text-white">
+                            Join Crave Buddy
+                        </h1>
+                        <p className="text-neutral-400 mt-2">
+                            Discover food that matches your mood.
+                        </p>
+                    </div>
+
+                    {error && (
+                        <div className="mb-4 rounded-xl bg-red-500/10 border border-red-500/20 p-3">
+                            <p className="text-red-400 text-sm">{error}</p>
+                        </div>
+                    )}
+
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                        <input
+                            name="name"
+                            placeholder="Full Name"
+                            required
+                            className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-neutral-500 outline-none focus:border-orange-500 transition"
+                        />
+
+                        <input
+                            name="email"
+                            type="email"
+                            placeholder="Email Address"
+                            required
+                            className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-neutral-500 outline-none focus:border-orange-500 transition"
+                        />
+
+                        <div className="relative">
+                            <input
+                                name="password"
+                                type={showPassword ? "text" : "password"}
+                                placeholder="Password"
+                                required
+                                minLength={8}
+                                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 pr-12 text-white placeholder:text-neutral-500 outline-none focus:border-orange-500 transition"
+                            />
+
+                            <button
+                                type="button"
+                                onClick={() => setShowPassword(!showPassword)}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white cursor-pointer"
+                            >
+                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                            </button>
+                        </div>
+
+                        <div className="relative">
+                            <input
+                                name="confirmPassword"
+                                type={showConfirmPassword ? "text" : "password"}
+                                placeholder="Confirm Password"
+                                required
+                                minLength={8}
+                                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 pr-12 text-white placeholder:text-neutral-500 outline-none focus:border-orange-500 transition"
+                            />
+
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    setShowConfirmPassword(!showConfirmPassword)
+                                }
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white cursor-pointer"
+                            >
+                                {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                            </button>
+                        </div>
+
+                        <button
+                            type="submit"
+                            className="w-full rounded-xl bg-gradient-to-r from-orange-500 to-red-500 py-3 font-semibold text-white hover:scale-[1.02] transition"
+                        >
+                            Create Account
+                        </button>
+                    </form>
+
+                    <div className="relative my-6">
+                        <div className="absolute inset-0 flex items-center">
+                            <div className="w-full border-t border-white/10" />
+                        </div>
+                        <div className="relative flex justify-center">
+                            <span className="bg-neutral-950 px-4 text-sm text-neutral-500">
+                                OR
+                            </span>
+                        </div>
+                    </div>
+
+                    <button
+                        className="w-full rounded-xl border border-white/10 bg-white/5 py-3 text-white hover:bg-white/10 transition"
+                    >
+                        Continue with Google
+                    </button>
+
+                    <p className="mt-6 text-center text-neutral-400">
+                        Already have an account?{" "}
+                        <a
+                            href="/login"
+                            className="text-orange-400 hover:text-orange-300"
+                        >
+                            Sign in
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </main>
+    );
+}
