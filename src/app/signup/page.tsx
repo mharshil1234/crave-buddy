@@ -24,20 +24,36 @@ export default function SignUpPage() {
 
         const formData = new FormData(e.currentTarget);
 
-        if (formData.get("password") !== formData.get("confirmPassword")) {
+        const name = formData.get("name") as string;
+        const email = formData.get("email") as string;
+        const password = formData.get("password") as string;
+        const confirmPassword = formData.get("confirmPassword") as string;
+
+        if (!name.trim() || !email.trim() || !password.trim() || !confirmPassword.trim()) {
+            toast.error("Please fill in all fields");
+            return;
+        }
+
+        if (password.length < 8) {
+            toast.error("Password must be at least 8 characters");
+            return;
+        }
+
+        if (password !== confirmPassword) {
             toast.error("Passwords do not match");
             return;
         }
 
         const res = await signUp.email({
-            name: formData.get("name") as string,
-            email: formData.get("email") as string,
-            password: formData.get("password") as string,
+            name,
+            email,
+            password,
         });
 
         if (res.error) {
             toast.error(res.error.message || "Something went wrong.");
         } else {
+            toast.success("Welcome to Crave Buddy!")
             router.push("/");
         }
     }
@@ -62,7 +78,6 @@ export default function SignUpPage() {
                         <input
                             name="name"
                             placeholder="Full Name"
-                            required
                             className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-neutral-500 outline-none focus:border-orange-500 transition"
                         />
 
@@ -70,7 +85,6 @@ export default function SignUpPage() {
                             name="email"
                             type="email"
                             placeholder="Email Address"
-                            required
                             className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-neutral-500 outline-none focus:border-orange-500 transition"
                         />
 
@@ -79,7 +93,6 @@ export default function SignUpPage() {
                                 name="password"
                                 type={showPassword ? "text" : "password"}
                                 placeholder="Password"
-                                required
                                 minLength={8}
                                 className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 pr-12 text-white placeholder:text-neutral-500 outline-none focus:border-orange-500 transition"
                             />
@@ -98,7 +111,6 @@ export default function SignUpPage() {
                                 name="confirmPassword"
                                 type={showConfirmPassword ? "text" : "password"}
                                 placeholder="Confirm Password"
-                                required
                                 minLength={8}
                                 className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 pr-12 text-white placeholder:text-neutral-500 outline-none focus:border-orange-500 transition"
                             />

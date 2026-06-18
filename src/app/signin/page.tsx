@@ -23,9 +23,17 @@ export default function SignInPage() {
 
         const formData = new FormData(e.currentTarget);
 
+        const email = formData.get("email") as string;
+        const password = formData.get("password") as string;
+
+        if (!email.trim() || !password.trim()) {
+            toast.error("Please fill in all fields");
+            return;
+        }
+
         const res = await signIn.email({
-            email: formData.get("email") as string,
-            password: formData.get("password") as string,
+            email,
+            password,
         });
 
         if (res.error) {
@@ -54,7 +62,6 @@ export default function SignInPage() {
                             name="email"
                             type="email"
                             placeholder="Email Address"
-                            required
                             className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-neutral-500 outline-none focus:border-orange-500 transition"
                         />
 
@@ -63,7 +70,6 @@ export default function SignInPage() {
                                 name="password"
                                 type={showPassword ? "text" : "password"}
                                 placeholder="Password"
-                                required
                                 autoComplete="current-password"
                                 className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 pr-12 text-white placeholder:text-neutral-500 outline-none focus:border-orange-500 transition"
                             />
