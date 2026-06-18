@@ -6,10 +6,10 @@ import { signUp } from "@/lib/auth-client";
 import { Eye, EyeOff } from "lucide-react";
 import { useSession } from "@/lib/auth-client";
 import { useEffect } from "react";
+import { toast } from "sonner";
 
 export default function SignUpPage() {
     const router = useRouter();
-    const [error, setError] = useState<string | null>(null);
 
     const { data: session, isPending } = useSession();
     useEffect(() => {
@@ -21,12 +21,11 @@ export default function SignUpPage() {
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        setError(null);
 
         const formData = new FormData(e.currentTarget);
 
         if (formData.get("password") !== formData.get("confirmPassword")) {
-            setError("Passwords do not match");
+            toast.error("Passwords do not match");
             return;
         }
 
@@ -37,9 +36,9 @@ export default function SignUpPage() {
         });
 
         if (res.error) {
-            setError(res.error.message || "Something went wrong.");
+            toast.error(res.error.message || "Something went wrong.");
         } else {
-            router.push("/dashboard");
+            router.push("/");
         }
     }
 
@@ -58,12 +57,6 @@ export default function SignUpPage() {
                             Discover food that matches your mood.
                         </p>
                     </div>
-
-                    {error && (
-                        <div className="mb-4 rounded-xl bg-red-500/10 border border-red-500/20 p-3">
-                            <p className="text-red-400 text-sm">{error}</p>
-                        </div>
-                    )}
 
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <input
