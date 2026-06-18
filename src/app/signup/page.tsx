@@ -4,10 +4,20 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signUp } from "@/lib/auth-client";
 import { Eye, EyeOff } from "lucide-react";
+import { useSession } from "@/lib/auth-client";
+import { useEffect } from "react";
 
 export default function SignUpPage() {
     const router = useRouter();
     const [error, setError] = useState<string | null>(null);
+
+    const { data: session, isPending } = useSession();
+    useEffect(() => {
+        if (session?.user) {
+            router.push("/");
+        }
+    }, [isPending, session, router]);
+
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
