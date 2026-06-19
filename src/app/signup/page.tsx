@@ -1,13 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { signUp, useSession, signInWithGoogle } from "@/lib/auth-client";
+import { useRouter, useSearchParams } from "next/navigation";
+import { authClient, signUp, useSession } from "@/lib/auth-client";
 import { Eye, EyeOff } from "lucide-react";
 import { useEffect } from "react";
 import { toast } from "sonner";
 
 export default function SignUpPage() {
+
+    const searchParams = useSearchParams();
+    const callbackUrl = searchParams.get("callbackUrl");
+
     const router = useRouter();
 
     const { data: session, isPending } = useSession();
@@ -58,7 +62,10 @@ export default function SignUpPage() {
     }
 
     async function handleGoogleSignIn() {
-        signInWithGoogle();
+        await authClient.signIn.social({
+            provider: "google",
+            callbackURL: callbackUrl || "/"
+        });
     }
 
     const [showPassword, setShowPassword] = useState(false);
@@ -158,7 +165,7 @@ export default function SignUpPage() {
                     <p className="mt-6 text-center text-neutral-400">
                         Already have an account?{" "}
                         <a
-                            href="/signin"
+                            href={`/signin?callbackUrl=${encodeURIComponent(callbackUrl ?? "/")}`}
                             className="text-orange-400 hover:text-orange-300"
                         >
                             Sign in
