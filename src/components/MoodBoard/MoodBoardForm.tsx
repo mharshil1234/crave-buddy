@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { LoaderModal } from "./LoaderModal";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export function MoodBoardForm() {
 
@@ -23,8 +24,14 @@ export function MoodBoardForm() {
                     "Content-Type": "application/json"
                 }
             });
-            const moodBoardId = await response.json();
-            router.push(`/mood-board/${moodBoardId}`);
+            const data = await response.json() as { id?: string; error?: string };
+
+            if (!response.ok || !data.id) {
+                toast.error(data.error ?? "Failed to create Mood Board");
+                return;
+            }
+
+            router.push(`/mood-board/${data.id}`);
         } catch (error) {
             console.error("Error fetching mood board: ", error);
         } finally {

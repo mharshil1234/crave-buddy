@@ -1,8 +1,8 @@
 import { getMoodBoard } from "@/lib/mood-board";
 import { createMoodBoard } from "@/lib/db/mood-board";
 import { NextRequest, NextResponse } from "next/server";
-import { useSession } from "@/lib/auth-client";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
+import { auth } from "@/lib/auth";
 
 export async function POST(request: NextRequest) {
     const { searchParams } = new URL(request.url);
@@ -10,7 +10,10 @@ export async function POST(request: NextRequest) {
     const lng = searchParams.get("lng");
     const isVeg = searchParams.get("isVeg");
     const query = searchParams.get("query");
-    const { data: session } = useSession();
+
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    });
     const userId = session?.user?.id || null;
 
     if (!lat || !lng || !isVeg || !query) {
@@ -29,7 +32,7 @@ export async function POST(request: NextRequest) {
             cookieStore.set("generatedMoodBoards", JSON.stringify(generatedMoodBoards.slice(-20)));
         }
 
-        return NextResponse.json(id);
+        return NextResponse.json({ id });
     } catch (error) {
         console.error("Error to create mood board:", error);
         return NextResponse.json({ error: "Failed to to create mood board" }, { status: 500 });
