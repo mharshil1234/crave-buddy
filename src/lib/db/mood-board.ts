@@ -1,4 +1,4 @@
-import { pool } from "../db";
+import prisma from "@/lib/prisma";
 
 export async function createMoodBoard({
     userId,
@@ -6,31 +6,33 @@ export async function createMoodBoard({
     isVeg,
     moodBoard,
 }: {
-    userId: string;
+    userId: string | null;
     query: string;
     isVeg: string;
     moodBoard: any;
 }) {
-    const result = await pool.query(
-        `
-        INSERT INTO mood_boards (
-            user_id,
+    const result = await prisma.mood_boards.create({
+        data: {
+            creator_id: userId,
             query,
-            is_veg,
-            mood_board
-        )
-        VALUES ($1, $2, $3, $4)
-        RETURNING id
-        `,
-        [
-            userId,
-            query,
-            isVeg === "true",
-            JSON.stringify(moodBoard),
-        ]
-    );
+            is_veg: isVeg === "true",
+            mood_board: moodBoard,
+        },
+        select: {
+            id: true,
+        }
+    });
 
-    return result.rows[0].id;
+    if (userId) {
+        await prisma.saved_mood_boards.create({
+            data: {
+                user_id: userId,
+                mood_board_id: result.id,
+            }
+        });
+    }
+
+    return result.id;
 }
 
 export async function getMoodBoard({
@@ -38,18 +40,15 @@ export async function getMoodBoard({
 }: {
     moodBoardId: string;
 }) {
-    const result = await pool.query(
-        `
-        SELECT *
-        FROM mood_boards
-        WHERE id = $1
-        `,
-        [moodBoardId]
-    );
+    const result = await prisma.mood_boards.findUnique({
+        where: {
+            id: moodBoardId,
+        },
+    });
 
-    if (result.rows.length === 0) {
+    if (!result) {
         throw new Error("Mood board not found");
     }
 
-    return result.rows[0];
+    return result;
 }

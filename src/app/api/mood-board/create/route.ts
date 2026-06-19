@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     try {
         const moodBoard = await getMoodBoard({ lat, lng, query, isVeg });
 
-        const id = await createMoodBoard({ userId: session?.user?.id || "unknown", query, isVeg, moodBoard })
+        const id = await createMoodBoard({ userId: session?.user?.id || null, query, isVeg, moodBoard })
 
         return NextResponse.json(id);
     } catch (error) {
