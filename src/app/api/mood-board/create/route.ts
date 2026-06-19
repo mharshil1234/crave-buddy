@@ -22,11 +22,9 @@ export async function POST(request: NextRequest) {
 
         const id = await createMoodBoard({ userId, query, isVeg, moodBoard })
 
-        if(!userId) {
+        if (!userId) {
             const cookieStore = await cookies();
-            const generatedMoodBoards: string[] = JSON.parse(
-                cookieStore.get("generatedMoodBoards")?.value ?? "[]"
-            );
+            const generatedMoodBoards: string[] = JSON.parse(cookieStore.get("generatedMoodBoards")?.value ?? "[]");
             generatedMoodBoards.push(id);
             cookieStore.set("generatedMoodBoards", JSON.stringify(generatedMoodBoards.slice(-20)));
         }
