@@ -1,6 +1,7 @@
 import { getMoodBoard } from "@/lib/mood-board";
 import { createMoodBoard } from "@/lib/db/mood-board";
 import { NextRequest, NextResponse } from "next/server";
+import { useSession } from "@/lib/auth-client";
 
 export async function POST(request: NextRequest) {
     const { searchParams } = new URL(request.url);
@@ -8,6 +9,7 @@ export async function POST(request: NextRequest) {
     const lng = searchParams.get("lng");
     const isVeg = searchParams.get("isVeg");
     const query = searchParams.get("query");
+    const { data: session } = useSession();
 
     if (!lat || !lng || !isVeg || !query) {
         return NextResponse.json({ error: "Missing required parameters" }, { status: 400 });
@@ -16,7 +18,7 @@ export async function POST(request: NextRequest) {
     try {
         const moodBoard = await getMoodBoard({ lat, lng, query, isVeg });
 
-        const id = await createMoodBoard({ userId: "1234", query, isVeg, moodBoard })
+        const id = await createMoodBoard({ userId: session?.user?.id || "unknown", query, isVeg, moodBoard })
 
         return NextResponse.json(id);
     } catch (error) {

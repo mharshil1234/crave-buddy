@@ -9,12 +9,27 @@ datasource db {
 }
 
 model mood_boards {
-  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  created_at DateTime? @default(now()) @db.Timestamptz(6)
-  user_id    String
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+
+  creator_id String?
   query      String
   is_veg     Boolean
   mood_board Json
+
+  @@index([creator_id])
+  @@index([created_at])
+}
+
+model saved_mood_boards {
+  user_id       String
+  mood_board_id String   @db.Uuid
+  created_at    DateTime @default(now()) @db.Timestamptz(6)
+
+  @@id([user_id, mood_board_id])
+
+  @@index([user_id])
+  @@index([mood_board_id])
 }
 
 model restaurants {
