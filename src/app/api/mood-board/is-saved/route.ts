@@ -4,16 +4,6 @@ import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
-    const session = await auth.api.getSession({
-        headers: await headers(),
-    });
-
-    if (!session) {
-        return NextResponse.json(
-            { error: "Unauthorized" },
-            { status: 401 }
-        );
-    }
 
     const id = request.nextUrl.searchParams.get("id");
 
@@ -22,6 +12,16 @@ export async function GET(request: NextRequest) {
             { error: "Mood Board ID is required" },
             { status: 400 }
         )
+    }
+
+    const session = await auth.api.getSession({
+        headers: await headers(),
+    });
+
+    if (!session) {
+        return NextResponse.json(
+            { isSaved: false }
+        );
     }
 
     const savedMoodBoard = await prisma.saved_mood_boards.findUnique({
