@@ -38,6 +38,7 @@ export function MoodBoardDisplay({ id }: { id: string }) {
             <div className="flex w-full max-w-5xl flex-col gap-5">
                 {moodBoard ? (
                     <TitleCard
+                        moodBoardId={id}
                         userQuery={moodBoard.query}
                         createdAt={moodBoard.created_at}
                         isVeg={moodBoard.is_veg}
