@@ -34,7 +34,7 @@ export async function updateCart(restaurantId: string, itemId: string, newQuanti
 
     const key = `cart:${cartId}`;
 
-    let cart = (await redis.get<Record<string, Record<string, number>>>(key)) || {};
+    const cart = (await redis.get<Record<string, Record<string, number>>>(key)) || {};
 
     if (newQuantity === 0) {
         if (cart[restaurantId]) {
@@ -59,25 +59,70 @@ export async function updateCart(restaurantId: string, itemId: string, newQuanti
     }
 }
 
+type MenuItem = {
+    id: string;
+    name: string;
+    price: number;
+    img: string;
+    veg: boolean;
+};
+
+type RestaurantDetails = {
+    data: {
+        name: string;
+        img: string;
+        menu: MenuItem[];
+    };
+};
+
+type CartItemDetails = {
+    id: string;
+    name: string;
+    price: number;
+    img: string;
+    isVeg: boolean;
+    quantity: number;
+    total: number;
+};
+
+type RestaurantCartDetails = {
+    restaurantId: string;
+    restaurantName: string;
+    restaurantImg: string;
+    restaurantTotal: number;
+    items: CartItemDetails[];
+};
+
 export async function getCartDetails() {
     const { cart } = await getCart();
-    const result: Record<string, any> = {};
+
+    const result: Record<string, RestaurantCartDetails> = {};
+
     for (const [restaurantId, itemsList] of Object.entries(cart)) {
         const restaurantDetails = await getRestaurantById({
             lat: "0",
             lng: "0",
-            restaurantId
-        });
-        const menuMap = new Map<string, any>(restaurantDetails.data.menu.map((item: any) => [item.id, item]));
+            restaurantId,
+        }) as RestaurantDetails;
+
+        const menuMap = new Map<string, MenuItem>(
+            restaurantDetails.data.menu.map((item) => [item.id, item])
+        );
+
         let restaurantTotal = 0;
-        const items = [];
+        const items: CartItemDetails[] = [];
+
         for (const [itemId, quantity] of Object.entries(itemsList)) {
             const item = menuMap.get(itemId);
+
             if (!item) {
                 continue;
             }
+
             const itemTotal = item.price * quantity;
+
             restaurantTotal += itemTotal;
+
             items.push({
                 id: item.id,
                 name: item.name,
@@ -85,16 +130,18 @@ export async function getCartDetails() {
                 img: item.img,
                 isVeg: item.veg,
                 quantity,
-                total: itemTotal
+                total: itemTotal,
             });
         }
+
         result[restaurantId] = {
             restaurantId,
             restaurantName: restaurantDetails.data.name,
             restaurantImg: restaurantDetails.data.img,
             restaurantTotal,
-            items
-        }
+            items,
+        };
     }
+
     return { result };
 }
