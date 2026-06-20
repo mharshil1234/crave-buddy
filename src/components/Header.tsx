@@ -2,7 +2,8 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { ShoppingCart, Sparkles } from "lucide-react";
-import { useSession } from "@/lib/auth-client";
+import { useSession, signOut } from "@/lib/auth-client";
+import { toast } from "sonner";
 
 export function Header() {
   const router = useRouter();
@@ -72,10 +73,14 @@ export function Header() {
           <div className="ml-4 sm:ml-6 lg:ml-8">
             {session?.user ? (
               <div
-                className={`flex items-center gap-2 rounded-full py-1 pl-1 pr-2 ${isCartPage
+                className={`flex items-center gap-2 rounded-full py-1 pl-1 pr-2 hover:cursor-pointer ${isCartPage
                   ? "bg-neutral-100 text-neutral-900"
                   : "bg-white/10 text-white"
                   }`}
+                onClick={() => {
+                  signOut();
+                  toast.success("Signed Out")
+                }}
               >
                 <div
                   className={`flex size-9 items-center justify-center rounded-full text-sm font-extrabold shadow-sm ${isCartPage
@@ -93,7 +98,7 @@ export function Header() {
               <div className="flex items-center gap-2">
                 <button
                   type="button"
-                  onClick={() => router.push("/signin")}
+                  onClick={() => router.push(`/signin?callbackUrl=${encodeURIComponent(pathname)}`)}
                   className={`hidden h-10 items-center rounded-xl border px-4 text-sm font-semibold transition cursor-pointer sm:inline-flex ${isCartPage
                     ? "border-neutral-300 text-neutral-900 hover:bg-neutral-100"
                     : "border-white/30 text-white hover:bg-white/15"
@@ -104,7 +109,7 @@ export function Header() {
 
                 <button
                   type="button"
-                  onClick={() => router.push("/signup")}
+                  onClick={() => router.push(`/signup?callbackUrl=${encodeURIComponent(pathname)}`)}
                   className={`inline-flex h-10 items-center rounded-xl px-3 text-sm font-bold shadow-sm shadow-orange-950/15 transition hover:-translate-y-0.5 hover:shadow-md cursor-pointer sm:px-4 ${isCartPage
                     ? "bg-white text-[#ff5200] ring-1 ring-neutral-200 hover:bg-neutral-50"
                     : "bg-white text-[#ff5200] hover:bg-orange-50"
