@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import type { MenuItem } from "@/types/restaurant";
 import { MenuItemCard } from "@/components/RestaurantPage/MenuItemCard";
 import { useCartStore } from "@/stores/cartStore";
@@ -24,7 +24,7 @@ export function MenuList({ menu, restaurantId }: { menu: MenuItem[] | null; rest
         }
 
         fetchCart();
-    }, [restaurantId])
+    }, [restaurantId, setCart])
 
     return (
         <div className="w-full mt-8">

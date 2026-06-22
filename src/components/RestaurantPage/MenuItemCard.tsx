@@ -3,6 +3,7 @@ import { Star } from "lucide-react"
 import { VegNonVegIcon } from "../ui/VegNonVegIcon"
 import { QuantityButton } from "../ui/QuantityButton"
 import { useState } from "react";
+import Image from "next/image";
 
 export function MenuItemCard({ item, restaurantId }: { item: MenuItem; restaurantId: string }) {
 
@@ -33,7 +34,7 @@ export function MenuItemCard({ item, restaurantId }: { item: MenuItem; restauran
 
             </div>
             <div className="w-45 h-45 relative">
-                <img src="/restaurant.jpeg" alt={item.name} className="w-full h-full object-cover rounded-lg" width={128} height={128} />
+                <Image src="/restaurant.jpeg" alt={item.name} className="w-full h-full object-cover rounded-lg" width={128} height={128} />
                 <QuantityButton itemId={item.id} restaurantId={restaurantId} />
             </div>
         </div>

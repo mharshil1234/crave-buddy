@@ -12,5 +12,5 @@ async function getMoodBoardTest() {
     console.log(data);
 }
 
-// createMoodBoardTest();
+createMoodBoardTest();
 getMoodBoardTest();

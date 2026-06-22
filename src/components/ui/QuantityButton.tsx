@@ -1,4 +1,3 @@
-import { useState } from "react"
 import { useCartStore } from "@/stores/cartStore";
 
 export function QuantityButton({ itemId, restaurantId }: { itemId: string; restaurantId: string }) {

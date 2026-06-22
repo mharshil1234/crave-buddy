@@ -9,7 +9,7 @@ export async function createMoodBoard({
     userId: string | null;
     query: string;
     isVeg: string;
-    moodBoard: any;
+    moodBoard: Record<string, string[]>;
 }) {
     const result = await prisma.mood_boards.create({
         data: {

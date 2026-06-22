@@ -1,5 +1,17 @@
 import restaurantMenu from "../../data/restaurantMenu.json";
 import { pool } from "@/lib/db";
+import type { MenuItem } from "@/types/restaurant";
+
+type RestaurantData = {
+    name: string;
+    restaurantImg: string;
+    location: string;
+    cuisines: string[];
+    rating: number;
+    priceForTwo: number;
+    deliveryTime: string;
+    menu: MenuItem[];
+};
 
 export async function getRestaurants({ lat, lng }: { lat: string, lng: string }) {
     const response = await pool.query(
@@ -13,7 +25,7 @@ export async function getRestaurants({ lat, lng }: { lat: string, lng: string })
 }
 
 export async function getRestaurantById({ lat, lng, restaurantId }: { lat: string, lng: string, restaurantId: string }) {
-    const RestaurantsData = restaurantMenu as Record<string, any>;
+    const RestaurantsData = restaurantMenu as Record<string, RestaurantData>;
 
     const data = RestaurantsData[restaurantId];
 

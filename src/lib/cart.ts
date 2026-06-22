@@ -70,7 +70,7 @@ type MenuItem = {
 type RestaurantDetails = {
     data: {
         name: string;
-        img: string;
+        restaurantImg: string;
         menu: MenuItem[];
     };
 };
@@ -137,7 +137,7 @@ export async function getCartDetails() {
         result[restaurantId] = {
             restaurantId,
             restaurantName: restaurantDetails.data.name,
-            restaurantImg: restaurantDetails.data.img,
+            restaurantImg: restaurantDetails.data.restaurantImg,
             restaurantTotal,
             items,
         };
