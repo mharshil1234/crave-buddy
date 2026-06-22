@@ -1,5 +1,5 @@
 import { getRestaurants, getRestaurantById } from "./restaurant";
-import { geminiFlash, geminiPro } from "./ai";
+import { geminiFlash } from "./ai";
 import { generateText, Output } from "ai";
 import { z } from "zod";
 import { MenuItem } from "@/types/restaurant";
@@ -11,11 +11,11 @@ type AIRestaurant = {
     rating: number;
 }
 
-export function toAIRestaurants(restaurants: any): AIRestaurant[] {
-    return restaurants.map((restaurant: any) => ({
+export function toAIRestaurants(restaurants: { id: string; name: string; cuisines: string | null; avg_rating_string: string | null }[]): AIRestaurant[] {
+    return restaurants.map((restaurant) => ({
         id: restaurant.id,
         name: restaurant.name,
-        cusines: restaurant.cuisines,
+        cusines: restaurant.cuisines?.split(", ").filter(Boolean) ?? [],
         rating: Number(restaurant.avg_rating_string)
     }));
 }

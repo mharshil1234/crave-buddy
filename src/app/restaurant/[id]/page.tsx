@@ -46,7 +46,7 @@ export default function RestaurantPage() {
             fetchRestaurantDetails(lat, lng, id);
         });
 
-    }, [])
+    }, [id])
 
     return (
         <main>

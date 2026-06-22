@@ -1,6 +1,5 @@
 import { updateCart } from "@/lib/cart";
 import { NextRequest, NextResponse } from "next/server";
-import { redis } from "@/lib/redis";
 
 export async function POST(req: NextRequest) {
 

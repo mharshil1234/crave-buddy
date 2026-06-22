@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 type CardProps = {
     id: string;
@@ -22,9 +23,9 @@ export function RestaurantCard({ id, image, name, cuisine, rating, location }: C
         onClick={() => router.push(`/restaurant/${id}`)}
         >
             
-            <div className="relative shadow-md hover:shadow-lg transition-shadow duration-200">
+            <div className="relative h-28 rounded-t-xl overflow-hidden bg-gray-200 shadow-md hover:shadow-lg transition-shadow duration-200">
                 
-                <img src={image} alt={name} className="w-full h-28 object-cover rounded-t-xl mb-4 bg-gray-200" />
+                <Image src={image} alt={name} fill className="object-cover" sizes="(max-width: 768px) 100vw, 360px" />
                 <h2 className="absolute bottom-1 left-2.5 text-xl font-bold mb-1 text-white">{name}</h2>
                 
                 {rating !== undefined && (

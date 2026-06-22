@@ -1,6 +1,5 @@
-import { redis } from "@/lib/redis";
 import { getCart } from "@/lib/cart";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export async function GET() {
     try {
@@ -12,7 +11,7 @@ export async function GET() {
             { status: 200 }
         );
     }
-    catch (error) {
+    catch {
         return NextResponse.json(
             { status: "error", message: "Failed to retrieve cart" },
             { status: 500 }
