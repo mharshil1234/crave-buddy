@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { ShoppingCart, Sparkles } from "lucide-react";
+import { ShoppingCart, Compass, Users } from "lucide-react";
 import { useSession, signOut } from "@/lib/auth-client";
 import { toast } from "sonner";
 
@@ -12,6 +12,7 @@ export function Header() {
   const { data: session } = useSession();
   const userInitial = session?.user?.name?.[0]?.toUpperCase() ?? "U";
   const isMoodBoardPage = pathname.startsWith("/mood-board");
+  const isMoodRoomPage = pathname.startsWith("/mood-room");
   const isCartPage = pathname === "/cart";
 
   return (
@@ -54,8 +55,22 @@ export function Header() {
                 : "bg-white text-[#ff5200] shadow-orange-950/15 hover:bg-orange-50"
                 }`}
             >
-              <Sparkles size={18} aria-hidden="true" />
+              <Compass size={22} aria-hidden="true" />
               <span className="hidden sm:inline">Mood Board</span>
+            </button>
+          )}
+
+          {!isMoodRoomPage && (
+            <button
+              type="button"
+              onClick={() => router.push("/mood-room/create")}
+              className={`inline-flex h-10 items-center justify-center gap-2 rounded-xl px-3 text-sm font-bold shadow-sm transition hover:-translate-y-0.5 hover:shadow-md cursor-pointer sm:px-4 ${isCartPage
+                ? "bg-white text-[#ff5200] shadow-neutral-950/15 ring-1 ring-neutral-200 hover:bg-neutral-50"
+                : "bg-white text-[#ff5200] shadow-orange-950/15 hover:bg-orange-50"
+                }`}
+            >
+              <Users size={18} aria-hidden="true" />
+              <span className="hidden sm:inline">Mood Room</span>
             </button>
           )}
 
