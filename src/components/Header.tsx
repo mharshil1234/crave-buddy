@@ -8,7 +8,6 @@ import { toast } from "sonner";
 export function Header() {
   const router = useRouter();
   const pathname = usePathname();
-
   const { data: session } = useSession();
   const userInitial = session?.user?.name?.[0]?.toUpperCase() ?? "U";
   const isMoodBoardPage = pathname.startsWith("/mood-board");

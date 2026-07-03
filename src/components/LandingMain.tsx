@@ -6,15 +6,16 @@ import { RestaurantCard } from "./RestaurantCard"
 type Restaurant = {
         id: string;
         name: string;
-        cloudinaryImageId: string;
-        areaName: string;
+        cloudinary_image_id: string;
+        area_name: string;
         cuisines: string;
-        avgRatingString: string;
+        avg_rating_string: string;
 };
 
 export function LandingMain() {
 
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
 
@@ -39,6 +40,10 @@ export function LandingMain() {
 
                 console.error("Error fetching restaurants:", error);
             
+            } finally {
+
+                setLoading(false);
+
             }       
 
         }
@@ -51,6 +56,17 @@ export function LandingMain() {
         });
 
     }, [])
+    
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-[50vh]">
+                <div className="flex flex-col items-center gap-4">
+                    <div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-black" />
+                    <p className="text-sm text-gray-600">Loading restaurants...</p>
+                </div>
+            </div>
+        );
+    }
     
     return (
 
@@ -68,11 +84,11 @@ export function LandingMain() {
                         <RestaurantCard
                             key={info.id}
                             id={info.id}
-                            image={`https://media-assets.swiggy.com/swiggy/image/upload/${info.cloudinaryImageId}`}
+                            image={`/restaurantImage.jpeg`}
                             name={info.name}
                             cuisine={info.cuisines}
-                            location={info.areaName}
-                            rating={info.avgRatingString}
+                            location={info.area_name}
+                            rating={info.avg_rating_string}
                         />
                     )
                 })}
