@@ -15,6 +15,7 @@ type Restaurant = {
 export function LandingMain() {
 
     const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
 
@@ -39,6 +40,10 @@ export function LandingMain() {
 
                 console.error("Error fetching restaurants:", error);
             
+            } finally {
+
+                setLoading(false);
+
             }       
 
         }
@@ -51,6 +56,17 @@ export function LandingMain() {
         });
 
     }, [])
+    
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-[50vh]">
+                <div className="flex flex-col items-center gap-4">
+                    <div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-300 border-t-black" />
+                    <p className="text-sm text-gray-600">Loading restaurants...</p>
+                </div>
+            </div>
+        );
+    }
     
     return (
 
