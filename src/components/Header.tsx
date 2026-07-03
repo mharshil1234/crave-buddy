@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { ShoppingCart, Sparkles } from "lucide-react";
+import { ShoppingCart, Compass } from "lucide-react";
 import { useSession, signOut } from "@/lib/auth-client";
 import { toast } from "sonner";
 
@@ -54,7 +54,7 @@ export function Header() {
                 : "bg-white text-[#ff5200] shadow-orange-950/15 hover:bg-orange-50"
                 }`}
             >
-              <Sparkles size={18} aria-hidden="true" />
+              <Compass size={22} aria-hidden="true" />
               <span className="hidden sm:inline">Mood Board</span>
             </button>
           )}

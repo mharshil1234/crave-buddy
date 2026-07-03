@@ -40,8 +40,8 @@ export function RestaurantCard({ id, image, name, cuisine, rating, location }: C
             </div>
 
             <div className="px-4 pb-4 mt-2">
-                <p className="text-gray-600 mb-1 text-sm">{cuisine}</p>
-                <p className="text-gray-600 mb-0 text-sm">{location}</p>
+                <p className="font-semibold text-sm truncate">{cuisine}</p>
+                <p className="text-gray-500 text-sm">{location}</p>
             </div>
 
         </div>
