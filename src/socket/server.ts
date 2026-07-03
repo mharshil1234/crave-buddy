@@ -13,12 +13,12 @@ const io = new Server(httpServer, {
 });
 
 io.on("connection", (socket) => {
-    console.log(`Connected: ${socket.id}`);
 
-    socket.on("disconnect", () => {
-        console.log(`Disconnected: ${socket.id}`);
+    io.emit("user-joined", {
+        id: socket.id,
     });
-});
+}
+)
 
 httpServer.listen(3001, () => {
     console.log("Socket server running on port 3001");
