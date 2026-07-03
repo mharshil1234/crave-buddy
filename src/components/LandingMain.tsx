@@ -6,10 +6,10 @@ import { RestaurantCard } from "./RestaurantCard"
 type Restaurant = {
         id: string;
         name: string;
-        cloudinaryImageId: string;
-        areaName: string;
+        cloudinary_image_id: string;
+        area_name: string;
         cuisines: string;
-        avgRatingString: string;
+        avg_rating_string: string;
 };
 
 export function LandingMain() {
@@ -84,11 +84,11 @@ export function LandingMain() {
                         <RestaurantCard
                             key={info.id}
                             id={info.id}
-                            image={`https://media-assets.swiggy.com/swiggy/image/upload/${info.cloudinaryImageId}`}
+                            image={`/restaurantImage.jpeg`}
                             name={info.name}
                             cuisine={info.cuisines}
-                            location={info.areaName}
-                            rating={info.avgRatingString}
+                            location={info.area_name}
+                            rating={info.avg_rating_string}
                         />
                     )
                 })}

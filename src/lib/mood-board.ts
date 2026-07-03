@@ -171,7 +171,7 @@ export async function getMoodMenu({ moodRestaurantsMenuItems, query, isVeg }: { 
 }
 
 export async function getMoodBoard({ lat, lng, isVeg, query }: { lat: string, lng: string, isVeg: string, query: string }) {
-    const useAI = false;
+    const useAI = true;
     if (!useAI) {
         return {
             "502999": [
