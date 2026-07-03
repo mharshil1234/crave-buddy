@@ -14,6 +14,7 @@ export default function RestaurantPage() {
 
     const [restaurantDetails, setRestaurantDetails] = useState<RestaurantDetails | null>(null);
     const [restaurantMenu, setRestaurantMenu] = useState<MenuItem[] | null>([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
 
@@ -36,6 +37,8 @@ export default function RestaurantPage() {
 
             } catch (err) {
                 console.log("Error: ", err);
+            } finally {
+                setLoading(false);
             }
         }
 
@@ -47,6 +50,58 @@ export default function RestaurantPage() {
         });
 
     }, [id])
+
+    if (loading) {
+        return (
+            <main>
+                <Header />
+                <div className="p-8 px-40 flex justify-center items-center">
+                    <div className="w-200 py-8">
+                        <div className="h-8 w-64 bg-gray-200 rounded animate-pulse" />
+
+                        <div className="w-full rounded-2xl my-8 p-6 border border-gray-200 bg-white">
+                            <div className="flex items-center gap-4 mb-4">
+                                <div className="h-6 w-16 bg-gray-200 rounded animate-pulse" />
+                                <div className="w-2 h-2 bg-gray-200 rounded-full" />
+                                <div className="h-6 w-32 bg-gray-200 rounded animate-pulse" />
+                            </div>
+                            <div className="mb-4">
+                                <div className="h-4 w-48 bg-gray-200 rounded animate-pulse" />
+                            </div>
+                            <div className="flex items-center gap-4 mb-4">
+                                <div className="w-2 h-2 bg-gray-200 rounded-full" />
+                                <div className="h-5 w-16 bg-gray-200 rounded animate-pulse" />
+                                <div className="h-5 w-48 bg-gray-200 rounded animate-pulse" />
+                            </div>
+                            <div className="flex items-center gap-4">
+                                <div className="w-2 h-2 bg-gray-200 rounded-full" />
+                                <div className="h-5 w-24 bg-gray-200 rounded animate-pulse" />
+                            </div>
+                        </div>
+
+                        <div className="flex justify-center">
+                            <div className="h-7 w-32 bg-gray-200 rounded animate-pulse mt-4" />
+                        </div>
+
+                        <div className="h-10 w-full bg-gray-200 rounded-lg animate-pulse mt-4" />
+
+                        {[1, 2, 3].map((i) => (
+                            <div key={i} className="w-full flex mt-4 border-t-1 py-4">
+                                <div className="w-[70%] mt-2">
+                                    <div className="h-4 w-8 bg-gray-200 rounded animate-pulse mb-2" />
+                                    <div className="h-6 w-48 bg-gray-200 rounded animate-pulse mb-2" />
+                                    <div className="h-4 w-12 bg-gray-200 rounded animate-pulse mb-2" />
+                                    <div className="h-5 w-16 bg-gray-200 rounded animate-pulse mb-2" />
+                                    <div className="h-4 w-full bg-gray-200 rounded animate-pulse" />
+                                </div>
+                                <div className="ml-auto w-45 h-45 bg-gray-200 rounded-lg animate-pulse" />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </main>
+        )
+    }
 
     return (
         <main>
