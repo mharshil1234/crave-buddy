@@ -53,7 +53,7 @@ export function MoodRoomForm() {
             }
 
             toast.success("Room created successfully!");
-            //router.push(`/mood-room/${data.room.id}`);
+            router.push(`/mood-room/${data.room.roomId}`);
         } catch (error) {
             console.error("Error creating room:", error);
             toast.error("Something went wrong");
