@@ -6,6 +6,7 @@ import type {
     createMoodRoomInviteProps,
     createMoodRoomMemberProps,
     createRoomProps,
+    joinRoomProps,
 } from "@/types/mood-room";
 
 type DB = typeof prisma | Prisma.TransactionClient;
@@ -189,5 +190,97 @@ export async function getRoom({ roomId }: { roomId: string }) {
             isHost: member.userId === room.hostId,
         })),
         sessions: room.sessions,
+    };
+}
+
+export async function joinRoom({
+    inviteCode,
+    userId,
+    displayName,
+}: joinRoomProps) {
+    const code = inviteCode.trim().toUpperCase();
+
+    const invite = await prisma.moodRoomInvite.findUnique({
+        where: {
+            code,
+        },
+        select: {
+            id: true,
+            expiresAt: true,
+            revokedAt: true,
+            room: {
+                select: {
+                    id: true,
+                    maxMembers: true,
+                    status: true,
+                    members: {
+                        where: {
+                            leftAt: null,
+                        },
+                        select: {
+                            id: true,
+                            userId: true,
+                        },
+                    },
+                },
+            },
+        },
+    });
+
+    if (!invite) {
+        throw new Error("Invalid invite code");
+    }
+
+    if (invite.revokedAt || (invite.expiresAt && invite.expiresAt <= new Date())) {
+        throw new Error("Invite code expired");
+    }
+
+    if (invite.room.status !== "ACTIVE") {
+        throw new Error("Mood room is not active");
+    }
+
+    const existingMember = invite.room.members.find(
+        (member) => member.userId === userId
+    );
+
+    if (existingMember) {
+        await prisma.moodRoomMember.update({
+            where: {
+                id: existingMember.id,
+            },
+            data: {
+                displayName,
+            },
+        });
+
+        return {
+            roomId: invite.room.id,
+        };
+    }
+
+    if (invite.room.members.length >= invite.room.maxMembers) {
+        throw new Error("Mood room is full");
+    }
+
+    await prisma.moodRoomMember.create({
+        data: {
+            roomId: invite.room.id,
+            userId,
+            displayName,
+            inviteId: invite.id,
+        },
+    });
+
+    await prisma.moodRoom.update({
+        where: {
+            id: invite.room.id,
+        },
+        data: {
+            lastActivityAt: new Date(),
+        },
+    });
+
+    return {
+        roomId: invite.room.id,
     };
 }

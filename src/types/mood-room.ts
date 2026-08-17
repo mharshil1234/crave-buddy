@@ -19,3 +19,9 @@ export type createRoomProps = {
     hostId: string;
     displayName: string;
 };
+
+export type joinRoomProps = {
+    inviteCode: string;
+    userId: string;
+    displayName: string;
+};
