@@ -25,3 +25,9 @@ export type joinRoomProps = {
     userId: string;
     displayName: string;
 };
+
+export type startRoomSessionProps = {
+    roomId: string;
+    hostId: string;
+    title: string;
+};

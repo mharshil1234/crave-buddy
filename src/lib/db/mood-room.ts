@@ -7,6 +7,7 @@ import type {
     createMoodRoomMemberProps,
     createRoomProps,
     joinRoomProps,
+    startRoomSessionProps,
 } from "@/types/mood-room";
 
 type DB = typeof prisma | Prisma.TransactionClient;
@@ -282,5 +283,57 @@ export async function joinRoom({
 
     return {
         roomId: invite.room.id,
+    };
+}
+
+export async function startRoomSession({
+    roomId,
+    hostId,
+    title,
+}: startRoomSessionProps) {
+    const room = await prisma.moodRoom.findUnique({
+        where: {
+            id: roomId,
+        },
+        select: {
+            id: true,
+            hostId: true,
+            status: true,
+        },
+    });
+
+    if (!room) {
+        throw new Error("Mood room not found");
+    }
+
+    if (room.hostId !== hostId) {
+        throw new Error("Only the host can start a session");
+    }
+
+    if (room.status !== "ACTIVE") {
+        throw new Error("Mood room is not active");
+    }
+
+    const session = await prisma.moodRoomSession.create({
+        data: {
+            roomId,
+            title: title.trim() || null,
+        },
+        select: {
+            id: true,
+        },
+    });
+
+    await prisma.moodRoom.update({
+        where: {
+            id: roomId,
+        },
+        data: {
+            lastActivityAt: new Date(),
+        },
+    });
+
+    return {
+        sessionId: session.id,
     };
 }
