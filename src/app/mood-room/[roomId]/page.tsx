@@ -1,6 +1,6 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useSession } from "@/lib/auth-client";
 import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
@@ -40,6 +40,7 @@ type MoodRoomData = {
 
 export default function MoodRoomPage() {
   const params = useParams();
+  const router = useRouter();
   const roomId = params.roomId as string;
   const { data: session } = useSession();
   const [isLoading, setIsLoading] = useState(false);
@@ -75,16 +76,22 @@ export default function MoodRoomPage() {
 
   const isHost = roomData?.hostId === session?.user?.id;
 
-  const handleStartSession = async () => {
+  const handleStartSession = async (sessionName: string) => {
+    if (!session?.user?.id) return;
+
     setIsLoading(true);
     try {
       const res = await fetch(`/api/mood-room/${roomId}/session`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          hostId: session.user.id,
+          title: sessionName,
+        }),
       });
       if (res.ok) {
-        await res.json();
-        // TODO: Navigate to active session
+        const data = await res.json();
+        router.push(`/mood-room/${roomId}/session/${data.session.sessionId}`);
       }
     } catch (error) {
       console.error("Failed to start session:", error);
