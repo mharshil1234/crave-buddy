@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "@/lib/auth-client";
 import { toast } from "sonner";
@@ -14,14 +14,9 @@ export function MoodRoomForm() {
     const [displayName, setDisplayName] = useState("");
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        if (session?.user?.name && !displayName) {
-            setDisplayName(session.user.name.split(" ")[0]);
-        }
-    }, [session?.user?.name]);
-
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        const finalDisplayName = displayName.trim() || session?.user?.name?.split(" ")[0] || "";
 
         if (!session?.user?.id) {
             toast.error("Please sign in to create a room");
@@ -29,7 +24,7 @@ export function MoodRoomForm() {
             return;
         }
 
-        if (!moodRoomName.trim() || !displayName.trim()) {
+        if (!moodRoomName.trim() || !finalDisplayName) {
             toast.error("Please fill in all fields");
             return;
         }
@@ -42,7 +37,7 @@ export function MoodRoomForm() {
                 body: JSON.stringify({
                     moodRoomName: moodRoomName.trim(),
                     hostId: session.user.id,
-                    displayName: displayName.trim(),
+                    displayName: finalDisplayName,
                 }),
             });
             const data = await response.json();
@@ -107,7 +102,7 @@ export function MoodRoomForm() {
                         <input
                             id="displayName"
                             type="text"
-                            placeholder="How others see you"
+                            placeholder={session?.user?.name?.split(" ")[0] || "How others see you"}
                             value={displayName}
                             onChange={(e) => setDisplayName(e.target.value)}
                             className="mt-1.5 block w-full rounded-xl border border-neutral-300 px-4 py-3 text-sm outline-none ring-2 ring-transparent transition focus:ring-[#ff5200] focus:border-transparent"
@@ -122,6 +117,14 @@ export function MoodRoomForm() {
                         {loading ? "Creating..." : "Create Room"}
                     </button>
                 </form>
+
+                <button
+                    type="button"
+                    onClick={() => router.push("/mood-room/join")}
+                    className="mt-5 w-full text-center text-sm font-semibold text-[#ff5200] transition hover:text-orange-700"
+                >
+                    Have an invite code? Join a room
+                </button>
             </div>
 
             <LoaderModal isLoading={loading} />
