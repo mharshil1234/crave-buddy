@@ -5,6 +5,7 @@ import { useSession } from "@/lib/auth-client";
 import { useState, useEffect, useRef } from "react";
 import { Header } from "@/components/Header";
 import { RoomHeader } from "@/components/MoodRoom/RoomHeader";
+import ChatBox from "@/components/MoodRoomSession/ChatBox";
 
 export default function MoodRoomSessionPage() {
     const params = useParams();
@@ -15,14 +16,6 @@ export default function MoodRoomSessionPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [sessionData, setSessionData] = useState<any | null>(null);
     const [messages, setMessages] = useState<Array<{id: string; sender: "user" | "bot"; text: string}>>([]);
-    const [input, setInput] = useState("");
-    const [isBotTyping, setIsBotTyping] = useState(false);
-    const messagesRef = useRef<HTMLDivElement | null>(null);
-
-    useEffect(() => {
-        if (!messagesRef.current) return;
-        messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
-    }, [messages]);
 
     useEffect(() => {
         if (!roomId || !sessionId) return;
@@ -95,27 +88,7 @@ export default function MoodRoomSessionPage() {
                     Session ID: {moodSession.session.id}
                 </p>
             </div>
-            <div className="p-4">
-                <h3 className="text-lg font-semibold mb-3">Chat</h3>
-                <div ref={messagesRef} className="border rounded-md h-72 overflow-auto p-3 bg-white">
-                    
-                </div>
-            </div>
-
-            <div className="fixed left-0 right-0 bottom-0 p-4 bg-white/80 backdrop-blur-md border-t">
-                <form
-                    onSubmit={async (e) => {}}
-                    className="flex gap-2 items-center"
-                >
-                    <input
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        placeholder="Type a message..."
-                        className="flex-1 rounded-md border px-3 py-2 focus:outline-none"
-                    />
-                    <button type="submit" className="rounded-md bg-blue-600 text-white px-4 py-2">Send</button>
-                </form>
-            </div>
+            <ChatBox />
         </div>
     );
 }
