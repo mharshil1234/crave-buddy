@@ -14,11 +14,21 @@ const io = new Server(httpServer, {
 
 io.on("connection", (socket) => {
 
-    io.emit("user-joined", {
-        id: socket.id,
+    socket.on("session:join", ({ sessionId }) => {
+        socket.join(sessionId);
     });
-}
-)
+
+    socket.on("chat:send", ({ sessionId, message, username }) => {
+        io.to(sessionId).emit("chat:message", { 
+            id: crypto.randomUUID(),
+            message,
+            userId: socket.id,
+            username,
+            createdAt: new Date().toISOString()
+        });
+    });
+
+});
 
 httpServer.listen(3001, () => {
     console.log("Socket server running on port 3001");
