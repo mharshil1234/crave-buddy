@@ -88,7 +88,7 @@ export default function MoodRoomSessionPage() {
                     Session ID: {moodSession.session.id}
                 </p>
             </div>
-            <ChatBox />
+            <ChatBox sessionId={sessionId} username={session.user.name} />
         </div>
     );
 }
