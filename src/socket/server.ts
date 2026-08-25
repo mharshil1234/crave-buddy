@@ -35,6 +35,7 @@ io.on("connection", (socket) => {
                 userId: socket.id,
                 createdAt: new Date().toISOString()
             });
+            io.to(sessionId).emit("chat:users", { count: users.size });
         }
     });
 
@@ -64,6 +65,8 @@ io.on("connection", (socket) => {
                 });
                 if (users.size === 0) {
                     sessionUsers.delete(sessionId);
+                } else {
+                    io.to(sessionId).emit("chat:users", { count: users.size });
                 }
             }
         });

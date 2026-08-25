@@ -13,10 +13,11 @@ type Message = {
     type?: "chat" | "join" | "leave";
 };
 
-export default function ChatBox({ sessionId, username }: { sessionId: string; username: string }) {
+export default function ChatBox({ sessionId, username, memberCount }: { sessionId: string; username: string; memberCount: number }) {
 
     const [messages, setMessages] = useState<Message[]>([]);
     const [input, setInput] = useState("");
+    const [activeUsers, setActiveUsers] = useState(0);
 
     const messagesRef = useRef<HTMLDivElement | null>(null);
     const trimmedInput = input.trim();
@@ -35,11 +36,17 @@ export default function ChatBox({ sessionId, username }: { sessionId: string; us
             setMessages((prevMessages) => [...prevMessages, message]);
         };
 
+        const handleUsers = ({ count }: { count: number }) => {
+            setActiveUsers(count);
+        };
+
         socket.on("chat:message", handleNewMessage);
+        socket.on("chat:users", handleUsers);
         socket.emit("session:join", { sessionId, username });
 
         return () => {
             socket.off("chat:message", handleNewMessage);
+            socket.off("chat:users", handleUsers);
         };
     }, [sessionId, username]);
 
@@ -65,6 +72,10 @@ export default function ChatBox({ sessionId, username }: { sessionId: string; us
                     <div>
                         <h3 className="text-base font-semibold text-gray-950">Session Chat</h3>
                     </div>
+                </div>
+                <div className="flex items-center gap-2">
+                    <div className="h-2 w-2 rounded-full bg-green-500"></div>
+                    <span className="text-sm text-gray-600">{activeUsers}/{memberCount} active</span>
                 </div>
             </div>
 

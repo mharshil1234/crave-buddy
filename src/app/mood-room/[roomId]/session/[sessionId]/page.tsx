@@ -15,7 +15,7 @@ export default function MoodRoomSessionPage() {
     const { data: session } = useSession();
     const [isLoading, setIsLoading] = useState(false);
     const [sessionData, setSessionData] = useState<any | null>(null);
-    const [messages, setMessages] = useState<Array<{id: string; sender: "user" | "bot"; text: string}>>([]);
+    const [messages, setMessages] = useState<Array<{ id: string; sender: "user" | "bot"; text: string }>>([]);
     const [isMember, setIsMember] = useState<boolean | null>(null);
 
     useEffect(() => {
@@ -128,38 +128,8 @@ export default function MoodRoomSessionPage() {
                         </p>
                     </div>
                 </div>
-                <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-                    <div className="lg:col-span-3">
-                        <div className="bg-white rounded-lg shadow-lg p-6">
-                            <ChatBox sessionId={sessionId} username={session.user.name} />
-                        </div>
-                    </div>
-                    <div className="lg:col-span-1">
-                        <div className="bg-white rounded-lg shadow-lg p-6 h-fit">
-                            <h3 className="text-xl font-bold text-gray-900 mb-4">Session Info</h3>
-                            <div className="space-y-4">
-                                <div>
-                                    <p className="text-sm text-gray-600">Current User</p>
-                                    <p className="text-lg font-semibold text-blue-600">{session.user.name}</p>
-                                </div>
-                                <div>
-                                    <p className="text-sm text-gray-600">Active Members</p>
-                                    <p className="text-lg font-semibold text-gray-900">{room.members.length} / {room.maxMembers}</p>
-                                </div>
-                                <div className="pt-4 border-t">
-                                    <p className="text-sm text-gray-600 mb-2">Members</p>
-                                    <div className="space-y-2">
-                                        {room.members.map((member: any) => (
-                                            <div key={member.id} className="flex items-center gap-2 p-2 bg-gray-50 rounded">
-                                                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                                                <span className="text-sm text-gray-700">{member.name}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div className="bg-white rounded-lg shadow-lg p-6">
+                    <ChatBox sessionId={sessionId} username={session.user.name} memberCount={room.members.length} />
                 </div>
             </div>
         </div>
