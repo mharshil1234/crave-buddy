@@ -71,7 +71,7 @@ export default function MoodRoomSessionPage() {
     const { room } = moodSession;
 
     return (
-        <div>
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
             <Header />
             <RoomHeader
                 roomName={room.name}
@@ -80,15 +80,51 @@ export default function MoodRoomSessionPage() {
                 maxMembers={room.maxMembers}
                 inviteCode={room.inviteCode}
             />
-            <div className="p-4">
-                <h2 className="text-2xl font-bold text-neutral-900">
-                    Session: {moodSession.session.title || "Untitled"}
-                </h2>
-                <p className="mt-2 text-neutral-700">
-                    Session ID: {moodSession.session.id}
-                </p>
+            <div className="max-w-6xl mx-auto px-4 py-6">
+                <div className="mb-6">
+                    <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500">
+                        <h2 className="text-3xl font-bold text-gray-900 mb-2">
+                            {moodSession.session.title || "Untitled Session"}
+                        </h2>
+                        <p className="text-gray-600">
+                            Session ID: <span className="font-mono text-sm bg-gray-100 px-2 py-1 rounded">{moodSession.session.id}</span>
+                        </p>
+                    </div>
+                </div>
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                    <div className="lg:col-span-3">
+                        <div className="bg-white rounded-lg shadow-lg p-6">
+                            <ChatBox sessionId={sessionId} username={session.user.name} />
+                        </div>
+                    </div>
+                    <div className="lg:col-span-1">
+                        <div className="bg-white rounded-lg shadow-lg p-6 h-fit">
+                            <h3 className="text-xl font-bold text-gray-900 mb-4">Session Info</h3>
+                            <div className="space-y-4">
+                                <div>
+                                    <p className="text-sm text-gray-600">Current User</p>
+                                    <p className="text-lg font-semibold text-blue-600">{session.user.name}</p>
+                                </div>
+                                <div>
+                                    <p className="text-sm text-gray-600">Active Members</p>
+                                    <p className="text-lg font-semibold text-gray-900">{room.members.length} / {room.maxMembers}</p>
+                                </div>
+                                <div className="pt-4 border-t">
+                                    <p className="text-sm text-gray-600 mb-2">Members</p>
+                                    <div className="space-y-2">
+                                        {room.members.map((member: any) => (
+                                            <div key={member.id} className="flex items-center gap-2 p-2 bg-gray-50 rounded">
+                                                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                                                <span className="text-sm text-gray-700">{member.name}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <ChatBox sessionId={sessionId} username={session.user.name} />
         </div>
     );
 }
