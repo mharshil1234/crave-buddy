@@ -16,9 +16,36 @@ export default function MoodRoomSessionPage() {
     const [isLoading, setIsLoading] = useState(false);
     const [sessionData, setSessionData] = useState<any | null>(null);
     const [messages, setMessages] = useState<Array<{id: string; sender: "user" | "bot"; text: string}>>([]);
+    const [isMember, setIsMember] = useState<boolean | null>(null);
 
     useEffect(() => {
-        if (!roomId || !sessionId) return;
+        if (!roomId || !session?.user?.id) return;
+
+        let isMounted = true;
+
+        const verifyMembership = async () => {
+            try {
+                const res = await fetch(`/api/mood-room/${roomId}/verify-member`);
+                if (isMounted) {
+                    setIsMember(res.ok);
+                }
+            } catch (error) {
+                console.error("Error verifying membership:", error);
+                if (isMounted) {
+                    setIsMember(false);
+                }
+            }
+        };
+
+        verifyMembership();
+
+        return () => {
+            isMounted = false;
+        };
+    }, [roomId, session?.user?.id]);
+
+    useEffect(() => {
+        if (!roomId || !sessionId || isMember !== true) return;
 
         let isMounted = true;
 
@@ -45,13 +72,23 @@ export default function MoodRoomSessionPage() {
         return () => {
             isMounted = false;
         };
-    }, [roomId, sessionId]);
+    }, [roomId, sessionId, isMember]);
 
     if (!session) {
         return (
             <div className="flex h-screen items-center justify-center">
                 <p className="text-lg font-semibold text-neutral-700">
                     Please log in to access the mood room session.
+                </p>
+            </div>
+        );
+    }
+
+    if (isMember === false) {
+        return (
+            <div className="flex h-screen items-center justify-center">
+                <p className="text-lg font-semibold text-neutral-700">
+                    You&apos;re not a member of this mood room.
                 </p>
             </div>
         );

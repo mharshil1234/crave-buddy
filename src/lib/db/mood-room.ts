@@ -337,3 +337,16 @@ export async function startRoomSession({
         sessionId: session.id,
     };
 }
+
+export async function checkRoomMembership({roomId, userId}: {roomId: string, userId: string}) {
+
+    const member = await prisma.moodRoomMember.findFirst({
+        where: {
+            roomId,
+            userId,
+            leftAt: null,
+        },
+    })
+
+    return member !== null
+}

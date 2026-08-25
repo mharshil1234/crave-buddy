@@ -45,9 +45,36 @@ export default function MoodRoomPage() {
   const { data: session } = useSession();
   const [isLoading, setIsLoading] = useState(false);
   const [roomData, setRoomData] = useState<MoodRoomData | null>(null);
+  const [isMember, setIsMember] = useState<boolean | null>(null);
 
   useEffect(() => {
-    if (!roomId) return;
+    if (!roomId || !session?.user?.id) return;
+
+    let isMounted = true;
+
+    const verifyMembership = async () => {
+      try {
+        const res = await fetch(`/api/mood-room/${roomId}/verify-member`);
+        if (isMounted) {
+          setIsMember(res.ok);
+        }
+      } catch (error) {
+        console.error("Error verifying membership:", error);
+        if (isMounted) {
+          setIsMember(false);
+        }
+      }
+    };
+
+    verifyMembership();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [roomId, session?.user?.id]);
+
+  useEffect(() => {
+    if (!roomId || isMember !== true) return;
 
     let isMounted = true;
 
@@ -72,7 +99,7 @@ export default function MoodRoomPage() {
     return () => {
       isMounted = false;
     };
-  }, [roomId]);
+  }, [roomId, isMember]);
 
   const isHost = roomData?.hostId === session?.user?.id;
 
@@ -100,7 +127,27 @@ export default function MoodRoomPage() {
     }
   };
 
-  if (!roomData) {
+  if (!session) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <p className="text-lg font-semibold text-neutral-700">
+          Please log in to access this mood room.
+        </p>
+      </div>
+    );
+  }
+
+  if (isMember === false) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <p className="text-lg font-semibold text-neutral-700">
+          You are not a member of this mood room.
+        </p>
+      </div>
+    );
+  }
+
+  if (!roomData || isMember === null) {
     return <LoaderModal isLoading={true} />;
   }
 
