@@ -25,3 +25,12 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
 }
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

@@ -1,4 +1,3 @@
-
 generator client {
   provider = "prisma-client"
   output   = "../generated/prisma"
@@ -27,7 +26,6 @@ model saved_mood_boards {
   created_at    DateTime @default(now()) @db.Timestamptz(6)
 
   @@id([user_id, mood_board_id])
-
   @@index([user_id])
   @@index([mood_board_id])
 }
@@ -42,15 +40,17 @@ model restaurants {
 }
 
 model User {
-  id            String    @id
-  name          String
-  email         String
-  emailVerified Boolean   @default(false)
-  image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  sessions      Session[]
-  accounts      Account[]
+  id                  String           @id
+  name                String
+  email               String
+  emailVerified       Boolean          @default(false)
+  image               String?
+  createdAt           DateTime         @default(now())
+  updatedAt           DateTime         @updatedAt
+  sessions            Session[]
+  accounts            Account[]
+  hostedMoodRooms     MoodRoom[]
+  moodRoomMemberships MoodRoomMember[]
 
   @@unique([email])
   @@map("user")
@@ -102,4 +102,171 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
+}
+
+enum MoodRoomStatus {
+  ACTIVE
+  ARCHIVED
+}
+
+enum MoodRoomSessionStatus {
+  ACTIVE
+  ENDED
+}
+
+enum MoodRoomPhase {
+  LOBBY
+  PROMPT_COLLECTION
+  RESTAURANT_VOTING
+  ITEM_VOTING
+  FINISHED
+}
+
+model MoodRoom {
+  id             String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name           String            @db.VarChar(100)
+  hostId         String
+  host           User              @relation(fields: [hostId], references: [id], onDelete: Cascade)
+  status         MoodRoomStatus    @default(ACTIVE)
+  createdAt      DateTime          @default(now()) @db.Timestamptz(6)
+  updatedAt      DateTime          @updatedAt @db.Timestamptz(6)
+  lastActivityAt DateTime          @default(now()) @db.Timestamptz(6)
+  invites        MoodRoomInvite[]
+  members        MoodRoomMember[]
+  sessions       MoodRoomSession[]
+  maxMembers     Int               @default(8)
+
+  @@index([hostId])
+  @@index([status])
+  @@map("mood_rooms")
+}
+
+model MoodRoomInvite {
+  id              String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  roomId          String           @db.Uuid
+  room            MoodRoom         @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  code            String           @unique @db.VarChar(12)
+  expiresAt       DateTime?        @db.Timestamptz(6)
+  revokedAt       DateTime?        @db.Timestamptz(6)
+  createdAt       DateTime         @default(now()) @db.Timestamptz(6)
+  moodRoomMembers MoodRoomMember[]
+
+  @@index([roomId])
+  @@map("mood_room_invites")
+}
+
+model MoodRoomMember {
+  id              String                   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  roomId          String                   @db.Uuid
+  room            MoodRoom                 @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  userId          String?
+  user            User?                    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  displayName     String                   @db.VarChar(50)
+  joinedAt        DateTime                 @default(now()) @db.Timestamptz(6)
+  leftAt          DateTime?                @db.Timestamptz(6)
+  messages        MoodRoomMessage[]
+  prompts         MoodRoomPrompt[]
+  restaurantVotes MoodRoomRestaurantVote[]
+  itemVotes       MoodRoomItemVote[]
+  inviteId        String?                  @db.Uuid
+  invite          MoodRoomInvite?          @relation(fields: [inviteId], references: [id], onDelete: SetNull)
+
+  @@index([roomId, displayName])
+  @@index([roomId])
+  @@index([userId])
+  @@index([inviteId])
+  @@map("mood_room_members")
+}
+
+model MoodRoomSession {
+  id              String                   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title           String?                  @db.VarChar(100)
+  roomId          String                   @db.Uuid
+  room            MoodRoom                 @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  status          MoodRoomSessionStatus    @default(ACTIVE)
+  phase           MoodRoomPhase            @default(LOBBY)
+  startedAt       DateTime                 @default(now()) @db.Timestamptz(6)
+  endedAt         DateTime?                @db.Timestamptz(6)
+  updatedAt       DateTime                 @updatedAt @db.Timestamptz(6)
+  messages        MoodRoomMessage[]
+  prompts         MoodRoomPrompt[]
+  restaurantVotes MoodRoomRestaurantVote[]
+  itemVotes       MoodRoomItemVote[]
+  result          MoodRoomSessionResult?
+
+  @@index([roomId])
+  @@index([status])
+  @@index([roomId, status])
+  @@map("mood_room_sessions")
+}
+
+model MoodRoomMessage {
+  id        String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  sessionId String          @db.Uuid
+  memberId  String          @db.Uuid
+  session   MoodRoomSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  member    MoodRoomMember  @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  content   String          @db.Text
+  createdAt DateTime        @default(now()) @db.Timestamptz(6)
+  editedAt  DateTime?       @db.Timestamptz(6)
+
+  @@index([sessionId, createdAt])
+  @@index([memberId])
+  @@map("mood_room_messages")
+}
+
+model MoodRoomPrompt {
+  id        String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  sessionId String          @db.Uuid
+  memberId  String          @db.Uuid
+  session   MoodRoomSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  member    MoodRoomMember  @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  prompt    String          @db.Text
+  createdAt DateTime        @default(now()) @db.Timestamptz(6)
+
+  @@unique([sessionId, memberId])
+  @@index([sessionId])
+  @@map("mood_room_prompts")
+}
+
+model MoodRoomRestaurantVote {
+  id           String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  sessionId    String          @db.Uuid
+  memberId     String          @db.Uuid
+  session      MoodRoomSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  member       MoodRoomMember  @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  restaurantId String
+  createdAt    DateTime        @default(now()) @db.Timestamptz(6)
+
+  @@unique([sessionId, memberId])
+  @@index([sessionId])
+  @@index([sessionId, restaurantId])
+  @@map("mood_room_restaurant_votes")
+}
+
+model MoodRoomItemVote {
+  id        String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  sessionId String          @db.Uuid
+  memberId  String          @db.Uuid
+  session   MoodRoomSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  member    MoodRoomMember  @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  itemId    String
+  quantity  Int             @default(1)
+  createdAt DateTime        @default(now()) @db.Timestamptz(6)
+
+  @@unique([sessionId, memberId, itemId])
+  @@index([sessionId])
+  @@index([sessionId, itemId])
+  @@map("mood_room_item_votes")
+}
+
+model MoodRoomSessionResult {
+  sessionId    String          @id @db.Uuid
+  session      MoodRoomSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  restaurantId String
+  restaurant   Json
+  items        Json
+  createdAt    DateTime        @default(now()) @db.Timestamptz(6)
+
+  @@map("mood_room_final_selections")
 }
