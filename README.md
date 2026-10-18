@@ -36,6 +36,7 @@ Optional socket configuration:
 | `NEXT_PUBLIC_SOCKET_URL` | `http://localhost:3001` | Browser connection URL; set before building the app. |
 | `SOCKET_PORT` | `PORT`, or `3001` | Socket server listening port. |
 | `SOCKET_ALLOWED_ORIGINS` | `http://localhost:3000,http://127.0.0.1:3000` | Comma-separated app origins allowed to send credentials. |
+| `SOCKET_SERVER_URL` | `NEXT_PUBLIC_SOCKET_URL`, or `http://localhost:3001` | Socket URL reachable from the Next.js server for craving API submissions. |
 
 Use the same hostname for the app and socket server so the Better Auth session cookie is available to both. Configure HTTPS and cookie settings for your deployment when using separate domains.
 
@@ -44,6 +45,31 @@ Chat connections authenticate with Better Auth cookies. Joining and reading hist
 `GET /api/mood-room/:roomId/session/:sessionId/messages` returns the latest 50 persisted messages in chronological order. History and live messages share database IDs, and the client merges them during initial loading and reconnection. Presence counts unique members across tabs; leaving or navigating away removes the connection from the session.
 
 All planned lifecycle events are declared in `src/socket/types.ts`. Phase 0 implements joining, leaving, presence, and chat. Craving collection, phase transitions, voting, and finalization handlers belong to the later phases.
+
+## Mood Room: Phase 1
+
+The session opens in a lobby with live member presence and a host-only **Start Cravings Round** button. Starting persists `PROMPT_COLLECTION` in PostgreSQL and switches every connected member to the craving form. Chat stays available in a sticky, collapsible panel and shares the session's socket connection.
+
+Each member can submit or edit one craving of up to 1,000 characters, including dietary needs or budget. Quick mood chips provide starting points. The group sees each saved craving and a live submission checklist. Reloading or reconnecting restores the persisted phase and submissions.
+
+Only the host can select **Find Restaurants**. At least one craving is required. If members are still missing, the host must explicitly choose to continue with the submitted cravings. Proceeding persists `RESTAURANT_VOTING` and locks craving edits. Restaurant nominees and voting are implemented in Phase 2; for now this screen displays the saved group cravings.
+
+The authenticated prompt endpoint supports:
+
+- `GET /api/mood-room/:roomId/session/:sessionId/prompt`: current prompts, submission count, and session state.
+- `POST /api/mood-room/:roomId/session/:sessionId/prompt` with `{ "prompt": "Spicy vegetarian food" }`: submit or update the signed-in member's craving and broadcast it to the group. The socket service must be running. The request forwards the existing session cookie; it never accepts a client-supplied member identity.
+
+Phase transitions and prompt writes lock the session row before checking its current phase. State snapshots carry an increasing `updatedAt` value so delayed responses cannot roll clients back to an older phase or submission list.
+
+### Verify Phase 1
+
+1. Start both processes and open the same session as host and guest in separate browser profiles.
+2. Confirm online indicators update, only the host sees **Start Cravings Round**, and chat works beside the lobby.
+3. Start the round. Both screens should immediately show the craving form.
+4. Submit a craving in each profile. Check both counters, submitted text, and the saved state after refreshing.
+5. Edit a craving and confirm the existing entry updates without increasing the count.
+6. With a member still missing, confirm the host must explicitly opt to continue. With no submissions, proceeding must remain blocked.
+7. Choose **Find Restaurants**. Both screens should show the saved cravings for the next round, and further craving edits must be rejected.
 
 ### Verify Phase 0
 

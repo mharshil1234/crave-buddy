@@ -5,6 +5,10 @@ import { z } from "zod";
 import { auth } from "../lib/auth";
 import {
     getSessionMember,
+    getSessionState,
+    upsertPrompt,
+    advanceSessionPhase,
+    cravingSchema,
     MoodRoomAccessError,
     saveChatMessage,
     sessionScopeSchema,
@@ -15,6 +19,7 @@ import {
     type ServerToClientEvents,
     type SessionMember,
     type SessionScope,
+    type SessionState,
 } from "./types";
 
 interface SocketData {
@@ -25,6 +30,12 @@ interface SocketData {
 
 const chatSchema = sessionScopeSchema.extend({
     message: z.string().trim().min(1).max(MAX_CHAT_MESSAGE_LENGTH),
+});
+
+const promptSchema = sessionScopeSchema.extend({ prompt: cravingSchema });
+const phaseSchema = sessionScopeSchema.extend({
+    phase: z.enum(["PROMPT_COLLECTION", "RESTAURANT_VOTING"]),
+    allowPartial: z.boolean().optional(),
 });
 
 export function createMoodRoomSocketServer() {
@@ -38,6 +49,16 @@ export function createMoodRoomSocketServer() {
     const sessionUsers = new Map<string, Map<string, SessionMember>>();
     const roomUsers = new Map<string, Map<string, SessionMember>>();
     const sessionChannel = (sessionId: string) => `session:${sessionId}`;
+
+    const publishState = (state: SessionState, change: "phase" | "prompt") => {
+        const channel = io.to(sessionChannel(state.sessionId));
+        channel.emit("session:state", state);
+        if (change === "phase") {
+            channel.emit("session:phase-changed", { sessionId: state.sessionId, phase: state.phase, state });
+        } else {
+            channel.emit("session:prompt-update", { ...state, totalSubmitted: state.prompts.length });
+        }
+    };
 
     const emitPresence = (sessionId: string) => {
         const members = [...new Map(
@@ -104,8 +125,10 @@ export function createMoodRoomSocketServer() {
                 if (!parsed.success) throw new MoodRoomAccessError("Invalid room or session ID", 400);
                 const scope = parsed.data;
                 const { member } = await getSessionMember({ ...scope, userId: socket.data.userId });
+                const state = await getSessionState({ ...scope, userId: socket.data.userId });
                 if (!socket.connected) return;
                 if (socket.data.scope?.sessionId === scope.sessionId) {
+                    socket.emit("session:state", state);
                     emitPresence(scope.sessionId);
                     if (typeof ack === "function") ack({ ok: true });
                     return;
@@ -131,6 +154,7 @@ export function createMoodRoomSocketServer() {
                     });
                 }
                 emitPresence(scope.sessionId);
+                io.to(sessionChannel(scope.sessionId)).emit("session:state", state);
                 if (typeof ack === "function") ack({ ok: true });
             } catch (error) {
                 reportError(error, ack);
@@ -162,6 +186,32 @@ export function createMoodRoomSocketServer() {
                 const saved = await saveChatMessage({ sessionId, memberId: member.id, content: message });
                 io.to(sessionChannel(sessionId)).emit("chat:message", saved);
                 if (typeof ack === "function") ack({ ok: true, message: saved });
+            } catch (error) {
+                reportError(error, ack);
+            }
+        }));
+
+        socket.on("session:advance-phase", (payload, ack) => enqueue(async () => {
+            try {
+                const parsed = phaseSchema.safeParse(payload);
+                if (!parsed.success) throw new MoodRoomAccessError("Invalid phase transition", 400);
+                const state = await advanceSessionPhase({ ...parsed.data, userId: socket.data.userId });
+                publishState(state, "phase");
+                if (typeof ack === "function") ack({ ok: true, state });
+            } catch (error) {
+                reportError(error, ack);
+            }
+        }));
+
+        socket.on("session:submit-prompt", (payload, ack) => enqueue(async () => {
+            try {
+                const parsed = promptSchema.safeParse(payload);
+                if (!parsed.success) throw new MoodRoomAccessError("Enter a valid craving and session", 400);
+                const { roomId, sessionId, prompt } = parsed.data;
+                const { member } = await getSessionMember({ roomId, sessionId, userId: socket.data.userId });
+                const state = await upsertPrompt({ sessionId, memberId: member.id, prompt });
+                publishState(state, "prompt");
+                if (typeof ack === "function") ack({ ok: true, state });
             } catch (error) {
                 reportError(error, ack);
             }

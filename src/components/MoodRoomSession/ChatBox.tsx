@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { createSocket } from "@/lib/socket";
+import type { MoodRoomSocket } from "@/lib/socket";
 import { mergeChatMessages } from "@/lib/mood-room-chat";
-import { MAX_CHAT_MESSAGE_LENGTH, type ChatMessage, type ChatSendResult, type SessionPresence, type SocketResult } from "@/socket/types";
+import { MAX_CHAT_MESSAGE_LENGTH, type ChatMessage, type ChatSendResult } from "@/socket/types";
 import { MessageCircle, SendHorizonal } from "lucide-react";
 
 interface ChatBoxProps {
@@ -11,17 +11,17 @@ interface ChatBoxProps {
     roomId: string;
     memberCount: number;
     memberId: string;
+    socket: MoodRoomSocket;
+    connected: boolean;
+    activeUsers: number;
     readOnly?: boolean;
 }
 
-export default function ChatBox({ sessionId, roomId, memberCount, memberId, readOnly = false }: ChatBoxProps) {
+export default function ChatBox({ sessionId, roomId, memberCount, memberId, socket, connected, activeUsers, readOnly = false }: ChatBoxProps) {
     const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [input, setInput] = useState("");
-    const [activeUsers, setActiveUsers] = useState(0);
-    const [connected, setConnected] = useState(false);
     const [sending, setSending] = useState(false);
     const [error, setError] = useState<string | null>(null);
-    const socketRef = useRef<ReturnType<typeof createSocket> | null>(null);
 
     const messagesRef = useRef<HTMLDivElement | null>(null);
     const trimmedInput = input.trim();
@@ -36,9 +36,7 @@ export default function ChatBox({ sessionId, roomId, memberCount, memberId, read
     };
 
     useEffect(() => {
-        const socket = createSocket();
         const controller = new AbortController();
-        socketRef.current = socket;
 
         async function fetchMessages() {
             try {
@@ -58,49 +56,23 @@ export default function ChatBox({ sessionId, roomId, memberCount, memberId, read
             }
         }
 
-        const joinSession = () => {
-            socket.timeout(10_000).emit("session:join", { roomId, sessionId }, (cause: Error | null, result: SocketResult) => {
-                if (controller.signal.aborted) return;
-                if (cause || !result?.ok) {
-                    setConnected(false);
-                    setError(result && !result.ok ? result.error : "Unable to join session chat");
-                    return;
-                }
-                setConnected(true);
-                setError(null);
-                void fetchMessages();
-            });
-        };
+        if (connected) void fetchMessages();
+
+        return () => controller.abort();
+    }, [roomId, sessionId, connected]);
+
+    useEffect(() => {
         const handleNewMessage = (message: ChatMessage) => {
             if (message.sessionId === sessionId) {
                 setMessages((current) => mergeChatMessages(current, [message]));
             }
         };
-        const handleUsers = (presence: SessionPresence) => {
-            if (presence.sessionId === sessionId) setActiveUsers(presence.count);
-        };
-
-        socket.on("connect", joinSession);
-        socket.on("disconnect", () => {
-            setConnected(false);
-            setActiveUsers(0);
-        });
-        socket.on("connect_error", (cause) => {
-            setConnected(false);
-            setError(cause.message);
-        });
         socket.on("chat:message", handleNewMessage);
-        socket.on("chat:users", handleUsers);
-        socket.connect();
 
         return () => {
-            controller.abort();
-            if (socket.connected) socket.emit("session:leave", { roomId, sessionId });
-            socket.removeAllListeners();
-            socket.disconnect();
-            socketRef.current = null;
+            socket.off("chat:message", handleNewMessage);
         };
-    }, [roomId, sessionId]);
+    }, [sessionId, socket]);
 
     useEffect(() => {
         if (messagesRef.current) {
@@ -109,12 +81,10 @@ export default function ChatBox({ sessionId, roomId, memberCount, memberId, read
     }, [messages]);
 
     const handleSendMessage = () => {
-        const socket = socketRef.current;
-        if (!socket || !connected || !trimmedInput || sending || readOnly) return;
+        if (!connected || !trimmedInput || sending || readOnly) return;
         setSending(true);
         setError(null);
         socket.timeout(10_000).emit("chat:send", { roomId, sessionId, message: trimmedInput }, (cause: Error | null, result: ChatSendResult) => {
-            if (socketRef.current !== socket) return;
             setSending(false);
             if (cause || !result?.ok) {
                 setError(result && !result.ok ? result.error : "Message could not be confirmed. Reconnect before retrying.");

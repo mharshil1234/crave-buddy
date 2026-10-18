@@ -1,6 +1,7 @@
 import type { MoodRoomPhase } from "../../generated/prisma/enums";
 
 export const MAX_CHAT_MESSAGE_LENGTH = 5000;
+export const MAX_CRAVING_LENGTH = 1000;
 
 export interface SessionScope {
     roomId: string;
@@ -34,9 +35,25 @@ export type SocketResult = { ok: true } | { ok: false; error: string };
 export type ChatSendResult = { ok: true; message: ChatMessage } | { ok: false; error: string };
 export type SocketAck = (result: SocketResult) => void;
 
-export interface PromptUpdateData {
+export interface SessionPrompt {
+    memberId: string;
+    displayName: string;
+    prompt: string;
+}
+
+export interface SessionState {
     sessionId: string;
-    prompts: Array<{ memberId: string; displayName: string; prompt: string }>;
+    phase: MoodRoomPhase;
+    status: "ACTIVE" | "ENDED";
+    hostId: string;
+    updatedAt: string;
+    members: SessionMember[];
+    prompts: SessionPrompt[];
+}
+
+export type SessionStateResult = { ok: true; state: SessionState } | { ok: false; error: string };
+
+export interface PromptUpdateData extends SessionState {
     totalSubmitted: number;
 }
 
@@ -64,9 +81,10 @@ export interface SessionPhaseData {
 }
 
 export interface ServerToClientEvents {
+    "session:state": (state: SessionState) => void;
     "chat:message": (message: ChatMessage) => void;
     "chat:users": (data: SessionPresence) => void;
-    "session:phase-changed": (data: { sessionId: string; phase: MoodRoomPhase; data?: SessionPhaseData }) => void;
+    "session:phase-changed": (data: { sessionId: string; phase: MoodRoomPhase; state: SessionState; data?: SessionPhaseData }) => void;
     "session:prompt-update": (data: PromptUpdateData) => void;
     "session:restaurant-vote-update": (data: RestaurantVoteUpdateData) => void;
     "session:item-vote-update": (data: ItemVoteUpdateData) => void;
@@ -77,8 +95,8 @@ export interface ClientToServerEvents {
     "session:join": (data: SessionScope, ack: SocketAck) => void;
     "session:leave": (data: SessionScope, ack?: SocketAck) => void;
     "chat:send": (data: SessionScope & { message: string }, ack: (result: ChatSendResult) => void) => void;
-    "session:advance-phase": (data: SessionScope & { phase: MoodRoomPhase }, ack: SocketAck) => void;
-    "session:submit-prompt": (data: SessionScope & { prompt: string }, ack: SocketAck) => void;
+    "session:advance-phase": (data: SessionScope & { phase: MoodRoomPhase; allowPartial?: boolean }, ack: (result: SessionStateResult) => void) => void;
+    "session:submit-prompt": (data: SessionScope & { prompt: string }, ack: (result: SessionStateResult) => void) => void;
     "session:vote-restaurant": (data: SessionScope & { restaurantId: string }, ack: SocketAck) => void;
     "session:vote-item": (data: SessionScope & { itemId: string; quantity: number }, ack: SocketAck) => void;
     "session:finalize": (data: SessionScope, ack: SocketAck) => void;

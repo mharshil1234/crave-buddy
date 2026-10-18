@@ -5,10 +5,11 @@ import { useSession } from "@/lib/auth-client";
 import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { RoomHeader } from "@/components/MoodRoom/RoomHeader";
-import ChatBox from "@/components/MoodRoomSession/ChatBox";
+import SessionPhaseManager from "@/components/MoodRoomSession/SessionPhaseManager";
 import type { getMoodRoomSession } from "@/lib/db/mood-room-session";
+import type { SessionState } from "@/socket/types";
 
-type SessionData = { session: Awaited<ReturnType<typeof getMoodRoomSession>> };
+type SessionData = { session: Awaited<ReturnType<typeof getMoodRoomSession>>; state: SessionState };
 
 export default function MoodRoomSessionPage() {
     const params = useParams();
@@ -125,7 +126,7 @@ export default function MoodRoomSessionPage() {
                 maxMembers={room.maxMembers}
                 inviteCode={room.inviteCode}
             />
-            <div className="max-w-6xl mx-auto px-4 py-6">
+            <div className="max-w-7xl mx-auto px-4 py-6">
                 <div className="mb-6">
                     <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500">
                         <h2 className="text-3xl font-bold text-gray-900 mb-2">
@@ -136,14 +137,13 @@ export default function MoodRoomSessionPage() {
                         </p>
                     </div>
                 </div>
-                <div className="bg-white rounded-lg shadow-lg p-6">
-                    <ChatBox
+                <div>
+                    <SessionPhaseManager
                         key={sessionId}
-                        sessionId={sessionId}
                         roomId={roomId}
-                        memberCount={room.members.length}
+                        initialState={sessionData.state}
+                        currentUserId={session.user.id}
                         memberId={currentMember.id}
-                        readOnly={moodSession.session.status === "ENDED"}
                     />
                 </div>
             </div>

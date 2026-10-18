@@ -1,7 +1,7 @@
 import { getMoodRoomSession } from "@/lib/db/mood-room-session"
 import { NextRequest, NextResponse } from "next/server"
 import { auth } from "@/lib/auth";
-import { getSessionMember, MoodRoomAccessError } from "@/lib/db/mood-room-voting";
+import { getSessionState, MoodRoomAccessError } from "@/lib/db/mood-room-voting";
 
 export async function GET(
     req: NextRequest,
@@ -26,16 +26,18 @@ export async function GET(
             );
         }
 
-        await getSessionMember({ roomId, sessionId, userId: userSession.user.id });
+        const state = await getSessionState({ roomId, sessionId, userId: userSession.user.id });
         const session = await getMoodRoomSession({ roomId, sessionId });
         
         return NextResponse.json(
             {
                 success: true,
                 session,
+                state,
             },
             {
                 status: 200,
+                headers: { "Cache-Control": "private, no-store" },
             }
         );
 
