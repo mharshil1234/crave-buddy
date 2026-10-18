@@ -1,21 +1,22 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useSession } from "@/lib/auth-client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { RoomHeader } from "@/components/MoodRoom/RoomHeader";
 import ChatBox from "@/components/MoodRoomSession/ChatBox";
+import type { getMoodRoomSession } from "@/lib/db/mood-room-session";
+
+type SessionData = { session: Awaited<ReturnType<typeof getMoodRoomSession>> };
 
 export default function MoodRoomSessionPage() {
     const params = useParams();
-    const router = useRouter();
     const roomId = params.roomId as string;
     const sessionId = params.sessionId as string;
     const { data: session } = useSession();
-    const [isLoading, setIsLoading] = useState(false);
-    const [sessionData, setSessionData] = useState<any | null>(null);
-    const [messages, setMessages] = useState<Array<{ id: string; sender: "user" | "bot"; text: string }>>([]);
+    const [sessionData, setSessionData] = useState<SessionData | null>(null);
+    const [error, setError] = useState<string | null>(null);
     const [isMember, setIsMember] = useState<boolean | null>(null);
 
     useEffect(() => {
@@ -58,11 +59,13 @@ export default function MoodRoomSessionPage() {
                 const data = await res.json();
                 if (isMounted) {
                     setSessionData(data);
+                    setError(null);
                 }
             } catch (error) {
                 console.error(error);
                 if (isMounted) {
                     setSessionData(null);
+                    setError("Unable to load this session. Please refresh to try again.");
                 }
             }
         };
@@ -98,7 +101,7 @@ export default function MoodRoomSessionPage() {
         return (
             <div className="flex h-screen items-center justify-center">
                 <p className="text-lg font-semibold text-neutral-700">
-                    Loading session data...
+                    {error || "Loading session data..."}
                 </p>
             </div>
         );
@@ -106,6 +109,11 @@ export default function MoodRoomSessionPage() {
 
     const { session: moodSession } = sessionData;
     const { room } = moodSession;
+    const currentMember = room.members.find((member) => member.userId === session.user.id && !member.leftAt);
+
+    if (!currentMember) {
+        return <p className="p-6">Your membership is no longer active.</p>;
+    }
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
@@ -129,7 +137,14 @@ export default function MoodRoomSessionPage() {
                     </div>
                 </div>
                 <div className="bg-white rounded-lg shadow-lg p-6">
-                    <ChatBox sessionId={sessionId} username={session.user.name} memberCount={room.members.length} />
+                    <ChatBox
+                        key={sessionId}
+                        sessionId={sessionId}
+                        roomId={roomId}
+                        memberCount={room.members.length}
+                        memberId={currentMember.id}
+                        readOnly={moodSession.session.status === "ENDED"}
+                    />
                 </div>
             </div>
         </div>

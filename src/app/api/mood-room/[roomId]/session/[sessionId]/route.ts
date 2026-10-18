@@ -1,12 +1,17 @@
 import { getMoodRoomSession } from "@/lib/db/mood-room-session"
 import { NextRequest, NextResponse } from "next/server"
-import { title } from "process";
+import { auth } from "@/lib/auth";
+import { getSessionMember, MoodRoomAccessError } from "@/lib/db/mood-room-voting";
 
 export async function GET(
     req: NextRequest,
     { params }: { params: Promise<{ roomId: string; sessionId: string; }> }
 ) {
     try {
+        const userSession = await auth.api.getSession({ headers: req.headers });
+        if (!userSession) {
+            return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });
+        }
         const { roomId, sessionId } = await params;
 
         if (!roomId || !sessionId) {
@@ -21,6 +26,7 @@ export async function GET(
             );
         }
 
+        await getSessionMember({ roomId, sessionId, userId: userSession.user.id });
         const session = await getMoodRoomSession({ roomId, sessionId });
         
         return NextResponse.json(
@@ -29,11 +35,14 @@ export async function GET(
                 session,
             },
             {
-                status: 201,
+                status: 200,
             }
         );
 
     } catch (error) {
+        if (error instanceof MoodRoomAccessError) {
+            return NextResponse.json({ success: false, message: error.message }, { status: error.status });
+        }
 
         console.error("Error fetching mood room session:", error);
 

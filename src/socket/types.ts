@@ -1,0 +1,85 @@
+import type { MoodRoomPhase } from "../../generated/prisma/enums";
+
+export const MAX_CHAT_MESSAGE_LENGTH = 5000;
+
+export interface SessionScope {
+    roomId: string;
+    sessionId: string;
+}
+
+export interface SessionMember {
+    memberId: string;
+    userId: string;
+    displayName: string;
+}
+
+export interface ChatMessage {
+    id: string;
+    sessionId: string;
+    type: "chat" | "join" | "leave";
+    message: string;
+    userId: string;
+    username: string;
+    createdAt: string;
+    memberId: string;
+}
+
+export interface SessionPresence {
+    sessionId: string;
+    count: number;
+    members: SessionMember[];
+}
+
+export type SocketResult = { ok: true } | { ok: false; error: string };
+export type ChatSendResult = { ok: true; message: ChatMessage } | { ok: false; error: string };
+export type SocketAck = (result: SocketResult) => void;
+
+export interface PromptUpdateData {
+    sessionId: string;
+    prompts: Array<{ memberId: string; displayName: string; prompt: string }>;
+    totalSubmitted: number;
+}
+
+export interface RestaurantVoteUpdateData {
+    sessionId: string;
+    votes: Record<string, { count: number; memberIds: string[] }>;
+}
+
+export interface ItemVoteUpdateData {
+    sessionId: string;
+    votes: Record<string, { quantity: number; voters: string[] }>;
+}
+
+export interface SessionResultData {
+    restaurantId: string;
+    restaurantName: string;
+    items: Array<{ id: string; name: string; price: number; quantity: number }>;
+    totalAmount: number;
+}
+
+export interface SessionPhaseData {
+    nominees?: Array<{ restaurantId: string; matchReason: string }>;
+    restaurantId?: string;
+    result?: SessionResultData;
+}
+
+export interface ServerToClientEvents {
+    "chat:message": (message: ChatMessage) => void;
+    "chat:users": (data: SessionPresence) => void;
+    "session:phase-changed": (data: { sessionId: string; phase: MoodRoomPhase; data?: SessionPhaseData }) => void;
+    "session:prompt-update": (data: PromptUpdateData) => void;
+    "session:restaurant-vote-update": (data: RestaurantVoteUpdateData) => void;
+    "session:item-vote-update": (data: ItemVoteUpdateData) => void;
+    "session:finished": (data: { sessionId: string; result: SessionResultData }) => void;
+}
+
+export interface ClientToServerEvents {
+    "session:join": (data: SessionScope, ack: SocketAck) => void;
+    "session:leave": (data: SessionScope, ack?: SocketAck) => void;
+    "chat:send": (data: SessionScope & { message: string }, ack: (result: ChatSendResult) => void) => void;
+    "session:advance-phase": (data: SessionScope & { phase: MoodRoomPhase }, ack: SocketAck) => void;
+    "session:submit-prompt": (data: SessionScope & { prompt: string }, ack: SocketAck) => void;
+    "session:vote-restaurant": (data: SessionScope & { restaurantId: string }, ack: SocketAck) => void;
+    "session:vote-item": (data: SessionScope & { itemId: string; quantity: number }, ack: SocketAck) => void;
+    "session:finalize": (data: SessionScope, ack: SocketAck) => void;
+}
