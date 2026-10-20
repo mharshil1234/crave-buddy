@@ -200,6 +200,7 @@ model MoodRoomSession {
   nominationStartedAt  DateTime?                @db.Timestamptz(6)
   nominationError      String?                  @db.VarChar(300)
   selectedRestaurantId String?
+  itemVotingLockedAt   DateTime?                @db.Timestamptz(6)
   messages             MoodRoomMessage[]
   prompts              MoodRoomPrompt[]
   restaurantVotes      MoodRoomRestaurantVote[]

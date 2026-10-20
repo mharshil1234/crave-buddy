@@ -1,4 +1,5 @@
 import restaurantsData from "../../data/restaurants.json";
+import restaurantMenu from "../../data/restaurantMenu.json";
 import { generateText, Output } from "ai";
 import { z } from "zod";
 import { geminiFlash } from "@/lib/ai";
@@ -15,8 +16,19 @@ export const restaurantNomineeSchema = z.object({
     matchReason: z.string().trim().min(1).max(300),
 });
 
+const menuCatalog = restaurantMenu as Record<string, {
+    name: string;
+    restaurantImg: string;
+    location: string;
+    cuisines: string[];
+    rating: number;
+    priceForTwo: number;
+    deliveryTime: string;
+    menu: Array<{ id: string; name: string; description: string; price: number; veg: boolean; category: string; rating: number; img: string }>;
+}>;
+
 export function getGroupRestaurantCandidates(): RestaurantCandidate[] {
-    return restaurantsData.filter(({ info }) => info.isOpen).map(({ info }) => ({
+    return restaurantsData.filter(({ info }) => info.isOpen && Boolean(menuCatalog[info.id]?.menu.length)).map(({ info }) => ({
         restaurantId: info.id,
         name: info.name,
         image: info.cloudinaryImageId ? `https://media-assets.swiggy.com/swiggy/image/upload/${info.cloudinaryImageId}` : "/restaurant.jpeg",
@@ -25,6 +37,12 @@ export function getGroupRestaurantCandidates(): RestaurantCandidate[] {
         deliveryTime: info.sla.slaString,
         costForTwo: info.costForTwo,
     }));
+}
+
+export function getMoodRoomRestaurantMenu(restaurantId: string) {
+    const restaurant = menuCatalog[restaurantId];
+    if (!restaurant) throw new Error("Restaurant menu is not available");
+    return restaurant;
 }
 
 export function validateGroupNominations(value: unknown, restaurants: RestaurantCandidate[]): RestaurantNominee[] {

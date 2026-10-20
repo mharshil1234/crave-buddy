@@ -88,6 +88,22 @@ Members can vote for one nominee and change their vote while voting remains open
 5. Test a tie and confirm only a tied nominee can be selected as winner. Refresh and confirm the winner and finished vote tally remain visible.
 6. Temporarily remove the AI key or force a generation error in development. Confirm the failure is shown and the host can retry after correcting the cause.
 
+## Mood Room: Phase 3
+
+After the restaurant vote closes, members see the winning restaurant’s menu grouped by category. Use the plus and minus controls to set your own quantity for each dish. The shared tray totals all members’ quantities and shows the estimated subtotal and how many members chose each dish. Setting your quantity to zero removes your vote for that dish. Quantities are capped at 20 per member and item.
+
+Only the host can select **Lock in order**. This saves the lock time and prevents further quantity changes while leaving the session in `ITEM_VOTING` for Phase 4 finalization. The item vote endpoint supports `GET` for the restaurant menu and group tray, `POST` with `{ "itemId": "...", "quantity": 2 }` to set the signed-in member’s quantity, and `PATCH` to lock the order as host. Requests require an authenticated room member and the socket service must be running for writes.
+
+Restaurant matching uses the restaurant catalogue entries that currently have menus in `data/restaurantMenu.json`, so every nominee has a menu at the item selection step.
+
+### Verify Phase 3
+
+1. Open the session as host and guest. Close restaurant voting and confirm both screens show the winning restaurant’s menu.
+2. Add dishes and change quantities from both profiles. Confirm each screen’s shared tray, member counts, and subtotal update immediately.
+3. Set a member’s quantity to zero and confirm the group total decreases; confirm quantities above 20 are rejected.
+4. Try locking an empty tray and confirm it is blocked. Add a dish and lock as host; confirm controls become read-only for both members.
+5. Refresh and confirm the saved menu votes and locked state are restored.
+
 ### Verify Phase 0
 
 1. Run `npm run build`.

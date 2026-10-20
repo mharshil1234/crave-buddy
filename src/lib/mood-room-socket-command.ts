@@ -45,3 +45,15 @@ export async function voteRestaurantThroughSocket(scope: SessionScope, restauran
         socket.timeout(8000).emit("session:vote-restaurant", { ...scope, restaurantId }, callback);
     });
 }
+
+export async function voteItemThroughSocket(scope: SessionScope, itemId: string, quantity: number, cookie: string) {
+    return runSessionCommand(cookie, (socket, callback) => {
+        socket.timeout(8000).emit("session:vote-item", { ...scope, itemId, quantity }, callback);
+    });
+}
+
+export async function lockItemsThroughSocket(scope: SessionScope, cookie: string) {
+    return runSessionCommand(cookie, (socket, callback) => {
+        socket.timeout(8000).emit("session:lock-items", scope, callback);
+    });
+}

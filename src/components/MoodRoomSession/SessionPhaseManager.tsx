@@ -7,6 +7,7 @@ import ChatBox from "./ChatBox";
 import LobbyPhase from "./LobbyPhase";
 import PromptCollectionPhase from "./PromptCollectionPhase";
 import RestaurantVotingPhase from "./RestaurantVotingPhase";
+import ItemVotingPhase from "./ItemVotingPhase";
 
 interface SessionPhaseManagerProps {
     roomId: string;
@@ -66,6 +67,8 @@ export default function SessionPhaseManager({ roomId, initialState, currentUserI
         socket.on("session:phase-changed", phaseChanged);
         socket.on("session:prompt-update", promptsChanged);
         socket.on("session:restaurant-vote-update", applyState);
+        const itemVotesChanged: ServerToClientEvents["session:item-vote-update"] = (next) => applyState(next.state);
+        socket.on("session:item-vote-update", itemVotesChanged);
         socket.connect();
         return () => {
             controller.abort();
@@ -78,6 +81,7 @@ export default function SessionPhaseManager({ roomId, initialState, currentUserI
             socket.off("session:phase-changed", phaseChanged);
             socket.off("session:prompt-update", promptsChanged);
             socket.off("session:restaurant-vote-update", applyState);
+            socket.off("session:item-vote-update", itemVotesChanged);
             socket.disconnect();
         };
     }, [socket, roomId, sessionId, applyState]);
@@ -132,13 +136,32 @@ export default function SessionPhaseManager({ roomId, initialState, currentUserI
         });
     };
 
+    const voteItem = (itemId: string, quantity: number) => {
+        if (!writable || pending) return;
+        setPending(true);
+        setError(null);
+        socket.timeout(10_000).emit("session:vote-item", { roomId, sessionId, itemId, quantity }, (cause: Error | null, result: SessionStateResult) => {
+            finishAction(cause, result);
+        });
+    };
+
+    const lockItems = () => {
+        if (!writable || pending) return;
+        setPending(true);
+        setError(null);
+        socket.timeout(10_000).emit("session:lock-items", { roomId, sessionId }, (cause: Error | null, result: SessionStateResult) => {
+            finishAction(cause, result);
+        });
+    };
+
     return (
         <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1.5fr)_minmax(320px,1fr)]">
             <div className="min-w-0 space-y-4">
                 {error && <div role="alert" className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">{error}</div>}
                 {state.phase === "LOBBY" ? <LobbyPhase members={state.members} onlineMemberIds={onlineMemberIds} hostId={state.hostId} currentUserId={currentUserId} connected={writable} pending={pending} onStart={() => advancePhase("PROMPT_COLLECTION")} />
                     : state.phase === "PROMPT_COLLECTION" ? <PromptCollectionPhase state={state} memberId={memberId} isHost={isHost} connected={writable} pending={pending} onlineMemberIds={onlineMemberIds} onSubmit={submitPrompt} onProceed={(allowPartial) => advancePhase("RESTAURANT_VOTING", allowPartial)} />
-                        : state.phase === "RESTAURANT_VOTING" || state.phase === "ITEM_VOTING" ? <RestaurantVotingPhase state={state} memberId={memberId} isHost={isHost} connected={writable} pending={pending} onVote={voteRestaurant} onRetry={retryMatching} onClose={(restaurantId, allowPartial) => advancePhase("ITEM_VOTING", allowPartial, restaurantId)} />
+                        : state.phase === "RESTAURANT_VOTING" ? <RestaurantVotingPhase state={state} memberId={memberId} isHost={isHost} connected={writable} pending={pending} onVote={voteRestaurant} onRetry={retryMatching} onClose={(restaurantId, allowPartial) => advancePhase("ITEM_VOTING", allowPartial, restaurantId)} />
+                            : state.phase === "ITEM_VOTING" ? <ItemVotingPhase roomId={roomId} state={state} memberId={memberId} isHost={isHost} connected={writable} pending={pending} onQuantityChange={voteItem} onLock={lockItems} />
                             : <section className="rounded-2xl border border-gray-200 bg-white p-7"><h2 className="text-2xl font-bold text-gray-950">Session finished</h2><p className="mt-3 text-sm text-gray-600">Your saved conversation is available here.</p></section>}
             </div>
             <details open className="min-w-0 rounded-2xl border border-gray-200 bg-white p-3 shadow-sm lg:sticky lg:top-6">

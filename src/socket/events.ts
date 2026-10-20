@@ -11,6 +11,8 @@ import {
     startRestaurantNomination,
     completeRestaurantNomination,
     upsertRestaurantVote,
+    upsertItemVote,
+    lockItemVoting,
     cravingSchema,
     MoodRoomAccessError,
     saveChatMessage,
@@ -43,6 +45,7 @@ const phaseSchema = sessionScopeSchema.extend({
     restaurantId: z.string().min(1).max(100).optional(),
 });
 const restaurantVoteSchema = sessionScopeSchema.extend({ restaurantId: z.string().min(1).max(100) });
+const itemVoteSchema = sessionScopeSchema.extend({ itemId: z.string().min(1).max(150), quantity: z.number().int().min(0).max(20) });
 
 export function createMoodRoomSocketServer({ nominateRestaurants = getGroupNominatedRestaurants }: {
     nominateRestaurants?: typeof getGroupNominatedRestaurants;
@@ -268,6 +271,33 @@ export function createMoodRoomSocketServer({ nominateRestaurants = getGroupNomin
                 const { member } = await getSessionMember({ roomId, sessionId, userId: socket.data.userId });
                 const state = await upsertRestaurantVote({ sessionId, memberId: member.id, restaurantId });
                 publishState(state, "restaurant");
+                if (typeof ack === "function") ack({ ok: true, state });
+            } catch (error) {
+                reportError(error, ack);
+            }
+        }));
+
+        socket.on("session:vote-item", (payload, ack) => enqueue(async () => {
+            try {
+                const parsed = itemVoteSchema.safeParse(payload);
+                if (!parsed.success) throw new MoodRoomAccessError("Choose a valid menu item and quantity", 400);
+                const { roomId, sessionId, itemId, quantity } = parsed.data;
+                const { member } = await getSessionMember({ roomId, sessionId, userId: socket.data.userId });
+                const state = await upsertItemVote({ sessionId, memberId: member.id, itemId, quantity });
+                io.to(sessionChannel(sessionId)).emit("session:item-vote-update", { sessionId, votes: state.itemVotes, state });
+                io.to(sessionChannel(sessionId)).emit("session:state", state);
+                if (typeof ack === "function") ack({ ok: true, state });
+            } catch (error) {
+                reportError(error, ack);
+            }
+        }));
+
+        socket.on("session:lock-items", (payload, ack) => enqueue(async () => {
+            try {
+                const parsed = sessionScopeSchema.safeParse(payload);
+                if (!parsed.success) throw new MoodRoomAccessError("Invalid room or session ID", 400);
+                const state = await lockItemVoting({ ...parsed.data, userId: socket.data.userId });
+                publishState(state, "phase");
                 if (typeof ack === "function") ack({ ok: true, state });
             } catch (error) {
                 reportError(error, ack);

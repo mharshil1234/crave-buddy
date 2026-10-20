@@ -72,6 +72,8 @@ export interface SessionState {
     nominationError: string | null;
     restaurantVotes: RestaurantVotes;
     selectedRestaurantId: string | null;
+    itemVotes: Record<string, { quantity: number; voters: string[]; quantities: Record<string, number> }>;
+    itemVotingLockedAt: string | null;
 }
 
 export type SessionStateResult = { ok: true; state: SessionState } | { ok: false; error: string };
@@ -86,7 +88,8 @@ export interface RestaurantVoteUpdateData extends SessionState {
 
 export interface ItemVoteUpdateData {
     sessionId: string;
-    votes: Record<string, { quantity: number; voters: string[] }>;
+    votes: Record<string, { quantity: number; voters: string[]; quantities: Record<string, number> }>;
+    state: SessionState;
 }
 
 export interface SessionResultData {
@@ -121,6 +124,7 @@ export interface ClientToServerEvents {
     "session:submit-prompt": (data: SessionScope & { prompt: string }, ack: (result: SessionStateResult) => void) => void;
     "session:nominate-restaurants": (data: SessionScope, ack: (result: SessionStateResult) => void) => void;
     "session:vote-restaurant": (data: SessionScope & { restaurantId: string }, ack: (result: SessionStateResult) => void) => void;
-    "session:vote-item": (data: SessionScope & { itemId: string; quantity: number }, ack: SocketAck) => void;
+    "session:vote-item": (data: SessionScope & { itemId: string; quantity: number }, ack: (result: SessionStateResult) => void) => void;
+    "session:lock-items": (data: SessionScope, ack: (result: SessionStateResult) => void) => void;
     "session:finalize": (data: SessionScope, ack: SocketAck) => void;
 }

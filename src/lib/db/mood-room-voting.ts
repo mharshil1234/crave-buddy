@@ -2,7 +2,7 @@ import prisma from "@/lib/prisma";
 import type { Prisma } from "../../../generated/prisma/client";
 import { z } from "zod";
 import { MAX_CHAT_MESSAGE_LENGTH, MAX_CRAVING_LENGTH, NOMINATION_TIMEOUT_MS, type ChatMessage, type RestaurantNominee, type RestaurantVotes, type SessionScope, type SessionState } from "@/socket/types";
-import { getGroupRestaurantCandidates, restaurantNomineeSchema, validateGroupNominations } from "@/lib/mood-room";
+import { getGroupRestaurantCandidates, getMoodRoomRestaurantMenu, restaurantNomineeSchema, validateGroupNominations } from "@/lib/mood-room";
 
 export const sessionScopeSchema = z.object({
     roomId: z.uuid(),
@@ -123,6 +123,10 @@ const stateInclude = {
         where: { member: { leftAt: null } },
         select: { memberId: true, restaurantId: true },
     },
+    itemVotes: {
+        where: { member: { leftAt: null } },
+        select: { memberId: true, itemId: true, quantity: true },
+    },
 } satisfies Prisma.MoodRoomSessionInclude;
 
 type StoredSessionState = Prisma.MoodRoomSessionGetPayload<{ include: typeof stateInclude }>;
@@ -140,6 +144,15 @@ function tallyRestaurantVotes(session: StoredSessionState): RestaurantVotes {
 }
 
 function toSessionState(session: StoredSessionState): SessionState {
+    const itemVotes: SessionState["itemVotes"] = {};
+    session.itemVotes.forEach((vote) => {
+        if (vote.quantity <= 0) return;
+        const item = itemVotes[vote.itemId] ?? { quantity: 0, voters: [], quantities: {} };
+        item.quantity += vote.quantity;
+        item.voters.push(vote.memberId);
+        item.quantities[vote.memberId] = vote.quantity;
+        itemVotes[vote.itemId] = item;
+    });
     return {
         sessionId: session.id,
         phase: session.phase,
@@ -162,6 +175,8 @@ function toSessionState(session: StoredSessionState): SessionState {
         nominationError: session.nominationError,
         restaurantVotes: tallyRestaurantVotes(session),
         selectedRestaurantId: session.selectedRestaurantId,
+        itemVotes,
+        itemVotingLockedAt: session.itemVotingLockedAt?.toISOString() ?? null,
     };
 }
 
@@ -322,6 +337,41 @@ export async function closeRestaurantVoting({ roomId, sessionId, userId, restaur
         const leaders = Object.keys(votes).filter((candidateId) => votes[candidateId].count === highestCount);
         const winner = restaurantId ?? (leaders.length === 1 ? leaders[0] : undefined);
         if (!winner || !leaders.includes(winner)) throw new MoodRoomAccessError("Choose a winner from the tied leading restaurants", 409);
-        await transaction.moodRoomSession.update({ where: { id: sessionId }, data: { phase: "ITEM_VOTING", selectedRestaurantId: winner } });
+        await transaction.moodRoomSession.update({ where: { id: sessionId }, data: { phase: "ITEM_VOTING", selectedRestaurantId: winner, itemVotingLockedAt: null } });
+    });
+}
+
+export async function upsertItemVote({ sessionId, memberId, itemId, quantity }: { sessionId: string; memberId: string; itemId: string; quantity: number }) {
+    const parsed = z.number().int().min(0).max(20).safeParse(quantity);
+    if (!parsed.success) throw new MoodRoomAccessError("Choose a quantity between 0 and 20", 400);
+    return mutateSession(sessionId, async (transaction, session) => {
+        if (!session.room.members.some((member) => member.id === memberId)) throw new MoodRoomAccessError("Not a member of this room", 403);
+        if (session.phase !== "ITEM_VOTING" || !session.selectedRestaurantId) throw new MoodRoomAccessError("Dish voting is not open", 409);
+        if (session.itemVotingLockedAt) throw new MoodRoomAccessError("The group tray is locked", 409);
+        const menu = getMoodRoomRestaurantMenu(session.selectedRestaurantId);
+        if (!menu.menu.some((item) => item.id === itemId)) throw new MoodRoomAccessError("Choose a dish from the winning restaurant menu", 400);
+        if (parsed.data === 0) {
+            await transaction.moodRoomItemVote.deleteMany({ where: { sessionId, memberId, itemId } });
+        } else {
+            await transaction.moodRoomItemVote.upsert({
+                where: { sessionId_memberId_itemId: { sessionId, memberId, itemId } },
+                create: { sessionId, memberId, itemId, quantity: parsed.data },
+                update: { quantity: parsed.data },
+            });
+        }
+    });
+}
+
+export async function lockItemVoting({ roomId, sessionId, userId }: SessionScope & { userId: string }) {
+    return mutateSession(sessionId, async (transaction, session) => {
+        if (session.roomId !== roomId) throw new MoodRoomAccessError("Session not found in this room", 404);
+        if (session.room.hostId !== userId || !session.room.members.some((member) => member.userId === userId)) {
+            throw new MoodRoomAccessError("Only the host can lock the group tray", 403);
+        }
+        if (session.phase !== "ITEM_VOTING" || session.itemVotingLockedAt) throw new MoodRoomAccessError("Dish voting is not open", 409);
+        if (!session.itemVotes.some((vote) => vote.quantity > 0 && session.room.members.some((member) => member.id === vote.memberId))) {
+            throw new MoodRoomAccessError("Add at least one dish before locking the group tray", 409);
+        }
+        await transaction.moodRoomSession.update({ where: { id: sessionId }, data: { itemVotingLockedAt: new Date() } });
     });
 }
