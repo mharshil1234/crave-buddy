@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { roomId: string } }
+  { params }: { params: Promise<{ roomId: string }> }
 ) {
   try {
     const session = await auth.api.getSession({ headers: req.headers });
@@ -16,7 +16,7 @@ export async function GET(
       );
     }
 
-    const { roomId } = params;
+    const { roomId } = await params;
 
     const isMember = await checkRoomMembership({
       roomId,

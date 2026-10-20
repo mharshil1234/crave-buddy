@@ -170,6 +170,7 @@ export async function getRoom({ roomId }: { roomId: string }) {
                     endedAt: true,
                     status: true,
                     phase: true,
+                    result: { select: { restaurant: true } },
                 },
             },
         },
@@ -190,7 +191,13 @@ export async function getRoom({ roomId }: { roomId: string }) {
             ...member,
             isHost: member.userId === room.hostId,
         })),
-        sessions: room.sessions,
+        sessions: room.sessions.map(({ result, ...session }) => ({
+            ...session,
+            endedEarly: session.status === "ENDED" && !result,
+            restaurantName: result?.restaurant && typeof result.restaurant === "object" && "restaurantName" in result.restaurant
+                ? String(result.restaurant.restaurantName)
+                : null,
+        })),
     };
 }
 
@@ -349,4 +356,27 @@ export async function checkRoomMembership({roomId, userId}: {roomId: string, use
     })
 
     return member !== null
+}
+
+export async function removeRoomMember({ roomId, memberId, hostId }: { roomId: string; memberId: string; hostId: string }) {
+    const room = await prisma.moodRoom.findUnique({
+        where: { id: roomId },
+        select: { hostId: true },
+    });
+
+    if (!room) throw new Error("Mood room not found");
+    if (room.hostId !== hostId) throw new Error("Only the host can remove room members");
+
+    const member = await prisma.moodRoomMember.findFirst({
+        where: { id: memberId, roomId, leftAt: null },
+        select: { id: true, userId: true },
+    });
+
+    if (!member) throw new Error("Active room member not found");
+    if (member.userId === hostId) throw new Error("The host cannot remove themselves");
+
+    await prisma.moodRoomMember.update({
+        where: { id: member.id },
+        data: { leftAt: new Date() },
+    });
 }

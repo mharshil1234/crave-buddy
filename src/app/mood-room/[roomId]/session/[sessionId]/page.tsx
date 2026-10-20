@@ -1,21 +1,23 @@
 "use client";
 
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useSession } from "@/lib/auth-client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { RoomHeader } from "@/components/MoodRoom/RoomHeader";
-import ChatBox from "@/components/MoodRoomSession/ChatBox";
+import SessionPhaseManager from "@/components/MoodRoomSession/SessionPhaseManager";
+import type { getMoodRoomSession } from "@/lib/db/mood-room-session";
+import type { SessionState } from "@/socket/types";
+
+type SessionData = { session: Awaited<ReturnType<typeof getMoodRoomSession>>; state: SessionState };
 
 export default function MoodRoomSessionPage() {
     const params = useParams();
-    const router = useRouter();
     const roomId = params.roomId as string;
     const sessionId = params.sessionId as string;
     const { data: session } = useSession();
-    const [isLoading, setIsLoading] = useState(false);
-    const [sessionData, setSessionData] = useState<any | null>(null);
-    const [messages, setMessages] = useState<Array<{ id: string; sender: "user" | "bot"; text: string }>>([]);
+    const [sessionData, setSessionData] = useState<SessionData | null>(null);
+    const [error, setError] = useState<string | null>(null);
     const [isMember, setIsMember] = useState<boolean | null>(null);
 
     useEffect(() => {
@@ -58,11 +60,13 @@ export default function MoodRoomSessionPage() {
                 const data = await res.json();
                 if (isMounted) {
                     setSessionData(data);
+                    setError(null);
                 }
             } catch (error) {
                 console.error(error);
                 if (isMounted) {
                     setSessionData(null);
+                    setError("Unable to load this session. Please refresh to try again.");
                 }
             }
         };
@@ -98,7 +102,7 @@ export default function MoodRoomSessionPage() {
         return (
             <div className="flex h-screen items-center justify-center">
                 <p className="text-lg font-semibold text-neutral-700">
-                    Loading session data...
+                    {error || "Loading session data..."}
                 </p>
             </div>
         );
@@ -106,9 +110,14 @@ export default function MoodRoomSessionPage() {
 
     const { session: moodSession } = sessionData;
     const { room } = moodSession;
+    const currentMember = room.members.find((member) => member.userId === session.user.id && !member.leftAt);
+
+    if (!currentMember) {
+        return <p className="p-6">Your membership is no longer active.</p>;
+    }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+        <div className="min-h-screen bg-neutral-50">
             <Header />
             <RoomHeader
                 roomName={room.name}
@@ -117,21 +126,17 @@ export default function MoodRoomSessionPage() {
                 maxMembers={room.maxMembers}
                 inviteCode={room.inviteCode}
             />
-            <div className="max-w-6xl mx-auto px-4 py-6">
-                <div className="mb-6">
-                    <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500">
-                        <h2 className="text-3xl font-bold text-gray-900 mb-2">
-                            {moodSession.session.title || "Untitled Session"}
-                        </h2>
-                        <p className="text-gray-600">
-                            Session ID: <span className="font-mono text-sm bg-gray-100 px-2 py-1 rounded">{moodSession.session.id}</span>
-                        </p>
-                    </div>
-                </div>
-                <div className="bg-white rounded-lg shadow-lg p-6">
-                    <ChatBox sessionId={sessionId} username={session.user.name} memberCount={room.members.length} />
-                </div>
-            </div>
+            <main className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+                    <SessionPhaseManager
+                        key={sessionId}
+                        roomId={roomId}
+                        roomName={room.name}
+                        sessionTitle={moodSession.session.title || "Untitled Session"}
+                        initialState={sessionData.state}
+                        currentUserId={session.user.id}
+                        memberId={currentMember.id}
+                    />
+            </main>
         </div>
     );
 }

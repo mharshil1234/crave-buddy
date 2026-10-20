@@ -34,6 +34,7 @@ export async function getMoodRoomSession({ roomId, sessionId }: { roomId: string
                 },
             },
             members: {
+                where: { leftAt: null },
                 orderBy: {
                     joinedAt: "asc",
                 },
@@ -63,9 +64,10 @@ export async function getMoodRoomSession({ roomId, sessionId }: { roomId: string
 
     if(!room) throw new Error("Mood room not found");
 
-    const session = await prisma.moodRoomSession.findUnique({
+    const session = await prisma.moodRoomSession.findFirst({
         where: {
             id: sessionId,
+            roomId,
         },
         select: {
             id: true,
@@ -80,7 +82,7 @@ export async function getMoodRoomSession({ roomId, sessionId }: { roomId: string
     if(!session) throw new Error("Session not found");
 
     return {
-        room,
+        room: { ...room, inviteCode: room.invites[0]?.code },
         session
     };
 

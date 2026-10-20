@@ -207,12 +207,3 @@ To verify production compilation and TypeScript type safety:
 ```bash
 npm run build
 ```
-
----
-
-## 🗺️ Roadmap & Upcoming Milestones
-
-- **Mood Room Collaborative Flow**: Multi-phase group dining engine (Cravings collection, live restaurant voting poll, collaborative dish tray, and seamless 1-click cart transfer).
-- **Recommendation Engine Microservice**: Python `sentence-transformers` vector search backend.
-- **Dietary Constraints & Allergens**: Support Jain, vegan, keto, and allergen exclusions.
-- **Group Bill Splitting**: Automatic per-person cost breakdown in finished room orders.

@@ -122,6 +122,13 @@ enum MoodRoomPhase {
   FINISHED
 }
 
+enum MoodRoomNominationStatus {
+  IDLE
+  GENERATING
+  READY
+  FAILED
+}
+
 model MoodRoom {
   id             String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name           String            @db.VarChar(100)
@@ -179,20 +186,26 @@ model MoodRoomMember {
 }
 
 model MoodRoomSession {
-  id              String                   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  title           String?                  @db.VarChar(100)
-  roomId          String                   @db.Uuid
-  room            MoodRoom                 @relation(fields: [roomId], references: [id], onDelete: Cascade)
-  status          MoodRoomSessionStatus    @default(ACTIVE)
-  phase           MoodRoomPhase            @default(LOBBY)
-  startedAt       DateTime                 @default(now()) @db.Timestamptz(6)
-  endedAt         DateTime?                @db.Timestamptz(6)
-  updatedAt       DateTime                 @updatedAt @db.Timestamptz(6)
-  messages        MoodRoomMessage[]
-  prompts         MoodRoomPrompt[]
-  restaurantVotes MoodRoomRestaurantVote[]
-  itemVotes       MoodRoomItemVote[]
-  result          MoodRoomSessionResult?
+  id                   String                   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title                String?                  @db.VarChar(100)
+  roomId               String                   @db.Uuid
+  room                 MoodRoom                 @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  status               MoodRoomSessionStatus    @default(ACTIVE)
+  phase                MoodRoomPhase            @default(LOBBY)
+  startedAt            DateTime                 @default(now()) @db.Timestamptz(6)
+  endedAt              DateTime?                @db.Timestamptz(6)
+  updatedAt            DateTime                 @updatedAt @db.Timestamptz(6)
+  restaurantNominees   Json                     @default("[]")
+  nominationStatus     MoodRoomNominationStatus @default(IDLE)
+  nominationStartedAt  DateTime?                @db.Timestamptz(6)
+  nominationError      String?                  @db.VarChar(300)
+  selectedRestaurantId String?
+  itemVotingLockedAt   DateTime?                @db.Timestamptz(6)
+  messages             MoodRoomMessage[]
+  prompts              MoodRoomPrompt[]
+  restaurantVotes      MoodRoomRestaurantVote[]
+  itemVotes            MoodRoomItemVote[]
+  result               MoodRoomSessionResult?
 
   @@index([roomId])
   @@index([status])

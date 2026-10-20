@@ -1,23 +1,27 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { socket } from "@/lib/socket";
+import type { MoodRoomSocket } from "@/lib/socket";
+import { mergeChatMessages } from "@/lib/mood-room-chat";
+import { MAX_CHAT_MESSAGE_LENGTH, type ChatMessage, type ChatSendResult } from "@/socket/types";
 import { MessageCircle, SendHorizonal } from "lucide-react";
 
-type Message = {
-    id: string;
-    message: string;
-    userId: string;
-    username: string;
-    createdAt: string;
-    type?: "chat" | "join" | "leave";
-};
+interface ChatBoxProps {
+    sessionId: string;
+    roomId: string;
+    memberCount: number;
+    memberId: string;
+    socket: MoodRoomSocket;
+    connected: boolean;
+    activeUsers: number;
+    readOnly?: boolean;
+}
 
-export default function ChatBox({ sessionId, username, memberCount }: { sessionId: string; username: string; memberCount: number }) {
-
-    const [messages, setMessages] = useState<Message[]>([]);
+export default function ChatBox({ sessionId, roomId, memberCount, memberId, socket, connected, activeUsers, readOnly = false }: ChatBoxProps) {
+    const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [input, setInput] = useState("");
-    const [activeUsers, setActiveUsers] = useState(0);
+    const [sending, setSending] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const messagesRef = useRef<HTMLDivElement | null>(null);
     const trimmedInput = input.trim();
@@ -32,23 +36,43 @@ export default function ChatBox({ sessionId, username, memberCount }: { sessionI
     };
 
     useEffect(() => {
-        const handleNewMessage = (message: Message) => {
-            setMessages((prevMessages) => [...prevMessages, message]);
-        };
+        const controller = new AbortController();
 
-        const handleUsers = ({ count }: { count: number }) => {
-            setActiveUsers(count);
-        };
+        async function fetchMessages() {
+            try {
+                const res = await fetch(`/api/mood-room/${roomId}/session/${sessionId}/messages`, {
+                    signal: controller.signal,
+                    cache: "no-store",
+                });
+                if (!res.ok) throw new Error("Unable to load chat history. Reconnect to try again.");
+                const data: { messages: ChatMessage[] } = await res.json();
+                if (!controller.signal.aborted) {
+                    setMessages((current) => mergeChatMessages(current, data.messages));
+                }
+            } catch (cause) {
+                if (!controller.signal.aborted) {
+                    setError(cause instanceof Error ? cause.message : "Unable to load chat history");
+                }
+            }
+        }
 
+        if (connected) void fetchMessages();
+
+        return () => controller.abort();
+    }, [roomId, sessionId, connected]);
+
+    useEffect(() => {
+        const handleNewMessage = (message: ChatMessage) => {
+            if (message.sessionId === sessionId) {
+                setMessages((current) => mergeChatMessages(current, [message]));
+            }
+        };
         socket.on("chat:message", handleNewMessage);
-        socket.on("chat:users", handleUsers);
-        socket.emit("session:join", { sessionId, username });
 
         return () => {
             socket.off("chat:message", handleNewMessage);
-            socket.off("chat:users", handleUsers);
         };
-    }, [sessionId, username]);
+    }, [sessionId, socket]);
 
     useEffect(() => {
         if (messagesRef.current) {
@@ -57,9 +81,18 @@ export default function ChatBox({ sessionId, username, memberCount }: { sessionI
     }, [messages]);
 
     const handleSendMessage = () => {
-        if (!trimmedInput) return;
-        socket.emit("chat:send", { sessionId, message: trimmedInput, username });
-        setInput("");
+        if (!connected || !trimmedInput || sending || readOnly) return;
+        setSending(true);
+        setError(null);
+        socket.timeout(10_000).emit("chat:send", { roomId, sessionId, message: trimmedInput }, (cause: Error | null, result: ChatSendResult) => {
+            setSending(false);
+            if (cause || !result?.ok) {
+                setError(result && !result.ok ? result.error : "Message could not be confirmed. Reconnect before retrying.");
+                return;
+            }
+            setMessages((current) => mergeChatMessages(current, [result.message]));
+            setInput("");
+        });
     };
 
     return (
@@ -73,10 +106,10 @@ export default function ChatBox({ sessionId, username, memberCount }: { sessionI
                         <h3 className="text-base font-semibold text-gray-950">Session Chat</h3>
                     </div>
                 </div>
-                <div className="flex items-center gap-2">
-                    <div className="h-2 w-2 rounded-full bg-green-500"></div>
-                    <span className="text-sm text-gray-600">{activeUsers}/{memberCount} active</span>
-                </div>
+                {!readOnly && <div className="flex items-center gap-2">
+                    <div className={`h-2 w-2 rounded-full ${connected ? "bg-green-500" : "bg-gray-400"}`}></div>
+                    <span className="text-sm text-gray-600">{connected ? `${activeUsers}/${memberCount} active` : "Connecting..."}</span>
+                </div>}
             </div>
 
             <div className="min-h-0 flex-1">
@@ -88,14 +121,13 @@ export default function ChatBox({ sessionId, username, memberCount }: { sessionI
                                     <MessageCircle size={22} aria-hidden="true" />
                                 </div>
                                 <p className="font-medium text-gray-900">No messages yet</p>
-                                <p className="mt-1 text-sm text-gray-500">Start the session chat with a craving, vote, or dinner plan.</p>
                             </div>
                         </div>
                     ) : (
                         <div className="space-y-4">
                             {messages.map((message) => {
                                 const isSystemMessage = message.type === "join" || message.type === "leave";
-                                const isCurrentUser = message.username === username;
+                                const isCurrentUser = message.memberId === memberId;
                                 const timestamp = new Date(message.createdAt).toLocaleTimeString([], {
                                     hour: "2-digit",
                                     minute: "2-digit"
@@ -144,8 +176,10 @@ export default function ChatBox({ sessionId, username, memberCount }: { sessionI
             </div>
 
             <div className="border-t border-gray-100 bg-white p-3">
+                {error && <p role="alert" className="mb-2 text-sm text-red-600">{error}</p>}
+                {readOnly && <p className="mb-2 text-sm text-gray-500">This session has ended. Chat is read-only.</p>}
                 <form
-                    onSubmit={async (e) => {
+                    onSubmit={(e) => {
                         e.preventDefault();
                         handleSendMessage();
                     }}
@@ -154,14 +188,17 @@ export default function ChatBox({ sessionId, username, memberCount }: { sessionI
                     <input
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
+                        maxLength={MAX_CHAT_MESSAGE_LENGTH}
+                        disabled={readOnly || sending}
+                        aria-label="Chat message"
                         placeholder="Type a message..."
                         className="min-w-0 flex-1 rounded-md border border-gray-200 bg-gray-50 px-3 py-2.5 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-blue-500 focus:bg-white focus:ring-2 focus:ring-blue-100"
                     />
                     <button
                         type="submit"
-                        disabled={!trimmedInput}
+                        disabled={!trimmedInput || !connected || sending || readOnly}
                         aria-label="Send message"
-                        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-blue-600 text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-300"
+                        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-blue-600 text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-300 cursor-pointer"
                     >
                         <SendHorizonal size={18} aria-hidden="true" />
                     </button>
