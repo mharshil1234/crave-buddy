@@ -106,10 +106,10 @@ export default function ChatBox({ sessionId, roomId, memberCount, memberId, sock
                         <h3 className="text-base font-semibold text-gray-950">Session Chat</h3>
                     </div>
                 </div>
-                <div className="flex items-center gap-2">
+                {!readOnly && <div className="flex items-center gap-2">
                     <div className={`h-2 w-2 rounded-full ${connected ? "bg-green-500" : "bg-gray-400"}`}></div>
                     <span className="text-sm text-gray-600">{connected ? `${activeUsers}/${memberCount} active` : "Connecting..."}</span>
-                </div>
+                </div>}
             </div>
 
             <div className="min-h-0 flex-1">

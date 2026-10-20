@@ -35,6 +35,8 @@ type MoodRoomData = {
     endedAt?: Date | null;
     status: "ACTIVE" | "ENDED";
     phase: string;
+    restaurantName?: string | null;
+    endedEarly?: boolean;
   }[];
 };
 
@@ -95,9 +97,13 @@ export default function MoodRoomPage() {
     };
 
     fetchRoomData();
+    const refreshInterval = window.setInterval(fetchRoomData, 15_000);
+    window.addEventListener("focus", fetchRoomData);
 
     return () => {
       isMounted = false;
+      window.clearInterval(refreshInterval);
+      window.removeEventListener("focus", fetchRoomData);
     };
   }, [roomId, isMember]);
 

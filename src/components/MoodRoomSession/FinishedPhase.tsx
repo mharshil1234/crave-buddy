@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Check, ShoppingCart, Sparkles, Star } from "lucide-react";
+import { Check, CheckCircle2, ShoppingCart, Star } from "lucide-react";
 import { toast } from "sonner";
 import type { SessionResultData } from "@/socket/types";
 
@@ -28,11 +28,15 @@ export default function FinishedPhase({ roomId, sessionId, result, isHost }: { r
         }
     };
 
-    if (!result) return <section role="alert" className="rounded-2xl border border-red-200 bg-red-50 p-6 text-sm text-red-700">The saved order summary is unavailable. Refresh this session to try again.</section>;
+    if (!result) return <section className="mx-auto max-w-2xl rounded-2xl border border-gray-200 bg-white p-7 text-center shadow-sm">
+        <h2 className="text-2xl font-bold text-gray-950">Session ended early</h2>
+        <p className="mt-3 text-sm leading-6 text-gray-600">The host ended this session before finalizing an order. Saved votes and chat remain available for review.</p>
+        {isHost && <button type="button" onClick={() => router.push(`/mood-room/${roomId}`)} className="mt-5 rounded-xl bg-orange-600 px-5 py-3 text-sm font-semibold text-white hover:bg-orange-700">Return to room</button>}
+    </section>;
 
     return <section className="mx-auto max-w-3xl space-y-5">
         <div className="rounded-2xl border border-emerald-200 bg-gradient-to-br from-emerald-50 via-white to-orange-50 p-7 text-center shadow-sm">
-            <Sparkles size={34} className="mx-auto text-orange-500 motion-safe:animate-pulse" aria-hidden="true" />
+            <CheckCircle2 size={34} className="mx-auto text-emerald-600" aria-hidden="true" />
             <p className="mt-3 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700">Mood Room order complete</p>
             <h2 className="mt-2 text-3xl font-bold text-gray-950">Decision reached!</h2>
             <p className="mt-2 text-sm text-gray-600">Your group’s order is ready to add to your personal cart.</p>

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Check, Clock, LoaderCircle, Sparkles, Star, Trophy } from "lucide-react";
+import { Check, Clock, LoaderCircle, MapPin, Star, Trophy } from "lucide-react";
 import { NOMINATION_TIMEOUT_MS, type SessionState } from "@/socket/types";
 
 interface RestaurantVotingPhaseProps {
@@ -27,7 +27,7 @@ function MatchingRestaurants({ state, isHost, connected, pending, onRetry }: Pic
     const loading = state.nominationStatus === "GENERATING" && !expired;
 
     return <section className="rounded-2xl border border-orange-100 bg-white p-7 shadow-sm">
-        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-100 text-orange-600">{loading ? <LoaderCircle className="animate-spin" aria-hidden="true" /> : <Sparkles aria-hidden="true" />}</div>
+        <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-orange-100 text-orange-600">{loading ? <LoaderCircle className="animate-spin" aria-hidden="true" /> : <MapPin aria-hidden="true" />}</div>
         <h2 className="mt-5 text-2xl font-bold text-gray-950">{loading ? "Finding your group’s food match…" : "Let’s find your restaurants."}</h2>
         <p role="status" className="mt-3 text-sm leading-6 text-gray-600">{loading ? "We’re bringing everyone’s cravings together to find 3–4 places worth voting for." : state.nominationError || (expired ? "Matching is taking longer than expected. The host can try again." : "Your cravings are saved. The host can start restaurant matching.")}</p>
         <ul className="mt-5 space-y-2">{state.prompts.map((prompt) => <li key={prompt.memberId} className="rounded-xl bg-orange-50 p-3 text-sm text-gray-700"><span className="font-semibold">{prompt.displayName}:</span> {prompt.prompt}</li>)}</ul>
@@ -80,7 +80,7 @@ export default function RestaurantVotingPhase({ state, memberId, isHost, connect
                     <div className="space-y-3 p-4">
                         <div><h3 className="font-bold leading-6 text-gray-950">{nominee.name}</h3><p className="mt-1 text-xs leading-5 text-gray-500">{nominee.cuisines.join(" · ")}</p></div>
                         <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-600"><span className="flex items-center gap-1"><Clock size={13} />{nominee.deliveryTime}</span><span>{nominee.costForTwo}</span></div>
-                        <div className="rounded-xl bg-orange-50 p-3"><p className="flex items-center gap-1 text-xs font-semibold text-orange-800"><Sparkles size={13} />Why this restaurant</p><p className="mt-1 text-xs leading-5 text-orange-900">{nominee.matchReason}</p></div>
+                        <div className="rounded-xl bg-orange-50 p-3"><p className="text-xs font-semibold text-orange-800">Why this restaurant</p><p className="mt-1 text-xs leading-5 text-orange-900">{nominee.matchReason}</p></div>
                         <div><div className="mb-2 flex justify-between text-xs text-gray-600"><span>{vote.count} {vote.count === 1 ? "vote" : "votes"}</span><span>{percentage}%</span></div><div role="progressbar" aria-label={`Votes for ${nominee.name}`} aria-valuemin={0} aria-valuemax={100} aria-valuenow={percentage} className="h-2 overflow-hidden rounded-full bg-gray-100"><div className={`h-full rounded-full transition-all ${won ? "bg-emerald-500" : "bg-orange-500"}`} style={{ width: `${percentage}%` }} /></div></div>
                         {vote.memberIds.length > 0 && <div className="flex flex-wrap gap-1.5" aria-label="Members voting for this restaurant">{vote.memberIds.map((voterId) => {
                             const name = members.get(voterId)?.displayName ?? "Member";

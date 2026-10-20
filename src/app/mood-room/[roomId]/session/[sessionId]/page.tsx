@@ -117,7 +117,7 @@ export default function MoodRoomSessionPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+        <div className="min-h-screen bg-neutral-50">
             <Header />
             <RoomHeader
                 roomName={room.name}
@@ -126,27 +126,17 @@ export default function MoodRoomSessionPage() {
                 maxMembers={room.maxMembers}
                 inviteCode={room.inviteCode}
             />
-            <div className="max-w-7xl mx-auto px-4 py-6">
-                <div className="mb-6">
-                    <div className="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500">
-                        <h2 className="text-3xl font-bold text-gray-900 mb-2">
-                            {moodSession.session.title || "Untitled Session"}
-                        </h2>
-                        <p className="text-gray-600">
-                            Session ID: <span className="font-mono text-sm bg-gray-100 px-2 py-1 rounded">{moodSession.session.id}</span>
-                        </p>
-                    </div>
-                </div>
-                <div>
+            <main className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                     <SessionPhaseManager
                         key={sessionId}
                         roomId={roomId}
+                        roomName={room.name}
+                        sessionTitle={moodSession.session.title || "Untitled Session"}
                         initialState={sessionData.state}
                         currentUserId={session.user.id}
                         memberId={currentMember.id}
                     />
-                </div>
-            </div>
+            </main>
         </div>
     );
 }

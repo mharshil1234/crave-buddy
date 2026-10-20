@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Clock, Sparkles } from "lucide-react";
+import { Check, Clock } from "lucide-react";
 import { MAX_CRAVING_LENGTH, type SessionState } from "@/socket/types";
 
 interface PromptCollectionPhaseProps {
@@ -62,7 +62,7 @@ export default function PromptCollectionPhase({ state, memberId, isHost, connect
                 </ul>
                 {isHost ? <div className="mt-5 space-y-3 border-t border-gray-100 pt-5">
                     {!allReady && <label className="flex cursor-pointer items-start gap-3 text-sm leading-6 text-gray-600"><input type="checkbox" checked={allowPartial} onChange={(event) => setAllowPartial(event.target.checked)} disabled={pending} className="mt-1 accent-orange-600" />Continue with the submitted cravings, even if some members aren’t ready.</label>}
-                    <button type="button" onClick={() => onProceed(allowPartial)} disabled={!connected || pending || state.prompts.length === 0 || (!allReady && !allowPartial)} className="flex w-full items-center justify-center gap-2 rounded-xl bg-orange-600 px-5 py-3 font-semibold text-white transition hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-50"><Sparkles size={18} />{pending ? "Please wait…" : "Find Restaurants"}</button>
+                    <button type="button" onClick={() => onProceed(allowPartial)} disabled={!connected || pending || state.prompts.length === 0 || (!allReady && !allowPartial)} className="flex w-full items-center justify-center gap-2 rounded-xl bg-orange-600 px-5 py-3 font-semibold text-white transition hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-50">{pending ? "Please wait…" : "Find Restaurants"}</button>
                     {state.prompts.length === 0 && <p className="text-center text-xs text-gray-500">At least one craving is needed to continue.</p>}
                 </div> : <p className="mt-5 text-center text-sm text-gray-500">The host will continue when the group is ready.</p>}
             </div>

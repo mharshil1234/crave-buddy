@@ -193,6 +193,7 @@ export async function getRoom({ roomId }: { roomId: string }) {
         })),
         sessions: room.sessions.map(({ result, ...session }) => ({
             ...session,
+            endedEarly: session.status === "ENDED" && !result,
             restaurantName: result?.restaurant && typeof result.restaurant === "object" && "restaurantName" in result.restaurant
                 ? String(result.restaurant.restaurantName)
                 : null,

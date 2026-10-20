@@ -108,6 +108,8 @@ Restaurant matching uses the restaurant catalogue entries that currently have me
 
 After the host locks the group tray, **Finalize group order** saves a read-only result containing the selected restaurant, agreed item quantities, and estimated total. Every connected member sees the same receipt, and reopening a completed session restores it from PostgreSQL. Ended sessions appear in the room’s **Past Sessions** list with the chosen restaurant.
 
+The host can end any active session early from its session page. After confirmation, all members are returned to a read-only ended view, existing chat and votes remain saved, and no order is finalized. The room lobby lists ended-early sessions separately from completed orders.
+
 `POST /api/mood-room/:roomId/session/:sessionId/finalize` finalizes the locked order for the host. `POST /api/mood-room/:roomId/session/:sessionId/cart` adds the saved order quantities to the signed-in member’s cart; it validates the membership and reads item IDs and quantities from the persisted result. Existing cart quantities are incremented. The cart action reports success and navigates to `/cart`.
 
 ### Verify Phase 4

@@ -434,3 +434,22 @@ export async function finalizeSession({ roomId, sessionId, userId }: SessionScop
         return toSessionState(updated);
     });
 }
+
+export async function endSessionEarly({ roomId, sessionId, userId }: SessionScope & { userId: string }) {
+    if (!sessionScopeSchema.safeParse({ roomId, sessionId }).success) throw new MoodRoomAccessError("Invalid room or session ID", 400);
+    return prisma.$transaction(async (transaction) => {
+        await transaction.$queryRaw`SELECT id FROM mood_room_sessions WHERE id = ${sessionId}::uuid FOR UPDATE`;
+        const session = await transaction.moodRoomSession.findUnique({ where: { id: sessionId }, include: stateInclude });
+        if (!session || session.roomId !== roomId) throw new MoodRoomAccessError("Session not found in this room", 404);
+        if (session.status !== "ACTIVE") throw new MoodRoomAccessError("This session has already ended", 409);
+        if (session.room.hostId !== userId || !session.room.members.some((member) => member.userId === userId)) {
+            throw new MoodRoomAccessError("Only the host can end this session", 403);
+        }
+        const updated = await transaction.moodRoomSession.update({
+            where: { id: sessionId },
+            data: { status: "ENDED", phase: "FINISHED", endedAt: new Date() },
+            include: stateInclude,
+        });
+        return toSessionState(updated);
+    });
+}

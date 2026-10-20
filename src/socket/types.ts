@@ -133,4 +133,5 @@ export interface ClientToServerEvents {
     "session:vote-item": (data: SessionScope & { itemId: string; quantity: number }, ack: (result: SessionStateResult) => void) => void;
     "session:lock-items": (data: SessionScope, ack: (result: SessionStateResult) => void) => void;
     "session:finalize": (data: SessionScope, ack: (result: SessionStateResult) => void) => void;
+    "session:end-early": (data: SessionScope, ack: (result: SessionStateResult) => void) => void;
 }
