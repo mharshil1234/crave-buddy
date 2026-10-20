@@ -176,6 +176,12 @@ export default function MoodRoomPage() {
               <MemberList
                 members={roomData.members || []}
                 isHost={isHost}
+                roomId={roomId}
+                currentUserId={session.user.id}
+                onMemberRemoved={async () => {
+                  const response = await fetch(`/api/mood-room/${roomId}`);
+                  if (response.ok) setRoomData(await response.json());
+                }}
               />
 
               <HostControls
