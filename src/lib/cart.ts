@@ -59,6 +59,24 @@ export async function updateCart(restaurantId: string, itemId: string, newQuanti
     }
 }
 
+export async function addFinalizedOrderToCart(restaurantId: string, items: Array<{ id: string; quantity: number }>) {
+    const details = await getRestaurantById({ lat: "0", lng: "0", restaurantId }) as RestaurantDetails;
+    const menuItems = new Map(details.data.menu.map((item) => [item.id, item]));
+    const validItems = items.map((item) => {
+        const menuItem = menuItems.get(item.id);
+        if (!menuItem || !Number.isInteger(item.quantity) || item.quantity < 1) throw new Error("Finalized order contains an invalid menu item");
+        return { id: item.id, quantity: item.quantity };
+    });
+    if (!validItems.length) throw new Error("Finalized order is empty");
+
+    const { cartId, cart } = await getCart();
+    const restaurantCart = { ...(cart[restaurantId] ?? {}) };
+    for (const item of validItems) restaurantCart[item.id] = (restaurantCart[item.id] ?? 0) + item.quantity;
+    const updatedCart = { ...cart, [restaurantId]: restaurantCart };
+    await redis.set(`cart:${cartId}`, updatedCart, { ex: 60 * 60 * 24 * 7 });
+    return { cartId, cart: updatedCart };
+}
+
 type MenuItem = {
     id: string;
     name: string;

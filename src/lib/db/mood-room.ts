@@ -170,6 +170,7 @@ export async function getRoom({ roomId }: { roomId: string }) {
                     endedAt: true,
                     status: true,
                     phase: true,
+                    result: { select: { restaurant: true } },
                 },
             },
         },
@@ -190,7 +191,12 @@ export async function getRoom({ roomId }: { roomId: string }) {
             ...member,
             isHost: member.userId === room.hostId,
         })),
-        sessions: room.sessions,
+        sessions: room.sessions.map(({ result, ...session }) => ({
+            ...session,
+            restaurantName: result?.restaurant && typeof result.restaurant === "object" && "restaurantName" in result.restaurant
+                ? String(result.restaurant.restaurantName)
+                : null,
+        })),
     };
 }
 

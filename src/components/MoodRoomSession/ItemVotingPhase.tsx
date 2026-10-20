@@ -26,9 +26,10 @@ interface ItemVotingPhaseProps {
     pending: boolean;
     onQuantityChange: (itemId: string, quantity: number) => void;
     onLock: () => void;
+    onFinalize: () => void;
 }
 
-export default function ItemVotingPhase({ roomId, state, memberId, isHost, connected, pending, onQuantityChange, onLock }: ItemVotingPhaseProps) {
+export default function ItemVotingPhase({ roomId, state, memberId, isHost, connected, pending, onQuantityChange, onLock, onFinalize }: ItemVotingPhaseProps) {
     const [restaurant, setRestaurant] = useState<RestaurantMenu | null>(null);
     const [loading, setLoading] = useState(true);
     const [loadError, setLoadError] = useState<string | null>(null);
@@ -121,6 +122,7 @@ export default function ItemVotingPhase({ roomId, state, memberId, isHost, conne
                     {locked ? <p role="status" className="mt-4 flex items-center justify-center gap-2 rounded-xl bg-emerald-50 p-3 text-sm font-semibold text-emerald-800"><Check size={17} />Order locked by the host</p>
                         : isHost ? <button type="button" onClick={onLock} disabled={!connected || pending || !hasItems} className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-orange-600 px-4 py-3 text-sm font-semibold text-white hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-50"><LockKeyhole size={16} />{pending ? "Locking tray…" : "Lock in order"}</button>
                             : <p className="mt-4 text-center text-xs text-gray-500">The host can lock the order when the group is ready.</p>}
+                    {locked && isHost && state.status === "ACTIVE" && <button type="button" onClick={onFinalize} disabled={!connected || pending} className="mt-3 w-full rounded-xl bg-emerald-600 px-4 py-3 text-sm font-semibold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50">{pending ? "Finalizing…" : "Finalize group order"}</button>}
                 </section>
             </aside>
         </div>

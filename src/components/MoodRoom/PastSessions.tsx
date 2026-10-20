@@ -10,6 +10,7 @@ interface Session {
   endedAt?: Date | null;
   status: "ACTIVE" | "ENDED";
   phase: string;
+  restaurantName?: string | null;
 }
 
 interface PastSessionsProps {
@@ -64,6 +65,7 @@ export function PastSessions({ sessions, roomId }: PastSessionsProps) {
                       minute: "2-digit",
                     })}
                   </p>
+                  {session.restaurantName && <p className="mt-1 truncate text-xs font-medium text-orange-700">{session.restaurantName}</p>}
                 </div>
                 <ChevronRight className="h-5 w-5 text-neutral-400 flex-shrink-0" />
               </div>

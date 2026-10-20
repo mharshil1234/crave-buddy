@@ -57,3 +57,9 @@ export async function lockItemsThroughSocket(scope: SessionScope, cookie: string
         socket.timeout(8000).emit("session:lock-items", scope, callback);
     });
 }
+
+export async function finalizeSessionThroughSocket(scope: SessionScope, cookie: string) {
+    return runSessionCommand(cookie, (socket, callback) => {
+        socket.timeout(8000).emit("session:finalize", scope, callback);
+    });
+}

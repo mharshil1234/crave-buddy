@@ -74,6 +74,7 @@ export interface SessionState {
     selectedRestaurantId: string | null;
     itemVotes: Record<string, { quantity: number; voters: string[]; quantities: Record<string, number> }>;
     itemVotingLockedAt: string | null;
+    result: SessionResultData | null;
 }
 
 export type SessionStateResult = { ok: true; state: SessionState } | { ok: false; error: string };
@@ -95,7 +96,12 @@ export interface ItemVoteUpdateData {
 export interface SessionResultData {
     restaurantId: string;
     restaurantName: string;
-    items: Array<{ id: string; name: string; price: number; quantity: number }>;
+    restaurantImage: string;
+    location: string;
+    cuisines: string[];
+    rating: number;
+    deliveryTime: string;
+    items: Array<{ id: string; name: string; price: number; quantity: number; image: string; veg: boolean }>;
     totalAmount: number;
 }
 
@@ -126,5 +132,5 @@ export interface ClientToServerEvents {
     "session:vote-restaurant": (data: SessionScope & { restaurantId: string }, ack: (result: SessionStateResult) => void) => void;
     "session:vote-item": (data: SessionScope & { itemId: string; quantity: number }, ack: (result: SessionStateResult) => void) => void;
     "session:lock-items": (data: SessionScope, ack: (result: SessionStateResult) => void) => void;
-    "session:finalize": (data: SessionScope, ack: SocketAck) => void;
+    "session:finalize": (data: SessionScope, ack: (result: SessionStateResult) => void) => void;
 }

@@ -104,6 +104,20 @@ Restaurant matching uses the restaurant catalogue entries that currently have me
 4. Try locking an empty tray and confirm it is blocked. Add a dish and lock as host; confirm controls become read-only for both members.
 5. Refresh and confirm the saved menu votes and locked state are restored.
 
+## Mood Room: Phase 4
+
+After the host locks the group tray, **Finalize group order** saves a read-only result containing the selected restaurant, agreed item quantities, and estimated total. Every connected member sees the same receipt, and reopening a completed session restores it from PostgreSQL. Ended sessions appear in the room’s **Past Sessions** list with the chosen restaurant.
+
+`POST /api/mood-room/:roomId/session/:sessionId/finalize` finalizes the locked order for the host. `POST /api/mood-room/:roomId/session/:sessionId/cart` adds the saved order quantities to the signed-in member’s cart; it validates the membership and reads item IDs and quantities from the persisted result. Existing cart quantities are incremented. The cart action reports success and navigates to `/cart`.
+
+### Verify Phase 4
+
+1. Finish a session through item voting, lock the tray as host, and select **Finalize group order**.
+2. Confirm host and guests immediately see the same receipt and that refreshing restores the finished session.
+3. Confirm the session appears in the room’s **Past Sessions** list with the restaurant name; open it and confirm the receipt is read-only.
+4. Add the order to cart from two member accounts. Each cart should contain the finalized items and quantities, added to any existing quantities.
+5. Confirm guests cannot finalize and nonmembers cannot view the saved result or transfer it into a cart.
+
 ### Verify Phase 0
 
 1. Run `npm run build`.

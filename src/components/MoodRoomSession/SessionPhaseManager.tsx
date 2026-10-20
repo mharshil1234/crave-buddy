@@ -8,6 +8,7 @@ import LobbyPhase from "./LobbyPhase";
 import PromptCollectionPhase from "./PromptCollectionPhase";
 import RestaurantVotingPhase from "./RestaurantVotingPhase";
 import ItemVotingPhase from "./ItemVotingPhase";
+import FinishedPhase from "./FinishedPhase";
 
 interface SessionPhaseManagerProps {
     roomId: string;
@@ -154,6 +155,15 @@ export default function SessionPhaseManager({ roomId, initialState, currentUserI
         });
     };
 
+    const finalizeOrder = () => {
+        if (!writable || pending) return;
+        setPending(true);
+        setError(null);
+        socket.timeout(10_000).emit("session:finalize", { roomId, sessionId }, (cause: Error | null, result: SessionStateResult) => {
+            finishAction(cause, result);
+        });
+    };
+
     return (
         <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1.5fr)_minmax(320px,1fr)]">
             <div className="min-w-0 space-y-4">
@@ -161,8 +171,8 @@ export default function SessionPhaseManager({ roomId, initialState, currentUserI
                 {state.phase === "LOBBY" ? <LobbyPhase members={state.members} onlineMemberIds={onlineMemberIds} hostId={state.hostId} currentUserId={currentUserId} connected={writable} pending={pending} onStart={() => advancePhase("PROMPT_COLLECTION")} />
                     : state.phase === "PROMPT_COLLECTION" ? <PromptCollectionPhase state={state} memberId={memberId} isHost={isHost} connected={writable} pending={pending} onlineMemberIds={onlineMemberIds} onSubmit={submitPrompt} onProceed={(allowPartial) => advancePhase("RESTAURANT_VOTING", allowPartial)} />
                         : state.phase === "RESTAURANT_VOTING" ? <RestaurantVotingPhase state={state} memberId={memberId} isHost={isHost} connected={writable} pending={pending} onVote={voteRestaurant} onRetry={retryMatching} onClose={(restaurantId, allowPartial) => advancePhase("ITEM_VOTING", allowPartial, restaurantId)} />
-                            : state.phase === "ITEM_VOTING" ? <ItemVotingPhase roomId={roomId} state={state} memberId={memberId} isHost={isHost} connected={writable} pending={pending} onQuantityChange={voteItem} onLock={lockItems} />
-                            : <section className="rounded-2xl border border-gray-200 bg-white p-7"><h2 className="text-2xl font-bold text-gray-950">Session finished</h2><p className="mt-3 text-sm text-gray-600">Your saved conversation is available here.</p></section>}
+                            : state.phase === "ITEM_VOTING" ? <ItemVotingPhase roomId={roomId} state={state} memberId={memberId} isHost={isHost} connected={writable} pending={pending} onQuantityChange={voteItem} onLock={lockItems} onFinalize={finalizeOrder} />
+                                : <FinishedPhase roomId={roomId} sessionId={sessionId} result={state.result} isHost={isHost} />}
             </div>
             <details open className="min-w-0 rounded-2xl border border-gray-200 bg-white p-3 shadow-sm lg:sticky lg:top-6">
                 <summary className="cursor-pointer px-2 pb-3 pt-1 text-sm font-semibold text-gray-700">Session conversation</summary>

@@ -13,6 +13,7 @@ import {
     upsertRestaurantVote,
     upsertItemVote,
     lockItemVoting,
+    finalizeSession,
     cravingSchema,
     MoodRoomAccessError,
     saveChatMessage,
@@ -298,6 +299,19 @@ export function createMoodRoomSocketServer({ nominateRestaurants = getGroupNomin
                 if (!parsed.success) throw new MoodRoomAccessError("Invalid room or session ID", 400);
                 const state = await lockItemVoting({ ...parsed.data, userId: socket.data.userId });
                 publishState(state, "phase");
+                if (typeof ack === "function") ack({ ok: true, state });
+            } catch (error) {
+                reportError(error, ack);
+            }
+        }));
+
+        socket.on("session:finalize", (payload, ack) => enqueue(async () => {
+            try {
+                const parsed = sessionScopeSchema.safeParse(payload);
+                if (!parsed.success) throw new MoodRoomAccessError("Invalid room or session ID", 400);
+                const state = await finalizeSession({ ...parsed.data, userId: socket.data.userId });
+                publishState(state, "phase");
+                if (state.result) io.to(sessionChannel(state.sessionId)).emit("session:finished", { sessionId: state.sessionId, result: state.result });
                 if (typeof ack === "function") ack({ ok: true, state });
             } catch (error) {
                 reportError(error, ack);

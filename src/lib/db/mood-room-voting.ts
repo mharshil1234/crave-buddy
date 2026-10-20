@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
 import type { Prisma } from "../../../generated/prisma/client";
 import { z } from "zod";
-import { MAX_CHAT_MESSAGE_LENGTH, MAX_CRAVING_LENGTH, NOMINATION_TIMEOUT_MS, type ChatMessage, type RestaurantNominee, type RestaurantVotes, type SessionScope, type SessionState } from "@/socket/types";
+import { MAX_CHAT_MESSAGE_LENGTH, MAX_CRAVING_LENGTH, NOMINATION_TIMEOUT_MS, type ChatMessage, type RestaurantNominee, type RestaurantVotes, type SessionResultData, type SessionScope, type SessionState } from "@/socket/types";
 import { getGroupRestaurantCandidates, getMoodRoomRestaurantMenu, restaurantNomineeSchema, validateGroupNominations } from "@/lib/mood-room";
 
 export const sessionScopeSchema = z.object({
@@ -127,6 +127,7 @@ const stateInclude = {
         where: { member: { leftAt: null } },
         select: { memberId: true, itemId: true, quantity: true },
     },
+    result: true,
 } satisfies Prisma.MoodRoomSessionInclude;
 
 type StoredSessionState = Prisma.MoodRoomSessionGetPayload<{ include: typeof stateInclude }>;
@@ -153,6 +154,18 @@ function toSessionState(session: StoredSessionState): SessionState {
         item.quantities[vote.memberId] = vote.quantity;
         itemVotes[vote.itemId] = item;
     });
+    const storedRestaurant = session.result ? z.object({
+        restaurantId: z.string(), restaurantName: z.string(), restaurantImage: z.string(), location: z.string(),
+        cuisines: z.array(z.string()), rating: z.number(), deliveryTime: z.string(),
+    }).parse(session.result.restaurant) : null;
+    const storedItems = session.result ? z.array(z.object({
+        id: z.string(), name: z.string(), price: z.number(), quantity: z.number().int().positive(), image: z.string(), veg: z.boolean(),
+    })).parse(session.result.items) : [];
+    const result: SessionResultData | null = storedRestaurant ? {
+        ...storedRestaurant,
+        items: storedItems,
+        totalAmount: storedItems.reduce((sum, item) => sum + item.price * item.quantity, 0),
+    } : null;
     return {
         sessionId: session.id,
         phase: session.phase,
@@ -177,6 +190,7 @@ function toSessionState(session: StoredSessionState): SessionState {
         selectedRestaurantId: session.selectedRestaurantId,
         itemVotes,
         itemVotingLockedAt: session.itemVotingLockedAt?.toISOString() ?? null,
+        result,
     };
 }
 
@@ -373,5 +387,50 @@ export async function lockItemVoting({ roomId, sessionId, userId }: SessionScope
             throw new MoodRoomAccessError("Add at least one dish before locking the group tray", 409);
         }
         await transaction.moodRoomSession.update({ where: { id: sessionId }, data: { itemVotingLockedAt: new Date() } });
+    });
+}
+
+export async function finalizeSession({ roomId, sessionId, userId }: SessionScope & { userId: string }) {
+    if (!sessionScopeSchema.safeParse({ roomId, sessionId }).success) throw new MoodRoomAccessError("Invalid room or session ID", 400);
+    return prisma.$transaction(async (transaction) => {
+        await transaction.$queryRaw`SELECT id FROM mood_room_sessions WHERE id = ${sessionId}::uuid FOR UPDATE`;
+        const session = await transaction.moodRoomSession.findUnique({ where: { id: sessionId }, include: stateInclude });
+        if (!session || session.roomId !== roomId) throw new MoodRoomAccessError("Session not found in this room", 404);
+        if (session.status !== "ACTIVE") throw new MoodRoomAccessError("This session has already been finalized", 409);
+        if (session.room.hostId !== userId || !session.room.members.some((member) => member.userId === userId)) {
+            throw new MoodRoomAccessError("Only the host can finalize this order", 403);
+        }
+        if (session.phase !== "ITEM_VOTING" || !session.itemVotingLockedAt || !session.selectedRestaurantId) {
+            throw new MoodRoomAccessError("Lock the group tray before finalizing the order", 409);
+        }
+
+        const restaurant = getMoodRoomRestaurantMenu(session.selectedRestaurantId);
+        const quantities = new Map<string, number>();
+        session.itemVotes.forEach((vote) => quantities.set(vote.itemId, (quantities.get(vote.itemId) ?? 0) + vote.quantity));
+        const items = restaurant.menu.flatMap((item) => {
+            const quantity = quantities.get(item.id) ?? 0;
+            return quantity > 0 ? [{ id: item.id, name: item.name, price: item.price, quantity, image: item.img, veg: item.veg }] : [];
+        });
+        if (!items.length) throw new MoodRoomAccessError("Add at least one dish before finalizing", 409);
+        const restaurantData = {
+            restaurantId: session.selectedRestaurantId,
+            restaurantName: restaurant.name,
+            restaurantImage: restaurant.restaurantImg.startsWith("http") ? restaurant.restaurantImg : `https://media-assets.swiggy.com/swiggy/image/upload/${restaurant.restaurantImg}`,
+            location: restaurant.location,
+            cuisines: restaurant.cuisines,
+            rating: restaurant.rating,
+            deliveryTime: restaurant.deliveryTime,
+        };
+        await transaction.moodRoomSessionResult.upsert({
+            where: { sessionId },
+            create: { sessionId, restaurantId: session.selectedRestaurantId, restaurant: restaurantData, items },
+            update: { restaurantId: session.selectedRestaurantId, restaurant: restaurantData, items },
+        });
+        const updated = await transaction.moodRoomSession.update({
+            where: { id: sessionId },
+            data: { status: "ENDED", phase: "FINISHED", endedAt: new Date() },
+            include: stateInclude,
+        });
+        return toSessionState(updated);
     });
 }
