@@ -8,11 +8,15 @@ import {
     getSessionState,
     upsertPrompt,
     advanceSessionPhase,
+    startRestaurantNomination,
+    completeRestaurantNomination,
+    upsertRestaurantVote,
     cravingSchema,
     MoodRoomAccessError,
     saveChatMessage,
     sessionScopeSchema,
 } from "../lib/db/mood-room-voting";
+import { getGroupNominatedRestaurants, getGroupRestaurantCandidates } from "../lib/mood-room";
 import {
     MAX_CHAT_MESSAGE_LENGTH,
     type ClientToServerEvents,
@@ -34,11 +38,15 @@ const chatSchema = sessionScopeSchema.extend({
 
 const promptSchema = sessionScopeSchema.extend({ prompt: cravingSchema });
 const phaseSchema = sessionScopeSchema.extend({
-    phase: z.enum(["PROMPT_COLLECTION", "RESTAURANT_VOTING"]),
+    phase: z.enum(["PROMPT_COLLECTION", "RESTAURANT_VOTING", "ITEM_VOTING"]),
     allowPartial: z.boolean().optional(),
+    restaurantId: z.string().min(1).max(100).optional(),
 });
+const restaurantVoteSchema = sessionScopeSchema.extend({ restaurantId: z.string().min(1).max(100) });
 
-export function createMoodRoomSocketServer() {
+export function createMoodRoomSocketServer({ nominateRestaurants = getGroupNominatedRestaurants }: {
+    nominateRestaurants?: typeof getGroupNominatedRestaurants;
+} = {}) {
     const httpServer = createServer();
     const origins = (process.env.SOCKET_ALLOWED_ORIGINS || "http://localhost:3000,http://127.0.0.1:3000")
         .split(",").map((origin) => origin.trim()).filter(Boolean);
@@ -50,13 +58,34 @@ export function createMoodRoomSocketServer() {
     const roomUsers = new Map<string, Map<string, SessionMember>>();
     const sessionChannel = (sessionId: string) => `session:${sessionId}`;
 
-    const publishState = (state: SessionState, change: "phase" | "prompt") => {
+    const publishState = (state: SessionState, change: "phase" | "prompt" | "restaurant") => {
         const channel = io.to(sessionChannel(state.sessionId));
         channel.emit("session:state", state);
         if (change === "phase") {
             channel.emit("session:phase-changed", { sessionId: state.sessionId, phase: state.phase, state });
-        } else {
+        } else if (change === "prompt") {
             channel.emit("session:prompt-update", { ...state, totalSubmitted: state.prompts.length });
+        } else {
+            channel.emit("session:restaurant-vote-update", { ...state, votes: state.restaurantVotes });
+        }
+    };
+
+    const nominateForSession = async (state: SessionState) => {
+        if (!state.nominationStartedAt) return;
+        const request = { sessionId: state.sessionId, startedAt: state.nominationStartedAt };
+        try {
+            const nominees = await nominateRestaurants({ prompts: state.prompts, restaurants: getGroupRestaurantCandidates() });
+            const updated = await completeRestaurantNomination({ ...request, nominees });
+            publishState(updated, "restaurant");
+        } catch (error) {
+            if (error instanceof MoodRoomAccessError) return;
+            console.error("Group restaurant matching failed:", error);
+            try {
+                const updated = await completeRestaurantNomination({ ...request, error: "We couldn’t match restaurants right now. Please try again." });
+                publishState(updated, "restaurant");
+            } catch (saveError) {
+                if (!(saveError instanceof MoodRoomAccessError)) console.error("Could not save restaurant matching failure:", saveError);
+            }
         }
     };
 
@@ -198,6 +227,7 @@ export function createMoodRoomSocketServer() {
                 const state = await advanceSessionPhase({ ...parsed.data, userId: socket.data.userId });
                 publishState(state, "phase");
                 if (typeof ack === "function") ack({ ok: true, state });
+                if (state.phase === "RESTAURANT_VOTING" && state.nominationStatus === "GENERATING") void nominateForSession(state);
             } catch (error) {
                 reportError(error, ack);
             }
@@ -211,6 +241,33 @@ export function createMoodRoomSocketServer() {
                 const { member } = await getSessionMember({ roomId, sessionId, userId: socket.data.userId });
                 const state = await upsertPrompt({ sessionId, memberId: member.id, prompt });
                 publishState(state, "prompt");
+                if (typeof ack === "function") ack({ ok: true, state });
+            } catch (error) {
+                reportError(error, ack);
+            }
+        }));
+
+        socket.on("session:nominate-restaurants", (payload, ack) => enqueue(async () => {
+            try {
+                const parsed = sessionScopeSchema.safeParse(payload);
+                if (!parsed.success) throw new MoodRoomAccessError("Invalid room or session ID", 400);
+                const state = await startRestaurantNomination({ ...parsed.data, userId: socket.data.userId });
+                publishState(state, "restaurant");
+                if (typeof ack === "function") ack({ ok: true, state });
+                void nominateForSession(state);
+            } catch (error) {
+                reportError(error, ack);
+            }
+        }));
+
+        socket.on("session:vote-restaurant", (payload, ack) => enqueue(async () => {
+            try {
+                const parsed = restaurantVoteSchema.safeParse(payload);
+                if (!parsed.success) throw new MoodRoomAccessError("Choose a valid restaurant and session", 400);
+                const { roomId, sessionId, restaurantId } = parsed.data;
+                const { member } = await getSessionMember({ roomId, sessionId, userId: socket.data.userId });
+                const state = await upsertRestaurantVote({ sessionId, memberId: member.id, restaurantId });
+                publishState(state, "restaurant");
                 if (typeof ack === "function") ack({ ok: true, state });
             } catch (error) {
                 reportError(error, ack);

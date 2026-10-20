@@ -2,6 +2,7 @@ import type { MoodRoomPhase } from "../../generated/prisma/enums";
 
 export const MAX_CHAT_MESSAGE_LENGTH = 5000;
 export const MAX_CRAVING_LENGTH = 1000;
+export const NOMINATION_TIMEOUT_MS = 60_000;
 
 export interface SessionScope {
     roomId: string;
@@ -41,6 +42,22 @@ export interface SessionPrompt {
     prompt: string;
 }
 
+export interface RestaurantCandidate {
+    restaurantId: string;
+    name: string;
+    image: string;
+    cuisines: string[];
+    rating: number;
+    deliveryTime: string;
+    costForTwo: string;
+}
+
+export interface RestaurantNominee extends RestaurantCandidate {
+    matchReason: string;
+}
+
+export type RestaurantVotes = Record<string, { count: number; memberIds: string[] }>;
+
 export interface SessionState {
     sessionId: string;
     phase: MoodRoomPhase;
@@ -49,6 +66,12 @@ export interface SessionState {
     updatedAt: string;
     members: SessionMember[];
     prompts: SessionPrompt[];
+    restaurantNominees: RestaurantNominee[];
+    nominationStatus: "IDLE" | "GENERATING" | "READY" | "FAILED";
+    nominationStartedAt: string | null;
+    nominationError: string | null;
+    restaurantVotes: RestaurantVotes;
+    selectedRestaurantId: string | null;
 }
 
 export type SessionStateResult = { ok: true; state: SessionState } | { ok: false; error: string };
@@ -57,9 +80,8 @@ export interface PromptUpdateData extends SessionState {
     totalSubmitted: number;
 }
 
-export interface RestaurantVoteUpdateData {
-    sessionId: string;
-    votes: Record<string, { count: number; memberIds: string[] }>;
+export interface RestaurantVoteUpdateData extends SessionState {
+    votes: RestaurantVotes;
 }
 
 export interface ItemVoteUpdateData {
@@ -95,9 +117,10 @@ export interface ClientToServerEvents {
     "session:join": (data: SessionScope, ack: SocketAck) => void;
     "session:leave": (data: SessionScope, ack?: SocketAck) => void;
     "chat:send": (data: SessionScope & { message: string }, ack: (result: ChatSendResult) => void) => void;
-    "session:advance-phase": (data: SessionScope & { phase: MoodRoomPhase; allowPartial?: boolean }, ack: (result: SessionStateResult) => void) => void;
+    "session:advance-phase": (data: SessionScope & { phase: MoodRoomPhase; allowPartial?: boolean; restaurantId?: string }, ack: (result: SessionStateResult) => void) => void;
     "session:submit-prompt": (data: SessionScope & { prompt: string }, ack: (result: SessionStateResult) => void) => void;
-    "session:vote-restaurant": (data: SessionScope & { restaurantId: string }, ack: SocketAck) => void;
+    "session:nominate-restaurants": (data: SessionScope, ack: (result: SessionStateResult) => void) => void;
+    "session:vote-restaurant": (data: SessionScope & { restaurantId: string }, ack: (result: SessionStateResult) => void) => void;
     "session:vote-item": (data: SessionScope & { itemId: string; quantity: number }, ack: SocketAck) => void;
     "session:finalize": (data: SessionScope, ack: SocketAck) => void;
 }

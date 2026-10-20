@@ -52,7 +52,7 @@ The session opens in a lobby with live member presence and a host-only **Start C
 
 Each member can submit or edit one craving of up to 1,000 characters, including dietary needs or budget. Quick mood chips provide starting points. The group sees each saved craving and a live submission checklist. Reloading or reconnecting restores the persisted phase and submissions.
 
-Only the host can select **Find Restaurants**. At least one craving is required. If members are still missing, the host must explicitly choose to continue with the submitted cravings. Proceeding persists `RESTAURANT_VOTING` and locks craving edits. Restaurant nominees and voting are implemented in Phase 2; for now this screen displays the saved group cravings.
+Only the host can select **Find Restaurants**. At least one craving is required. If members are still missing, the host must explicitly choose to continue with the submitted cravings. Proceeding persists `RESTAURANT_VOTING` and locks craving edits.
 
 The authenticated prompt endpoint supports:
 
@@ -70,6 +70,23 @@ Phase transitions and prompt writes lock the session row before checking its cur
 5. Edit a craving and confirm the existing entry updates without increasing the count.
 6. With a member still missing, confirm the host must explicitly opt to continue. With no submissions, proceeding must remain blocked.
 7. Choose **Find Restaurants**. Both screens should show the saved cravings for the next round, and further craving edits must be rejected.
+
+## Mood Room: Phase 2
+
+After the host starts restaurant voting, the socket server sends the group's saved cravings and open restaurant catalogue to Gemini 2.5 Flash. The AI returns three or four catalogue IDs and a short reason for each; the app validates the IDs and uses catalogue metadata for the displayed restaurant details. Set `GOOGLE_GENERATIVE_AI_API_KEY` in `.env` for nomination generation. The AI request has a 55-second timeout. A failed generation is saved and can be retried by the host; a generation that remains in progress for over one minute can also be retried.
+
+Members can vote for one nominee and change their vote while voting remains open. The host closes voting after everyone votes or explicitly opts to continue with partial votes. A unique highest vote count wins automatically. If the count is tied, the host chooses one of the tied nominees. The winner is persisted and all connected clients move to `ITEM_VOTING`; dish selection is the next phase.
+
+`GET /api/mood-room/:roomId/session/:sessionId/vote/restaurant` returns the saved nominees, current vote tally, and session state. `POST` with `{ "restaurantId": "..." }` casts or changes the signed-in member's vote. Requests require an authenticated room member and the socket service must be running. Votes are limited to one per active member and nominee; session row locks serialize transitions and votes.
+
+### Verify Phase 2
+
+1. Start both processes and open one session as host and guest in separate browser profiles. Submit cravings from both members.
+2. Have the host select **Find Restaurants**. Both screens should show the generation state, followed by the same three or four tailored nominees.
+3. Vote from each profile and confirm the bars, counts, and voter initials update on both screens. Change one vote and confirm the tally moves.
+4. Try closing before all members vote. Confirm the host must explicitly continue with partial votes; guests cannot close the round.
+5. Test a tie and confirm only a tied nominee can be selected as winner. Refresh and confirm the winner and finished vote tally remain visible.
+6. Temporarily remove the AI key or force a generation error in development. Confirm the failure is shown and the host can retry after correcting the cause.
 
 ### Verify Phase 0
 

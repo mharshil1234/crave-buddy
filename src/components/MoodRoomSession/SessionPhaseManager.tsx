@@ -6,6 +6,7 @@ import type { PromptUpdateData, ServerToClientEvents, SessionPresence, SessionSt
 import ChatBox from "./ChatBox";
 import LobbyPhase from "./LobbyPhase";
 import PromptCollectionPhase from "./PromptCollectionPhase";
+import RestaurantVotingPhase from "./RestaurantVotingPhase";
 
 interface SessionPhaseManagerProps {
     roomId: string;
@@ -64,6 +65,7 @@ export default function SessionPhaseManager({ roomId, initialState, currentUserI
         socket.on("session:state", applyState);
         socket.on("session:phase-changed", phaseChanged);
         socket.on("session:prompt-update", promptsChanged);
+        socket.on("session:restaurant-vote-update", applyState);
         socket.connect();
         return () => {
             controller.abort();
@@ -75,6 +77,7 @@ export default function SessionPhaseManager({ roomId, initialState, currentUserI
             socket.off("session:state", applyState);
             socket.off("session:phase-changed", phaseChanged);
             socket.off("session:prompt-update", promptsChanged);
+            socket.off("session:restaurant-vote-update", applyState);
             socket.disconnect();
         };
     }, [socket, roomId, sessionId, applyState]);
@@ -89,11 +92,11 @@ export default function SessionPhaseManager({ roomId, initialState, currentUserI
         return true;
     };
 
-    const advancePhase = (phase: "PROMPT_COLLECTION" | "RESTAURANT_VOTING", allowPartial = false) => {
+    const advancePhase = (phase: "PROMPT_COLLECTION" | "RESTAURANT_VOTING" | "ITEM_VOTING", allowPartial = false, restaurantId?: string) => {
         if (!connected || pending) return;
         setPending(true);
         setError(null);
-        socket.timeout(10_000).emit("session:advance-phase", { roomId, sessionId, phase, allowPartial }, (cause: Error | null, result: SessionStateResult) => {
+        socket.timeout(10_000).emit("session:advance-phase", { roomId, sessionId, phase, allowPartial, restaurantId }, (cause: Error | null, result: SessionStateResult) => {
             finishAction(cause, result);
         });
     };
@@ -111,13 +114,32 @@ export default function SessionPhaseManager({ roomId, initialState, currentUserI
 
     const writable = connected && state.status === "ACTIVE";
 
+    const voteRestaurant = (restaurantId: string) => {
+        if (!writable || pending) return;
+        setPending(true);
+        setError(null);
+        socket.timeout(10_000).emit("session:vote-restaurant", { roomId, sessionId, restaurantId }, (cause: Error | null, result: SessionStateResult) => {
+            finishAction(cause, result);
+        });
+    };
+
+    const retryMatching = () => {
+        if (!writable || pending) return;
+        setPending(true);
+        setError(null);
+        socket.timeout(10_000).emit("session:nominate-restaurants", { roomId, sessionId }, (cause: Error | null, result: SessionStateResult) => {
+            finishAction(cause, result);
+        });
+    };
+
     return (
         <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1.5fr)_minmax(320px,1fr)]">
             <div className="min-w-0 space-y-4">
                 {error && <div role="alert" className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">{error}</div>}
                 {state.phase === "LOBBY" ? <LobbyPhase members={state.members} onlineMemberIds={onlineMemberIds} hostId={state.hostId} currentUserId={currentUserId} connected={writable} pending={pending} onStart={() => advancePhase("PROMPT_COLLECTION")} />
                     : state.phase === "PROMPT_COLLECTION" ? <PromptCollectionPhase state={state} memberId={memberId} isHost={isHost} connected={writable} pending={pending} onlineMemberIds={onlineMemberIds} onSubmit={submitPrompt} onProceed={(allowPartial) => advancePhase("RESTAURANT_VOTING", allowPartial)} />
-                        : <section className="space-y-4 rounded-2xl border border-orange-100 bg-white p-7 shadow-sm"><span className="text-xs font-semibold uppercase tracking-widest text-orange-600">{state.status === "ENDED" ? "Session ended" : "Cravings collected"}</span><h2 className="text-2xl font-bold text-gray-950">{state.phase === "RESTAURANT_VOTING" ? "Your group’s cravings are ready." : "Your group session"}</h2><p className="text-sm leading-6 text-gray-600">{state.phase === "RESTAURANT_VOTING" ? "Restaurant suggestions aren’t available yet. Your group’s cravings are saved below." : "Your saved cravings and conversation are available here."}</p><ul className="space-y-3">{state.prompts.map((prompt) => <li key={prompt.memberId} className="rounded-xl bg-orange-50 p-4"><p className="text-sm font-semibold text-gray-900">{prompt.displayName}</p><p className="mt-1 whitespace-pre-wrap break-words text-sm leading-6 text-gray-600">{prompt.prompt}</p></li>)}</ul></section>}
+                        : state.phase === "RESTAURANT_VOTING" || state.phase === "ITEM_VOTING" ? <RestaurantVotingPhase state={state} memberId={memberId} isHost={isHost} connected={writable} pending={pending} onVote={voteRestaurant} onRetry={retryMatching} onClose={(restaurantId, allowPartial) => advancePhase("ITEM_VOTING", allowPartial, restaurantId)} />
+                            : <section className="rounded-2xl border border-gray-200 bg-white p-7"><h2 className="text-2xl font-bold text-gray-950">Session finished</h2><p className="mt-3 text-sm text-gray-600">Your saved conversation is available here.</p></section>}
             </div>
             <details open className="min-w-0 rounded-2xl border border-gray-200 bg-white p-3 shadow-sm lg:sticky lg:top-6">
                 <summary className="cursor-pointer px-2 pb-3 pt-1 text-sm font-semibold text-gray-700">Session conversation</summary>
