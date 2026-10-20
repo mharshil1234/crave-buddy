@@ -121,7 +121,6 @@ export default function ChatBox({ sessionId, roomId, memberCount, memberId, sock
                                     <MessageCircle size={22} aria-hidden="true" />
                                 </div>
                                 <p className="font-medium text-gray-900">No messages yet</p>
-                                <p className="mt-1 text-sm text-gray-500">Start the session chat with a craving, vote, or dinner plan.</p>
                             </div>
                         </div>
                     ) : (

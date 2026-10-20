@@ -126,6 +126,12 @@ export function createMoodRoomSocketServer({ nominateRestaurants = getGroupNomin
         const leaveSession = async () => {
             const { scope, member } = socket.data;
             if (!scope || !member) return;
+            let sessionEnded = false;
+            try {
+                sessionEnded = (await getSessionState({ ...scope, userId: member.userId })).status === "ENDED";
+            } catch (error) {
+                console.error("Unable to check session status before leaving:", error);
+            }
             delete socket.data.scope;
             delete socket.data.member;
             await socket.leave(sessionChannel(scope.sessionId));
@@ -137,7 +143,7 @@ export function createMoodRoomSocketServer({ nominateRestaurants = getGroupNomin
             roomMembers?.delete(socket.id);
             if (roomMembers?.size === 0) roomUsers.delete(scope.roomId);
 
-            if (![...(users?.values() ?? [])].some((user) => user.memberId === member.memberId)) {
+            if (!sessionEnded && ![...(users?.values() ?? [])].some((user) => user.memberId === member.memberId)) {
                 io.to(sessionChannel(scope.sessionId)).emit("chat:message", {
                     id: randomUUID(), sessionId: scope.sessionId, type: "leave",
                     message: `${member.displayName} left the session`, username: member.displayName,
@@ -180,7 +186,7 @@ export function createMoodRoomSocketServer({ nominateRestaurants = getGroupNomin
                 socket.data.scope = scope;
                 socket.data.member = connectedMember;
 
-                if (!alreadyPresent) {
+                if (!alreadyPresent && state.status !== "ENDED") {
                     io.to(sessionChannel(scope.sessionId)).emit("chat:message", {
                         id: randomUUID(), sessionId: scope.sessionId, type: "join",
                         message: `${member.displayName} joined the session`, username: member.displayName,
