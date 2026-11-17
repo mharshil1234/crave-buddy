@@ -1,0 +1,11 @@
+node_modules
+.next
+generated
+.git
+.env*
+!.env.example
+coverage
+*.log
+tsconfig.tsbuildinfo
+.agents
+.codex

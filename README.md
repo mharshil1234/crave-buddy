@@ -188,6 +188,23 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
+### Running with Docker (both servers in one command)
+
+Requires Docker with the Compose plugin. Postgres (Supabase) and Redis (Upstash) stay hosted, so `.env` is all the containers need.
+
+```bash
+npm run docker:up     # builds the image, starts the web app (:3000) and socket server (:3001)
+npm run docker:down   # stops both
+```
+
+- Source is bind-mounted, so code changes hot-reload in both containers.
+- Logs from both servers stream in the same terminal; use `npm run docker:up -- -d` to run them in the background and `docker compose logs -f` to follow logs.
+- After changing `package.json`, just run `npm run docker:up` again: it rebuilds the image and refreshes the containers' `node_modules`.
+- Stop any `npm run dev` / `npm run socket` running on your machine first, since they use the same ports.
+- To reach a service on your machine (e.g. the recommendation service), use `http://host.docker.internal:8000` instead of `localhost` in `.env`.
+
+---
+
 ## 🧪 Building & Type Checking
 
 To verify production compilation and TypeScript type safety:

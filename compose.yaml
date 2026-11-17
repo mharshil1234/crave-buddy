@@ -1,0 +1,36 @@
+# Starts the Next.js app and the Socket.IO server together for local development:
+#   npm run docker:up        (or: docker compose up --build --renew-anon-volumes)
+# Postgres (Supabase) and Redis (Upstash) are hosted, so both services read their URLs from .env.
+name: crave-buddy
+
+x-app: &app
+  build: .
+  env_file: .env
+  extra_hosts:
+    # Lets containers reach services running on your machine, e.g. RECOMMENDER_URL=http://host.docker.internal:8000
+    - "host.docker.internal:host-gateway"
+  volumes:
+    - .:/app
+    # Keep the container's own Linux node_modules and Prisma client instead of the host's.
+    - /app/node_modules
+    - /app/generated
+  restart: unless-stopped
+
+services:
+  web:
+    <<: *app
+    command: sh -c "npx prisma generate && npm run dev"
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/generated
+      # Separate build cache so it doesn't clash with `npm run dev` on the host.
+      - /app/.next
+
+  socket:
+    <<: *app
+    command: sh -c "npx prisma generate && npm run socket"
+    ports:
+      - "${SOCKET_PORT:-3001}:${SOCKET_PORT:-3001}"

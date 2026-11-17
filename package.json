@@ -10,7 +10,9 @@
     "build": "prisma generate && next build",
     "postinstall": "prisma generate",
     "seed": "tsx scripts/seedCatalogue.ts",
-    "test": "vitest run"
+    "test": "vitest run",
+    "docker:up": "docker compose up --build --renew-anon-volumes",
+    "docker:down": "docker compose down"
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.80",
