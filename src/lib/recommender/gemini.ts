@@ -77,13 +77,18 @@ async function pickItems(query: string, isVeg: boolean, menus: Record<string, un
         You must recommend items for every restaurant provided.
         Every restaurant ID in the input must appear in the output.
 
-        Return only the best matching item IDs for each restaurant.
+        Return one entry per restaurant with its restaurant ID and the best matching item IDs.
     `,
         output: Output.object({
-            schema: z.record(z.string(), z.array(z.string()).min(1).max(4)),
+            schema: z.object({
+                restaurants: z.array(z.object({
+                    restaurantId: z.string(),
+                    itemIds: z.array(z.string()).min(1).max(4),
+                })),
+            }),
         }),
     });
-    return response.output;
+    return Object.fromEntries(response.output.restaurants.map(({ restaurantId, itemIds }) => [restaurantId, itemIds]));
 }
 
 export const geminiRecommender: Recommender = {
