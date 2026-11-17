@@ -5,6 +5,7 @@ import { cookies, headers } from "next/headers";
 import { z } from "zod";
 import { auth } from "@/lib/auth";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
+import { EmptyRecommendationError } from "@/lib/recommender/validate";
 
 const MOOD_BOARD_LIMIT = 10;
 const MOOD_BOARD_WINDOW_SECONDS = 10 * 60;
@@ -60,6 +61,12 @@ export async function POST(request: NextRequest) {
 
         return NextResponse.json({ id });
     } catch (error) {
+        if (error instanceof EmptyRecommendationError) {
+            return NextResponse.json(
+                { error: "We couldn't find dishes for that craving. Try describing it differently." },
+                { status: 502 },
+            );
+        }
         console.error("Error to create mood board:", error);
         return NextResponse.json({ error: "Failed to create mood board" }, { status: 500 });
     }
