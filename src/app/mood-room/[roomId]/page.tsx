@@ -117,10 +117,7 @@ export default function MoodRoomPage() {
       const res = await fetch(`/api/mood-room/${roomId}/session`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          hostId: session.user.id,
-          title: sessionName,
-        }),
+        body: JSON.stringify({ title: sessionName }),
       });
       if (res.ok) {
         const data = await res.json();

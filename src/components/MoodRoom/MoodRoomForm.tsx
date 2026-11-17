@@ -36,7 +36,6 @@ export function MoodRoomForm() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     moodRoomName: moodRoomName.trim(),
-                    hostId: session.user.id,
                     displayName: finalDisplayName,
                 }),
             });

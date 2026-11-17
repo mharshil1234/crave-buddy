@@ -1,51 +1,30 @@
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+import { auth } from "@/lib/auth";
 import { createRoom } from "@/lib/db/mood-room";
-import type { createRoomProps } from "@/types/mood-room";
+
+const createRoomSchema = z.object({
+    moodRoomName: z.string().trim().min(1).max(100),
+    displayName: z.string().trim().min(1).max(50),
+});
 
 export async function POST(req: NextRequest) {
     try {
-        const body: createRoomProps = await req.json();
-
-        const { moodRoomName, hostId, displayName } = body;
-
-        if (!moodRoomName || !hostId || !displayName) {
-            return NextResponse.json(
-                {
-                    success: false,
-                    message: "Missing required fields",
-                },
-                {
-                    status: 400,
-                }
-            );
+        const session = await auth.api.getSession({ headers: req.headers });
+        if (!session) {
+            return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });
         }
 
-        const room = await createRoom({
-            moodRoomName,
-            hostId,
-            displayName,
-        });
+        const parsed = createRoomSchema.safeParse(await req.json().catch(() => null));
+        if (!parsed.success) {
+            return NextResponse.json({ success: false, message: "Missing or invalid fields" }, { status: 400 });
+        }
 
-        return NextResponse.json(
-            {
-                success: true,
-                room,
-            },
-            {
-                status: 201,
-            }
-        );
+        const room = await createRoom({ ...parsed.data, hostId: session.user.id });
+
+        return NextResponse.json({ success: true, room }, { status: 201 });
     } catch (error) {
         console.error("Error creating mood room:", error);
-
-        return NextResponse.json(
-            {
-                success: false,
-                error: error instanceof Error ? error.message : "Unknown error",
-            },
-            {
-                status: 500,
-            }
-        );
+        return NextResponse.json({ success: false, message: "Failed to create mood room" }, { status: 500 });
     }
 }

@@ -36,7 +36,6 @@ export function JoinMoodRoomForm() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     inviteCode: inviteCode.trim().toUpperCase(),
-                    userId: session.user.id,
                     displayName: finalDisplayName,
                 }),
             });
