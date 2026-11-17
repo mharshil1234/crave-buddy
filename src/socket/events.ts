@@ -81,7 +81,7 @@ export function createMoodRoomSocketServer({ nominateRestaurants = getGroupNomin
         if (!state.nominationStartedAt) return;
         const request = { sessionId: state.sessionId, startedAt: state.nominationStartedAt };
         try {
-            const nominees = await nominateRestaurants({ prompts: state.prompts, restaurants: getGroupRestaurantCandidates() });
+            const nominees = await nominateRestaurants({ prompts: state.prompts, restaurants: await getGroupRestaurantCandidates() });
             const updated = await completeRestaurantNomination({ ...request, nominees });
             publishState(updated, "restaurant");
         } catch (error) {

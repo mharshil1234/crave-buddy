@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { randomUUID } from "crypto";
 import { redis } from "@/lib/redis";
 import { getRestaurantById } from "@/lib/restaurant";
+import type { MenuItem } from "@/types/restaurant";
 
 export async function getCartId() {
     const cookieStore = await cookies();
@@ -60,7 +61,7 @@ export async function updateCart(restaurantId: string, itemId: string, newQuanti
 }
 
 export async function addFinalizedOrderToCart(restaurantId: string, items: Array<{ id: string; quantity: number }>) {
-    const details = await getRestaurantById({ lat: "0", lng: "0", restaurantId }) as RestaurantDetails;
+    const details = await getRestaurantById({ lat: "0", lng: "0", restaurantId });
     const menuItems = new Map(details.data.menu.map((item) => [item.id, item]));
     const validItems = items.map((item) => {
         const menuItem = menuItems.get(item.id);
@@ -76,22 +77,6 @@ export async function addFinalizedOrderToCart(restaurantId: string, items: Array
     await redis.set(`cart:${cartId}`, updatedCart, { ex: 60 * 60 * 24 * 7 });
     return { cartId, cart: updatedCart };
 }
-
-type MenuItem = {
-    id: string;
-    name: string;
-    price: number;
-    img: string;
-    veg: boolean;
-};
-
-type RestaurantDetails = {
-    data: {
-        name: string;
-        restaurantImg: string;
-        menu: MenuItem[];
-    };
-};
 
 type CartItemDetails = {
     id: string;
@@ -121,7 +106,7 @@ export async function getCartDetails() {
             lat: "0",
             lng: "0",
             restaurantId,
-        }) as RestaurantDetails;
+        });
 
         const menuMap = new Map<string, MenuItem>(
             restaurantDetails.data.menu.map((item) => [item.id, item])

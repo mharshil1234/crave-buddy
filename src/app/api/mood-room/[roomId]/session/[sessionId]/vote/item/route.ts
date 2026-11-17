@@ -23,7 +23,7 @@ export async function GET(req: NextRequest, { params }: Context) {
         if (!state.selectedRestaurantId || !["ITEM_VOTING", "FINISHED"].includes(state.phase)) {
             throw new MoodRoomAccessError("The winning restaurant is not available yet", 409);
         }
-        const restaurant = getMoodRoomRestaurantMenu(state.selectedRestaurantId);
+        const restaurant = await getMoodRoomRestaurantMenu(state.selectedRestaurantId);
         return NextResponse.json({ success: true, restaurant, votes: state.itemVotes, state }, {
             headers: { "Cache-Control": "private, no-store" },
         });

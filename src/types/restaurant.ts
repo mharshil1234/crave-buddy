@@ -19,6 +19,10 @@ export type MenuItem = {
     img: string;
 }
 
+export type RestaurantWithMenu = RestaurantDetails & {
+    menu: MenuItem[];
+};
+
 export type restaurantCartData = {
     restaurantName: string;
     restaurantImg: string;

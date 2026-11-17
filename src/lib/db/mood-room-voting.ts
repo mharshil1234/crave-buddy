@@ -2,7 +2,8 @@ import prisma from "@/lib/prisma";
 import type { Prisma } from "../../../generated/prisma/client";
 import { z } from "zod";
 import { MAX_CHAT_MESSAGE_LENGTH, MAX_CRAVING_LENGTH, NOMINATION_TIMEOUT_MS, type ChatMessage, type RestaurantNominee, type RestaurantVotes, type SessionResultData, type SessionScope, type SessionState } from "@/socket/types";
-import { getGroupRestaurantCandidates, getMoodRoomRestaurantMenu, restaurantNomineeSchema, validateGroupNominations } from "@/lib/mood-room";
+import { getGroupRestaurantCandidates, restaurantNomineeSchema, validateGroupNominations } from "@/lib/mood-room";
+import { getMenuItem, getRestaurant, toRestaurantWithMenu } from "@/lib/catalogue";
 
 export const sessionScopeSchema = z.object({
     roomId: z.uuid(),
@@ -299,7 +300,7 @@ export async function completeRestaurantNomination({ sessionId, startedAt, nomin
     nominees?: RestaurantNominee[];
     error?: string;
 }) {
-    const validated = error ? [] : validateGroupNominations(nominees, getGroupRestaurantCandidates());
+    const validated = error ? [] : validateGroupNominations(nominees, await getGroupRestaurantCandidates());
     return mutateSession(sessionId, async (transaction, session) => {
         if (session.phase !== "RESTAURANT_VOTING" || session.nominationStatus !== "GENERATING" || session.nominationStartedAt?.toISOString() !== startedAt) {
             throw new MoodRoomAccessError("Restaurant matching has been superseded", 409);
@@ -362,8 +363,7 @@ export async function upsertItemVote({ sessionId, memberId, itemId, quantity }: 
         if (!session.room.members.some((member) => member.id === memberId)) throw new MoodRoomAccessError("Not a member of this room", 403);
         if (session.phase !== "ITEM_VOTING" || !session.selectedRestaurantId) throw new MoodRoomAccessError("Dish voting is not open", 409);
         if (session.itemVotingLockedAt) throw new MoodRoomAccessError("The group tray is locked", 409);
-        const menu = getMoodRoomRestaurantMenu(session.selectedRestaurantId);
-        if (!menu.menu.some((item) => item.id === itemId)) throw new MoodRoomAccessError("Choose a dish from the winning restaurant menu", 400);
+        if (!(await getMenuItem(session.selectedRestaurantId, itemId, transaction))) throw new MoodRoomAccessError("Choose a dish from the winning restaurant menu", 400);
         if (parsed.data === 0) {
             await transaction.moodRoomItemVote.deleteMany({ where: { sessionId, memberId, itemId } });
         } else {
@@ -404,7 +404,9 @@ export async function finalizeSession({ roomId, sessionId, userId }: SessionScop
             throw new MoodRoomAccessError("Lock the group tray before finalizing the order", 409);
         }
 
-        const restaurant = getMoodRoomRestaurantMenu(session.selectedRestaurantId);
+        const storedRestaurant = await getRestaurant(session.selectedRestaurantId, transaction);
+        if (!storedRestaurant) throw new MoodRoomAccessError("The winning restaurant is no longer available", 409);
+        const restaurant = toRestaurantWithMenu(storedRestaurant);
         const quantities = new Map<string, number>();
         session.itemVotes.forEach((vote) => quantities.set(vote.itemId, (quantities.get(vote.itemId) ?? 0) + vote.quantity));
         const items = restaurant.menu.flatMap((item) => {
@@ -415,7 +417,7 @@ export async function finalizeSession({ roomId, sessionId, userId }: SessionScop
         const restaurantData = {
             restaurantId: session.selectedRestaurantId,
             restaurantName: restaurant.name,
-            restaurantImage: restaurant.restaurantImg.startsWith("http") ? restaurant.restaurantImg : `https://media-assets.swiggy.com/swiggy/image/upload/${restaurant.restaurantImg}`,
+            restaurantImage: restaurant.restaurantImg,
             location: restaurant.location,
             cuisines: restaurant.cuisines,
             rating: restaurant.rating,

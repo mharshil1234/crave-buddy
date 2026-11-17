@@ -1,8 +1,7 @@
-import restaurantsData from "../../data/restaurants.json";
-import restaurantMenu from "../../data/restaurantMenu.json";
 import { generateText, Output } from "ai";
 import { z } from "zod";
 import { geminiFlash } from "@/lib/ai";
+import { formatCostForTwo, getRestaurant, listRestaurantsWithMenus, restaurantImageUrl, toRestaurantWithMenu } from "@/lib/catalogue";
 import { NOMINATION_TIMEOUT_MS, type RestaurantCandidate, type RestaurantNominee, type SessionPrompt } from "@/socket/types";
 
 export const restaurantNomineeSchema = z.object({
@@ -16,33 +15,23 @@ export const restaurantNomineeSchema = z.object({
     matchReason: z.string().trim().min(1).max(300),
 });
 
-const menuCatalog = restaurantMenu as Record<string, {
-    name: string;
-    restaurantImg: string;
-    location: string;
-    cuisines: string[];
-    rating: number;
-    priceForTwo: number;
-    deliveryTime: string;
-    menu: Array<{ id: string; name: string; description: string; price: number; veg: boolean; category: string; rating: number; img: string }>;
-}>;
-
-export function getGroupRestaurantCandidates(): RestaurantCandidate[] {
-    return restaurantsData.filter(({ info }) => info.isOpen && Boolean(menuCatalog[info.id]?.menu.length)).map(({ info }) => ({
-        restaurantId: info.id,
-        name: info.name,
-        image: info.cloudinaryImageId ? `https://media-assets.swiggy.com/swiggy/image/upload/${info.cloudinaryImageId}` : "/restaurant.jpeg",
-        cuisines: info.cuisines,
-        rating: info.avgRating,
-        deliveryTime: info.sla.slaString,
-        costForTwo: info.costForTwo,
+export async function getGroupRestaurantCandidates(): Promise<RestaurantCandidate[]> {
+    const restaurants = await listRestaurantsWithMenus({ openOnly: true });
+    return restaurants.map((restaurant) => ({
+        restaurantId: restaurant.id,
+        name: restaurant.name,
+        image: restaurantImageUrl(restaurant.cloudinary_image_id),
+        cuisines: restaurant.cuisines,
+        rating: restaurant.rating ?? 0,
+        deliveryTime: restaurant.delivery_time ?? "",
+        costForTwo: formatCostForTwo(restaurant.cost_for_two),
     }));
 }
 
-export function getMoodRoomRestaurantMenu(restaurantId: string) {
-    const restaurant = menuCatalog[restaurantId];
-    if (!restaurant) throw new Error("Restaurant menu is not available");
-    return restaurant;
+export async function getMoodRoomRestaurantMenu(restaurantId: string) {
+    const restaurant = await getRestaurant(restaurantId);
+    if (!restaurant || !restaurant.menu_items.length) throw new Error("Restaurant menu is not available");
+    return toRestaurantWithMenu(restaurant);
 }
 
 export function validateGroupNominations(value: unknown, restaurants: RestaurantCandidate[]): RestaurantNominee[] {
