@@ -15,6 +15,14 @@ export default function RestaurantPage() {
     const [restaurantDetails, setRestaurantDetails] = useState<RestaurantDetails | null>(null);
     const [restaurantMenu, setRestaurantMenu] = useState<MenuItem[] | null>([]);
     const [loading, setLoading] = useState(true);
+    const [searchQuery, setSearchQuery] = useState("");
+
+    const normalizedQuery = searchQuery.trim().toLowerCase();
+    const filteredMenu = normalizedQuery
+        ? (restaurantMenu ?? []).filter((item) =>
+            [item.name, item.description, item.category].some((field) => field?.toLowerCase().includes(normalizedQuery))
+        )
+        : restaurantMenu;
 
     useEffect(() => {
 
@@ -118,9 +126,15 @@ export default function RestaurantPage() {
                         <h1 className="font-bold text-xl mt-4">MENU</h1>
                     </div>
 
-                    <Search />
+                    <Search value={searchQuery} onChange={setSearchQuery} />
 
-                    <MenuList menu={restaurantMenu} restaurantId={id} />
+                    {normalizedQuery && filteredMenu?.length === 0 ? (
+                        <p className="mt-8 rounded-xl border border-dashed border-gray-300 p-6 text-center text-gray-600">
+                            No dishes match &ldquo;{searchQuery.trim()}&rdquo;.
+                        </p>
+                    ) : (
+                        <MenuList menu={filteredMenu} restaurantId={id} />
+                    )}
 
                 </div>
             </div>
