@@ -1,0 +1,441 @@
+{
+  "900001": {
+    "stations": [
+      "south_indian_tiffin"
+    ],
+    "perStation": 9,
+    "priceFactor": 1.0
+  },
+  "900002": {
+    "stations": [
+      "south_indian_meals",
+      "biryani"
+    ],
+    "perStation": 7,
+    "priceFactor": 1.1
+  },
+  "900003": {
+    "stations": [
+      "kerala",
+      "seafood"
+    ],
+    "perStation": 7,
+    "priceFactor": 1.0
+  },
+  "900004": {
+    "stations": [
+      "seafood",
+      "kerala",
+      "chinese"
+    ],
+    "perStation": 5,
+    "priceFactor": 1.15
+  },
+  "900005": {
+    "stations": [
+      "chinese"
+    ],
+    "perStation": 11,
+    "priceFactor": 1.0
+  },
+  "900006": {
+    "stations": [
+      "asian"
+    ],
+    "perStation": 10,
+    "priceFactor": 1.1
+  },
+  "900007": {
+    "stations": [
+      "korean",
+      "asian"
+    ],
+    "perStation": 6,
+    "priceFactor": 1.0
+  },
+  "900008": {
+    "stations": [
+      "momos",
+      "chinese"
+    ],
+    "perStation": 7,
+    "priceFactor": 0.95
+  },
+  "900009": {
+    "stations": [
+      "rolls",
+      "beverages"
+    ],
+    "perStation": 6,
+    "priceFactor": 1.0
+  },
+  "900010": {
+    "stations": [
+      "chaat",
+      "maharashtrian"
+    ],
+    "perStation": 7,
+    "priceFactor": 0.9
+  },
+  "900011": {
+    "stations": [
+      "maharashtrian",
+      "chaat"
+    ],
+    "perStation": 6,
+    "priceFactor": 0.95
+  },
+  "900012": {
+    "stations": [
+      "rajasthani_gujarati",
+      "desserts_indian"
+    ],
+    "perStation": 6,
+    "priceFactor": 1.05
+  },
+  "900013": {
+    "stations": [
+      "bengali",
+      "rolls"
+    ],
+    "perStation": 6,
+    "priceFactor": 1.05
+  },
+  "900014": {
+    "stations": [
+      "punjabi_dhaba",
+      "north_indian",
+      "breads_rice"
+    ],
+    "perStation": 6,
+    "priceFactor": 1.0
+  },
+  "900015": {
+    "stations": [
+      "tandoor_kebabs",
+      "biryani",
+      "breads_rice"
+    ],
+    "perStation": 7,
+    "priceFactor": 1.1
+  },
+  "900016": {
+    "stations": [
+      "lebanese",
+      "rolls"
+    ],
+    "perStation": 6,
+    "priceFactor": 1.05
+  },
+  "900017": {
+    "stations": [
+      "mexican",
+      "healthy_bowls"
+    ],
+    "perStation": 6,
+    "priceFactor": 1.05
+  },
+  "900018": {
+    "stations": [
+      "burgers",
+      "shakes"
+    ],
+    "perStation": 8,
+    "priceFactor": 1.0
+  },
+  "900019": {
+    "stations": [
+      "cafe",
+      "desserts_bakery",
+      "sandwiches"
+    ],
+    "perStation": 6,
+    "priceFactor": 1.1
+  },
+  "900020": {
+    "stations": [
+      "cafe",
+      "juices_smoothies",
+      "sandwiches"
+    ],
+    "perStation": 5,
+    "priceFactor": 1.0
+  },
+  "900021": {
+    "stations": [
+      "juices_smoothies",
+      "salads",
+      "healthy_bowls"
+    ],
+    "perStation": 5,
+    "priceFactor": 1.0
+  },
+  "900022": {
+    "stations": [
+      "keto",
+      "salads",
+      "healthy_bowls"
+    ],
+    "perStation": 5,
+    "priceFactor": 1.1
+  },
+  "900023": {
+    "stations": [
+      "desserts_bakery",
+      "shakes"
+    ],
+    "perStation": 6,
+    "priceFactor": 1.0
+  },
+  "900024": {
+    "stations": [
+      "desserts_indian",
+      "chaat"
+    ],
+    "perStation": 8,
+    "priceFactor": 1.0
+  },
+  "900025": {
+    "stations": [
+      "burgers",
+      "chinese",
+      "desserts_bakery",
+      "korean"
+    ],
+    "perStation": 4,
+    "priceFactor": 1.0
+  },
+  "900026": {
+    "stations": [
+      "pasta",
+      "pizza_gourmet",
+      "desserts_bakery"
+    ],
+    "perStation": 6,
+    "priceFactor": 1.2
+  },
+  "900027": {
+    "stations": [
+      "pizza_classic",
+      "pasta"
+    ],
+    "perStation": 7,
+    "priceFactor": 0.95
+  },
+  "900028": {
+    "stations": [
+      "biryani",
+      "tandoor_kebabs"
+    ],
+    "perStation": 8,
+    "priceFactor": 0.95
+  },
+  "900029": {
+    "stations": [
+      "south_indian_meals",
+      "south_indian_tiffin",
+      "home_meals"
+    ],
+    "perStation": 4,
+    "priceFactor": 0.9
+  },
+  "900030": {
+    "stations": [
+      "chaat"
+    ],
+    "perStation": 7,
+    "priceFactor": 0.9
+  },
+  "502999": {
+    "stations": [
+      "biryani",
+      "north_indian",
+      "thali_combos",
+      "desserts_indian"
+    ],
+    "perStation": 3,
+    "priceFactor": 0.95
+  },
+  "622202": {
+    "stations": [
+      "pizza_classic",
+      "desserts_bakery",
+      "beverages"
+    ],
+    "perStation": 5,
+    "priceFactor": 1.0
+  },
+  "503003": {
+    "stations": [
+      "biryani",
+      "tandoor_kebabs",
+      "desserts_indian"
+    ],
+    "perStation": 5,
+    "priceFactor": 1.0
+  },
+  "503002": {
+    "stations": [
+      "punjabi_dhaba",
+      "north_indian",
+      "thali_combos",
+      "breads_rice"
+    ],
+    "perStation": 4,
+    "priceFactor": 0.95
+  },
+  "643832": {
+    "stations": [
+      "healthy_bowls",
+      "salads",
+      "keto",
+      "juices_smoothies"
+    ],
+    "perStation": 4,
+    "priceFactor": 1.0
+  },
+  "681612": {
+    "stations": [
+      "pizza_classic",
+      "pizza_gourmet",
+      "desserts_bakery"
+    ],
+    "perStation": 4,
+    "priceFactor": 1.0
+  },
+  "750396": {
+    "stations": [
+      "home_meals",
+      "thali_combos",
+      "north_indian",
+      "breads_rice"
+    ],
+    "perStation": 4,
+    "priceFactor": 0.9
+  },
+  "616273": {
+    "stations": [
+      "tandoor_kebabs",
+      "rolls",
+      "breads_rice"
+    ],
+    "perStation": 6,
+    "priceFactor": 1.0
+  },
+  "503000": {
+    "stations": [
+      "biryani",
+      "north_indian",
+      "desserts_indian"
+    ],
+    "perStation": 5,
+    "priceFactor": 1.0
+  },
+  "596949": {
+    "stations": [
+      "pizza_gourmet",
+      "pasta",
+      "shakes",
+      "desserts_bakery"
+    ],
+    "perStation": 4,
+    "priceFactor": 1.05
+  },
+  "245536": {
+    "stations": [
+      "pizza_gourmet",
+      "sandwiches",
+      "salads",
+      "desserts_bakery"
+    ],
+    "perStation": 4,
+    "priceFactor": 1.25
+  },
+  "219460": {
+    "stations": [
+      "healthy_bowls",
+      "pizza_gourmet",
+      "salads",
+      "juices_smoothies"
+    ],
+    "perStation": 4,
+    "priceFactor": 1.15
+  },
+  "146304": {
+    "stations": [
+      "biryani",
+      "chinese",
+      "tandoor_kebabs"
+    ],
+    "perStation": 5,
+    "priceFactor": 1.05
+  },
+  "395357": {
+    "stations": [
+      "burgers",
+      "shakes",
+      "cafe",
+      "beverages"
+    ],
+    "perStation": 4,
+    "priceFactor": 1.0
+  },
+  "816990": {
+    "stations": [
+      "desserts_bakery",
+      "ice_cream",
+      "desserts_indian",
+      "shakes"
+    ],
+    "perStation": 4,
+    "priceFactor": 0.95
+  },
+  "558775": {
+    "stations": [
+      "healthy_bowls",
+      "salads",
+      "burgers"
+    ],
+    "perStation": 4,
+    "priceFactor": 1.05
+  },
+  "420143": {
+    "stations": [
+      "ice_cream",
+      "shakes",
+      "juices_smoothies"
+    ],
+    "perStation": 6,
+    "priceFactor": 1.1
+  },
+  "14360": {
+    "stations": [
+      "american_grill",
+      "burgers",
+      "beverages"
+    ],
+    "perStation": 7,
+    "priceFactor": 1.3
+  },
+  "30531": {
+    "stations": [
+      "north_indian",
+      "tandoor_kebabs",
+      "breads_rice",
+      "biryani"
+    ],
+    "perStation": 5,
+    "priceFactor": 1.05
+  },
+  "472793": {
+    "stations": [
+      "home_meals",
+      "south_indian_meals",
+      "thali_combos",
+      "maharashtrian",
+      "rajasthani_gujarati"
+    ],
+    "perStation": 3,
+    "priceFactor": 0.95
+  }
+}

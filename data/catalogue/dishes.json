@@ -1,0 +1,1954 @@
+{
+  "biryani": [
+    {
+      "name": "Hyderabadi Chicken Dum Biryani",
+      "veg": false,
+      "price": 289,
+      "category": "Biryani",
+      "description": "Long-grain basmati layered with spicy marinated chicken, slow cooked on dum. Bold, fiery and aromatic, served with mirchi ka salan and raita."
+    },
+    {
+      "name": "Hyderabadi Mutton Dum Biryani",
+      "veg": false,
+      "price": 389,
+      "category": "Biryani",
+      "description": "Tender mutton and saffron rice sealed and slow cooked. Rich, spicy and heavy, a celebration-sized meal."
+    },
+    {
+      "name": "Veg Dum Biryani",
+      "veg": true,
+      "price": 219,
+      "category": "Biryani",
+      "description": "Fragrant basmati with mixed vegetables, fried onions and whole spices. Medium spicy, filling and comforting."
+    },
+    {
+      "name": "Egg Biryani",
+      "veg": false,
+      "price": 229,
+      "category": "Biryani",
+      "description": "Masala-coated boiled eggs tucked into spiced basmati rice. Hearty, mildly spicy and great value."
+    },
+    {
+      "name": "Kolkata Chicken Biryani",
+      "veg": false,
+      "price": 299,
+      "category": "Biryani",
+      "description": "Mild, fragrant biryani with chicken, a soft potato and boiled egg. Subtle and gently sweet rather than spicy."
+    },
+    {
+      "name": "Chicken 65 Biryani",
+      "veg": false,
+      "price": 319,
+      "category": "Biryani",
+      "description": "Spicy biryani topped with crunchy, fiery Chicken 65. Indulgent, loud flavours, a late-night favourite."
+    },
+    {
+      "name": "Paneer Tikka Biryani",
+      "veg": true,
+      "price": 259,
+      "category": "Biryani",
+      "description": "Smoky tandoori paneer cubes layered with masala rice. Rich, medium spicy and satisfying."
+    },
+    {
+      "name": "Prawn Biryani",
+      "veg": false,
+      "price": 369,
+      "category": "Biryani",
+      "description": "Coastal-style biryani with juicy prawns and green chilli masala. Spicy, aromatic and indulgent."
+    },
+    {
+      "name": "Mirchi Ka Salan",
+      "veg": true,
+      "price": 89,
+      "category": "Sides",
+      "description": "Tangy, nutty green chilli curry, the classic biryani companion. Spicy and sour."
+    },
+    {
+      "name": "Burani Raita",
+      "veg": true,
+      "price": 59,
+      "category": "Sides",
+      "description": "Cool garlicky yogurt raita that calms down a spicy biryani."
+    }
+  ],
+  "north_indian": [
+    {
+      "name": "Butter Chicken",
+      "veg": false,
+      "price": 299,
+      "category": "Curries",
+      "description": "Tandoori chicken in a velvety tomato, butter and cream gravy. Mild, rich and creamy comfort food."
+    },
+    {
+      "name": "Chicken Tikka Masala",
+      "veg": false,
+      "price": 309,
+      "category": "Curries",
+      "description": "Charred chicken tikka in a spiced onion-tomato masala. Medium spicy, smoky and hearty."
+    },
+    {
+      "name": "Kadai Chicken",
+      "veg": false,
+      "price": 289,
+      "category": "Curries",
+      "description": "Chicken tossed with bell peppers and freshly pounded kadai masala. Spicy, chunky and bold."
+    },
+    {
+      "name": "Mutton Rogan Josh",
+      "veg": false,
+      "price": 379,
+      "category": "Curries",
+      "description": "Kashmiri-style slow cooked mutton in a deep red, aromatic gravy. Rich, warming, medium spicy."
+    },
+    {
+      "name": "Paneer Butter Masala",
+      "veg": true,
+      "price": 259,
+      "category": "Curries",
+      "description": "Soft paneer in a sweet-savoury buttery tomato gravy. Mild, creamy and indulgent."
+    },
+    {
+      "name": "Kadai Paneer",
+      "veg": true,
+      "price": 249,
+      "category": "Curries",
+      "description": "Paneer and capsicum in a spicy, coarse kadai masala. Bold and flavourful."
+    },
+    {
+      "name": "Palak Paneer",
+      "veg": true,
+      "price": 239,
+      "category": "Curries",
+      "description": "Paneer cubes in smooth, garlicky spinach gravy. Wholesome, lighter and mildly spiced."
+    },
+    {
+      "name": "Dal Makhani",
+      "veg": true,
+      "price": 219,
+      "category": "Dal",
+      "description": "Black lentils slow cooked overnight with butter and cream. Rich, smoky, ultimate comfort food."
+    },
+    {
+      "name": "Dal Tadka",
+      "veg": true,
+      "price": 179,
+      "category": "Dal",
+      "description": "Yellow lentils tempered with ghee, cumin and red chilli. Simple, warm and homely."
+    },
+    {
+      "name": "Chole Masala",
+      "veg": true,
+      "price": 199,
+      "category": "Curries",
+      "description": "Punjabi chickpea curry with tangy, spicy masala. Hearty and filling."
+    },
+    {
+      "name": "Malai Kofta",
+      "veg": true,
+      "price": 259,
+      "category": "Curries",
+      "description": "Paneer-potato dumplings in a mild, sweet cashew cream gravy. Indulgent and festive."
+    },
+    {
+      "name": "Mix Veg Curry",
+      "veg": true,
+      "price": 199,
+      "category": "Curries",
+      "description": "Seasonal vegetables in a home-style onion-tomato gravy. Light and balanced."
+    }
+  ],
+  "breads_rice": [
+    {
+      "name": "Butter Naan",
+      "veg": true,
+      "price": 59,
+      "category": "Breads",
+      "description": "Soft, fluffy tandoor naan brushed with butter."
+    },
+    {
+      "name": "Garlic Naan",
+      "veg": true,
+      "price": 69,
+      "category": "Breads",
+      "description": "Tandoor naan loaded with garlic and coriander."
+    },
+    {
+      "name": "Tandoori Roti",
+      "veg": true,
+      "price": 29,
+      "category": "Breads",
+      "description": "Whole wheat roti baked in the tandoor. Light and everyday."
+    },
+    {
+      "name": "Lachha Paratha",
+      "veg": true,
+      "price": 59,
+      "category": "Breads",
+      "description": "Flaky, layered whole wheat paratha with ghee."
+    },
+    {
+      "name": "Jeera Rice",
+      "veg": true,
+      "price": 129,
+      "category": "Rice",
+      "description": "Basmati rice tempered with cumin and ghee."
+    },
+    {
+      "name": "Steamed Rice",
+      "veg": true,
+      "price": 99,
+      "category": "Rice",
+      "description": "Plain steamed basmati rice."
+    }
+  ],
+  "tandoor_kebabs": [
+    {
+      "name": "Tandoori Chicken (Half)",
+      "veg": false,
+      "price": 279,
+      "category": "Tandoor",
+      "description": "Yogurt and chilli marinated chicken roasted in the tandoor. Smoky, charred and protein packed."
+    },
+    {
+      "name": "Chicken Tikka",
+      "veg": false,
+      "price": 269,
+      "category": "Tandoor",
+      "description": "Boneless chicken chunks with smoky tandoori spices. Grilled, not fried, served with mint chutney."
+    },
+    {
+      "name": "Malai Chicken Tikka",
+      "veg": false,
+      "price": 289,
+      "category": "Tandoor",
+      "description": "Cream, cheese and cardamom marinated chicken. Mild, juicy and melt-in-the-mouth."
+    },
+    {
+      "name": "Mutton Seekh Kebab",
+      "veg": false,
+      "price": 329,
+      "category": "Kebabs",
+      "description": "Minced mutton skewers with ginger, chilli and herbs. Juicy, smoky and spicy."
+    },
+    {
+      "name": "Chicken Seekh Kebab",
+      "veg": false,
+      "price": 279,
+      "category": "Kebabs",
+      "description": "Spiced minced chicken grilled on skewers. Smoky and medium spicy."
+    },
+    {
+      "name": "Paneer Tikka",
+      "veg": true,
+      "price": 249,
+      "category": "Tandoor",
+      "description": "Paneer, onion and capsicum in tandoori marinade, char-grilled. Smoky and protein rich."
+    },
+    {
+      "name": "Tandoori Mushroom",
+      "veg": true,
+      "price": 229,
+      "category": "Tandoor",
+      "description": "Button mushrooms in spiced yogurt, roasted till charred."
+    },
+    {
+      "name": "Afghani Chicken",
+      "veg": false,
+      "price": 299,
+      "category": "Tandoor",
+      "description": "Creamy, mildly spiced chicken roasted with butter. Rich and smoky."
+    },
+    {
+      "name": "Fish Tikka",
+      "veg": false,
+      "price": 349,
+      "category": "Tandoor",
+      "description": "Boneless fish chunks in ajwain marinade, grilled. Light, smoky and high protein."
+    }
+  ],
+  "thali_combos": [
+    {
+      "name": "Veg Thali",
+      "veg": true,
+      "price": 199,
+      "category": "Thali",
+      "description": "Two sabzis, dal, rice, rotis, salad and a sweet. A complete, balanced home-style meal."
+    },
+    {
+      "name": "Deluxe Veg Thali",
+      "veg": true,
+      "price": 279,
+      "category": "Thali",
+      "description": "Paneer curry, dal makhani, seasonal sabzi, jeera rice, naan, raita and gulab jamun. A big, filling feast."
+    },
+    {
+      "name": "Chicken Thali",
+      "veg": false,
+      "price": 289,
+      "category": "Thali",
+      "description": "Chicken curry, dal, rice, rotis, salad and dessert. Complete and hearty."
+    },
+    {
+      "name": "Rajma Chawal Bowl",
+      "veg": true,
+      "price": 169,
+      "category": "Rice Bowl",
+      "description": "Punjabi kidney bean curry over steamed rice. Warm, comforting and filling."
+    },
+    {
+      "name": "Kadhi Chawal Bowl",
+      "veg": true,
+      "price": 159,
+      "category": "Rice Bowl",
+      "description": "Tangy yogurt kadhi with pakoras over rice. Soothing, sour and homely."
+    },
+    {
+      "name": "Butter Chicken Rice Bowl",
+      "veg": false,
+      "price": 249,
+      "category": "Rice Bowl",
+      "description": "Creamy butter chicken served over jeera rice. Quick, indulgent comfort."
+    },
+    {
+      "name": "Chole Kulche Combo",
+      "veg": true,
+      "price": 179,
+      "category": "Combos",
+      "description": "Spicy chole with two soft kulchas and onions. Street-style and filling."
+    }
+  ],
+  "punjabi_dhaba": [
+    {
+      "name": "Amritsari Kulcha",
+      "veg": true,
+      "price": 159,
+      "category": "Breads",
+      "description": "Crisp stuffed potato-onion kulcha from the tandoor with chole and butter. Heavy and indulgent."
+    },
+    {
+      "name": "Aloo Paratha with Curd",
+      "veg": true,
+      "price": 129,
+      "category": "Breakfast",
+      "description": "Two ghee-roasted potato parathas with curd and pickle. Hearty highway-dhaba breakfast."
+    },
+    {
+      "name": "Paneer Paratha",
+      "veg": true,
+      "price": 149,
+      "category": "Breakfast",
+      "description": "Paratha stuffed with spiced paneer, served with butter and curd. Filling and protein rich."
+    },
+    {
+      "name": "Sarson Ka Saag with Makki Roti",
+      "veg": true,
+      "price": 219,
+      "category": "Curries",
+      "description": "Slow cooked mustard greens with corn rotis and white butter. Rustic, earthy winter comfort."
+    },
+    {
+      "name": "Dhaba Chicken Curry",
+      "veg": false,
+      "price": 289,
+      "category": "Curries",
+      "description": "Rustic, bone-in chicken in a spicy onion masala. Bold and fiery."
+    },
+    {
+      "name": "Sweet Lassi",
+      "veg": true,
+      "price": 89,
+      "category": "Beverages",
+      "description": "Thick, chilled Punjabi yogurt drink. Cooling and sweet."
+    },
+    {
+      "name": "Masala Chaas",
+      "veg": true,
+      "price": 59,
+      "category": "Beverages",
+      "description": "Spiced buttermilk with roasted cumin. Light and refreshing digestif."
+    }
+  ],
+  "home_meals": [
+    {
+      "name": "Homestyle Dal Chawal",
+      "veg": true,
+      "price": 139,
+      "category": "Comfort Food",
+      "description": "Simple yellow dal with rice and a dollop of ghee. Light, soothing, just like home."
+    },
+    {
+      "name": "Aloo Gobi with Phulkas",
+      "veg": true,
+      "price": 159,
+      "category": "Comfort Food",
+      "description": "Dry potato-cauliflower sabzi with soft phulkas. Light, everyday homely meal."
+    },
+    {
+      "name": "Bhindi Masala with Roti",
+      "veg": true,
+      "price": 169,
+      "category": "Comfort Food",
+      "description": "Crisp okra stir-fry with onions and spices, with rotis. Light and healthy-ish."
+    },
+    {
+      "name": "Egg Curry with Rice",
+      "veg": false,
+      "price": 179,
+      "category": "Comfort Food",
+      "description": "Boiled eggs in a home-style onion tomato gravy with rice. Warm and filling."
+    },
+    {
+      "name": "Khichdi with Kadhi",
+      "veg": true,
+      "price": 149,
+      "category": "Comfort Food",
+      "description": "Moong dal khichdi with tangy kadhi and papad. Easy on the stomach, perfect when unwell or tired."
+    },
+    {
+      "name": "Chicken Curry Rice Meal",
+      "veg": false,
+      "price": 219,
+      "category": "Comfort Food",
+      "description": "Home-style chicken curry, rice and salad. Mild, warm and comforting."
+    },
+    {
+      "name": "Curd Rice",
+      "veg": true,
+      "price": 109,
+      "category": "Comfort Food",
+      "description": "Creamy curd rice with mustard tempering and pomegranate. Cooling and light."
+    }
+  ],
+  "south_indian_tiffin": [
+    {
+      "name": "Masala Dosa",
+      "veg": true,
+      "price": 99,
+      "category": "Dosa",
+      "description": "Crisp golden dosa with spiced potato filling, coconut chutney and sambar. Light, classic breakfast."
+    },
+    {
+      "name": "Ghee Roast Dosa",
+      "veg": true,
+      "price": 129,
+      "category": "Dosa",
+      "description": "Paper-thin dosa roasted with lots of ghee. Crispy, rich and aromatic."
+    },
+    {
+      "name": "Mysore Masala Dosa",
+      "veg": true,
+      "price": 119,
+      "category": "Dosa",
+      "description": "Dosa smeared with spicy red chutney and potato masala. Spicy and crisp."
+    },
+    {
+      "name": "Idli Vada Combo",
+      "veg": true,
+      "price": 89,
+      "category": "Tiffin",
+      "description": "Two soft idlis and a crisp medu vada with sambar and chutneys. Light and filling."
+    },
+    {
+      "name": "Rava Idli",
+      "veg": true,
+      "price": 79,
+      "category": "Tiffin",
+      "description": "Soft semolina idlis with cashews and curry leaves. Mild and light."
+    },
+    {
+      "name": "Ven Pongal",
+      "veg": true,
+      "price": 99,
+      "category": "Tiffin",
+      "description": "Rice and moong dal cooked with ghee, pepper and cumin. Warm, soft and comforting."
+    },
+    {
+      "name": "Onion Uttapam",
+      "veg": true,
+      "price": 109,
+      "category": "Dosa",
+      "description": "Thick fluffy dosa topped with onions and green chillies."
+    },
+    {
+      "name": "Filter Coffee",
+      "veg": true,
+      "price": 49,
+      "category": "Beverages",
+      "description": "Strong South Indian decoction coffee with frothy milk. Hot and energising."
+    },
+    {
+      "name": "Kesari Bath",
+      "veg": true,
+      "price": 59,
+      "category": "Desserts",
+      "description": "Sweet saffron semolina with ghee and cashews."
+    }
+  ],
+  "south_indian_meals": [
+    {
+      "name": "Andhra Meals",
+      "veg": true,
+      "price": 199,
+      "category": "Meals",
+      "description": "Rice, spicy pappu, sambar, rasam, two curries, pickle and curd. Fiery and very filling."
+    },
+    {
+      "name": "Chettinad Chicken Curry",
+      "veg": false,
+      "price": 299,
+      "category": "Curries",
+      "description": "Chicken in a pepper-forward roasted coconut and spice masala. Very spicy and aromatic."
+    },
+    {
+      "name": "Gongura Mutton",
+      "veg": false,
+      "price": 359,
+      "category": "Curries",
+      "description": "Mutton cooked with tangy sorrel leaves. Sour, spicy Andhra classic."
+    },
+    {
+      "name": "Andhra Chilli Chicken",
+      "veg": false,
+      "price": 279,
+      "category": "Starters",
+      "description": "Dry fried chicken tossed with green chillies and curry leaves. Extremely spicy."
+    },
+    {
+      "name": "Lemon Rice",
+      "veg": true,
+      "price": 109,
+      "category": "Rice",
+      "description": "Tangy turmeric rice with peanuts and curry leaves. Light and zesty."
+    },
+    {
+      "name": "Bisi Bele Bath",
+      "veg": true,
+      "price": 129,
+      "category": "Rice",
+      "description": "Karnataka spiced rice-lentil-vegetable dish with ghee. Warm, tangy and comforting."
+    },
+    {
+      "name": "Rasam Rice",
+      "veg": true,
+      "price": 99,
+      "category": "Rice",
+      "description": "Peppery tamarind rasam with rice. Light, hot and soothing on a rainy day."
+    }
+  ],
+  "kerala": [
+    {
+      "name": "Kerala Parotta with Chicken Curry",
+      "veg": false,
+      "price": 229,
+      "category": "Combos",
+      "description": "Flaky layered parottas with coconut chicken curry. Rich and filling."
+    },
+    {
+      "name": "Appam with Veg Stew",
+      "veg": true,
+      "price": 179,
+      "category": "Combos",
+      "description": "Lacy rice appams with mild coconut milk vegetable stew. Light and subtle."
+    },
+    {
+      "name": "Beef Fry",
+      "veg": false,
+      "price": 279,
+      "category": "Starters",
+      "description": "Slow roasted beef with coconut slivers and black pepper. Spicy and robust."
+    },
+    {
+      "name": "Kerala Fish Curry",
+      "veg": false,
+      "price": 299,
+      "category": "Curries",
+      "description": "Fish in tangy red kudampuli and coconut gravy. Spicy and sour."
+    },
+    {
+      "name": "Malabar Chicken Biryani",
+      "veg": false,
+      "price": 289,
+      "category": "Biryani",
+      "description": "Short-grain kaima rice biryani with fried onions and mild spices. Fragrant, not too spicy."
+    },
+    {
+      "name": "Puttu with Kadala Curry",
+      "veg": true,
+      "price": 149,
+      "category": "Breakfast",
+      "description": "Steamed rice and coconut cylinders with black chickpea curry. Wholesome breakfast."
+    },
+    {
+      "name": "Elaneer Payasam",
+      "veg": true,
+      "price": 119,
+      "category": "Desserts",
+      "description": "Chilled tender coconut milk pudding. Light and refreshing sweet."
+    }
+  ],
+  "seafood": [
+    {
+      "name": "Prawn Ghee Roast",
+      "veg": false,
+      "price": 389,
+      "category": "Seafood",
+      "description": "Mangalorean prawns in a fiery, tangy ghee-roasted masala. Very spicy and indulgent."
+    },
+    {
+      "name": "Fish Thali",
+      "veg": false,
+      "price": 329,
+      "category": "Thali",
+      "description": "Fried fish, fish curry, rice, sol kadhi and sides. Coastal, spicy and complete."
+    },
+    {
+      "name": "Rava Fried Pomfret",
+      "veg": false,
+      "price": 399,
+      "category": "Seafood",
+      "description": "Whole pomfret crusted in semolina and spices, shallow fried. Crisp outside, flaky inside."
+    },
+    {
+      "name": "Squid Butter Garlic",
+      "veg": false,
+      "price": 349,
+      "category": "Seafood",
+      "description": "Tender squid rings tossed in butter, garlic and pepper. Rich and mild."
+    },
+    {
+      "name": "Neer Dosa with Chicken Sukka",
+      "veg": false,
+      "price": 259,
+      "category": "Combos",
+      "description": "Delicate rice crepes with dry coconut chicken sukka. Light dosa, spicy chicken."
+    },
+    {
+      "name": "Sol Kadhi",
+      "veg": true,
+      "price": 79,
+      "category": "Beverages",
+      "description": "Pink kokum and coconut milk drink. Cooling and digestive."
+    }
+  ],
+  "chinese": [
+    {
+      "name": "Chicken Hakka Noodles",
+      "veg": false,
+      "price": 219,
+      "category": "Noodles",
+      "description": "Wok-tossed noodles with chicken, cabbage and soy. Smoky street-style Indo-Chinese."
+    },
+    {
+      "name": "Veg Hakka Noodles",
+      "veg": true,
+      "price": 179,
+      "category": "Noodles",
+      "description": "Stir-fried noodles with crunchy vegetables and soy sauce."
+    },
+    {
+      "name": "Schezwan Fried Rice",
+      "veg": true,
+      "price": 189,
+      "category": "Rice",
+      "description": "Fried rice tossed in fiery Schezwan sauce. Spicy, garlicky and addictive."
+    },
+    {
+      "name": "Chicken Fried Rice",
+      "veg": false,
+      "price": 219,
+      "category": "Rice",
+      "description": "Classic wok fried rice with egg and chicken. Mild and satisfying."
+    },
+    {
+      "name": "Chilli Chicken Dry",
+      "veg": false,
+      "price": 249,
+      "category": "Starters",
+      "description": "Crispy chicken tossed with chillies, onions and capsicum in soy-chilli glaze. Spicy and tangy."
+    },
+    {
+      "name": "Chilli Paneer",
+      "veg": true,
+      "price": 229,
+      "category": "Starters",
+      "description": "Crisp paneer in spicy, tangy Indo-Chinese sauce."
+    },
+    {
+      "name": "Veg Manchurian Gravy",
+      "veg": true,
+      "price": 199,
+      "category": "Mains",
+      "description": "Vegetable balls in garlicky soy-chilli gravy. Comforting with fried rice."
+    },
+    {
+      "name": "Gobi Manchurian Dry",
+      "veg": true,
+      "price": 189,
+      "category": "Starters",
+      "description": "Crispy cauliflower tossed in tangy Manchurian sauce. Street-food favourite."
+    },
+    {
+      "name": "Hot and Sour Soup",
+      "veg": true,
+      "price": 129,
+      "category": "Soups",
+      "description": "Peppery, tangy soup with vegetables. Hot and perfect for a cold or rainy evening."
+    },
+    {
+      "name": "Chicken Manchow Soup",
+      "veg": false,
+      "price": 149,
+      "category": "Soups",
+      "description": "Spicy garlic-ginger soup topped with crispy noodles. Warming."
+    },
+    {
+      "name": "Dragon Chicken",
+      "veg": false,
+      "price": 269,
+      "category": "Starters",
+      "description": "Crispy chicken strips in sweet, spicy and smoky dragon sauce with cashews."
+    }
+  ],
+  "asian": [
+    {
+      "name": "Pad Thai Noodles",
+      "veg": true,
+      "price": 289,
+      "category": "Noodles",
+      "description": "Rice noodles with tamarind, peanuts, bean sprouts and lime. Sweet, sour and nutty."
+    },
+    {
+      "name": "Thai Green Curry with Rice",
+      "veg": true,
+      "price": 319,
+      "category": "Curries",
+      "description": "Coconut milk green curry with vegetables and jasmine rice. Aromatic, creamy, medium spicy."
+    },
+    {
+      "name": "Chicken Thai Red Curry with Rice",
+      "veg": false,
+      "price": 349,
+      "category": "Curries",
+      "description": "Spicy red curry with chicken, coconut milk and basil, with jasmine rice."
+    },
+    {
+      "name": "Chicken Ramen Bowl",
+      "veg": false,
+      "price": 379,
+      "category": "Bowls",
+      "description": "Rich chicken broth, ramen noodles, soft egg and greens. Slurpy, warm and comforting."
+    },
+    {
+      "name": "Spicy Miso Veg Ramen",
+      "veg": true,
+      "price": 339,
+      "category": "Bowls",
+      "description": "Miso-chilli broth with noodles, tofu and mushrooms. Hot, umami-rich and warming."
+    },
+    {
+      "name": "Chicken Teriyaki Rice Bowl",
+      "veg": false,
+      "price": 329,
+      "category": "Bowls",
+      "description": "Glazed teriyaki chicken over sticky rice with sesame. Sweet, savoury and mild."
+    },
+    {
+      "name": "Veg Sushi Platter",
+      "veg": true,
+      "price": 399,
+      "category": "Sushi",
+      "description": "Avocado, cucumber and asparagus maki with soy and pickled ginger. Light, fresh and clean."
+    },
+    {
+      "name": "Salmon Sushi Platter",
+      "veg": false,
+      "price": 549,
+      "category": "Sushi",
+      "description": "Salmon nigiri and maki with wasabi and ginger. Premium, fresh and light."
+    },
+    {
+      "name": "Chicken Dim Sum",
+      "veg": false,
+      "price": 249,
+      "category": "Dim Sum",
+      "description": "Steamed chicken dumplings with chilli oil. Light and juicy."
+    },
+    {
+      "name": "Crystal Veg Dim Sum",
+      "veg": true,
+      "price": 229,
+      "category": "Dim Sum",
+      "description": "Translucent steamed dumplings with vegetables. Delicate and light."
+    }
+  ],
+  "korean": [
+    {
+      "name": "Korean Fried Chicken",
+      "veg": false,
+      "price": 349,
+      "category": "Starters",
+      "description": "Double-fried crispy chicken glazed in sweet-spicy gochujang. Crunchy and indulgent, great for sharing."
+    },
+    {
+      "name": "Bibimbap Bowl",
+      "veg": true,
+      "price": 329,
+      "category": "Bowls",
+      "description": "Rice with sautéed vegetables, fried egg optional, and gochujang. Balanced and colourful."
+    },
+    {
+      "name": "Kimchi Fried Rice",
+      "veg": true,
+      "price": 279,
+      "category": "Rice",
+      "description": "Fried rice with tangy, spicy kimchi and sesame. Bold and comforting."
+    },
+    {
+      "name": "Tteokbokki",
+      "veg": true,
+      "price": 299,
+      "category": "Street Food",
+      "description": "Chewy rice cakes in a sticky, sweet and fiery sauce. Spicy Korean street snack."
+    },
+    {
+      "name": "Spicy Korean Ramyeon",
+      "veg": false,
+      "price": 299,
+      "category": "Noodles",
+      "description": "Instant-style fiery noodle soup with egg and spring onion. Very spicy, late-night comfort."
+    },
+    {
+      "name": "Korean Corn Dog",
+      "veg": true,
+      "price": 179,
+      "category": "Street Food",
+      "description": "Mozzarella stick in crispy batter with sugar dusting and ketchup. Cheesy, fun snack."
+    }
+  ],
+  "momos": [
+    {
+      "name": "Steamed Veg Momos",
+      "veg": true,
+      "price": 129,
+      "category": "Momos",
+      "description": "Soft dumplings stuffed with cabbage and carrot, with spicy red chutney. Light snack."
+    },
+    {
+      "name": "Steamed Chicken Momos",
+      "veg": false,
+      "price": 159,
+      "category": "Momos",
+      "description": "Juicy chicken dumplings with fiery tomato chutney."
+    },
+    {
+      "name": "Fried Chicken Momos",
+      "veg": false,
+      "price": 179,
+      "category": "Momos",
+      "description": "Crispy fried chicken momos. Crunchy, snackable and indulgent."
+    },
+    {
+      "name": "Paneer Tandoori Momos",
+      "veg": true,
+      "price": 189,
+      "category": "Momos",
+      "description": "Paneer momos coated in tandoori masala and grilled. Smoky and spicy."
+    },
+    {
+      "name": "Jhol Momos",
+      "veg": false,
+      "price": 199,
+      "category": "Momos",
+      "description": "Chicken momos drowned in a hot, tangy sesame-tomato soup. Spicy and warming on rainy days."
+    },
+    {
+      "name": "Thukpa",
+      "veg": false,
+      "price": 199,
+      "category": "Soups",
+      "description": "Tibetan noodle soup with chicken and vegetables. Hot, light and soothing."
+    },
+    {
+      "name": "Chocolate Momos",
+      "veg": true,
+      "price": 149,
+      "category": "Desserts",
+      "description": "Fried momos filled with molten chocolate. Sweet, gooey treat."
+    }
+  ],
+  "rolls": [
+    {
+      "name": "Chicken Kathi Roll",
+      "veg": false,
+      "price": 159,
+      "category": "Rolls",
+      "description": "Flaky paratha wrapped around spicy chicken tikka, onions and chutney. Quick, filling street food."
+    },
+    {
+      "name": "Egg Roll",
+      "veg": false,
+      "price": 99,
+      "category": "Rolls",
+      "description": "Paratha coated with egg, rolled with onions and sauces. Kolkata classic, cheap and quick."
+    },
+    {
+      "name": "Paneer Tikka Roll",
+      "veg": true,
+      "price": 149,
+      "category": "Rolls",
+      "description": "Tandoori paneer, onions and mint mayo wrapped in paratha."
+    },
+    {
+      "name": "Mutton Seekh Roll",
+      "veg": false,
+      "price": 199,
+      "category": "Rolls",
+      "description": "Juicy mutton seekh kebab rolled with onions and green chutney. Spicy and hearty."
+    },
+    {
+      "name": "Aloo Tikki Roll",
+      "veg": true,
+      "price": 109,
+      "category": "Rolls",
+      "description": "Crispy potato patty with chutneys in a soft wrap. Budget-friendly snack."
+    },
+    {
+      "name": "Chicken Shawarma Roll",
+      "veg": false,
+      "price": 169,
+      "category": "Rolls",
+      "description": "Rotisserie chicken, garlic toum and pickles in rumali. Garlicky and filling."
+    }
+  ],
+  "chaat": [
+    {
+      "name": "Pani Puri",
+      "veg": true,
+      "price": 69,
+      "category": "Chaat",
+      "description": "Crisp puris with spicy-tangy mint water and potato. Fun, refreshing street snack."
+    },
+    {
+      "name": "Dahi Puri",
+      "veg": true,
+      "price": 89,
+      "category": "Chaat",
+      "description": "Puris filled with potato, sweet curd, chutneys and sev. Sweet, tangy and cool."
+    },
+    {
+      "name": "Pav Bhaji",
+      "veg": true,
+      "price": 139,
+      "category": "Street Food",
+      "description": "Buttery mashed vegetable bhaji with toasted pav. Indulgent, spicy Mumbai street food."
+    },
+    {
+      "name": "Samosa Chaat",
+      "veg": true,
+      "price": 99,
+      "category": "Chaat",
+      "description": "Crushed samosas with chole, curd and chutneys. Tangy, spicy and filling."
+    },
+    {
+      "name": "Vada Pav",
+      "veg": true,
+      "price": 49,
+      "category": "Street Food",
+      "description": "Spicy potato vada in pav with garlic chutney. Quick, cheap and satisfying."
+    },
+    {
+      "name": "Masala Chai",
+      "veg": true,
+      "price": 39,
+      "category": "Beverages",
+      "description": "Hot spiced tea with ginger and cardamom. Perfect for rain and evenings."
+    },
+    {
+      "name": "Onion Pakoda",
+      "veg": true,
+      "price": 79,
+      "category": "Snacks",
+      "description": "Crispy onion fritters with green chutney. Classic rainy-day tea-time snack."
+    }
+  ],
+  "maharashtrian": [
+    {
+      "name": "Misal Pav",
+      "veg": true,
+      "price": 129,
+      "category": "Breakfast",
+      "description": "Fiery sprouted moth curry topped with farsan, served with pav. Very spicy and filling."
+    },
+    {
+      "name": "Kanda Poha",
+      "veg": true,
+      "price": 79,
+      "category": "Breakfast",
+      "description": "Flattened rice with onions, peanuts and lemon. Light, quick breakfast."
+    },
+    {
+      "name": "Sabudana Khichdi",
+      "veg": true,
+      "price": 99,
+      "category": "Breakfast",
+      "description": "Tapioca pearls with peanuts and mild spices. Light, fasting-friendly."
+    },
+    {
+      "name": "Puran Poli",
+      "veg": true,
+      "price": 89,
+      "category": "Desserts",
+      "description": "Sweet lentil-jaggery stuffed flatbread with ghee. Festive and comforting."
+    },
+    {
+      "name": "Thalipeeth",
+      "veg": true,
+      "price": 109,
+      "category": "Breakfast",
+      "description": "Multigrain spiced flatbread with butter and curd. Wholesome and rustic."
+    }
+  ],
+  "rajasthani_gujarati": [
+    {
+      "name": "Dal Baati Churma",
+      "veg": true,
+      "price": 249,
+      "category": "Meals",
+      "description": "Baked wheat baatis dipped in ghee with panchmel dal and sweet churma. Rich and very filling."
+    },
+    {
+      "name": "Gatte Ki Sabzi with Roti",
+      "veg": true,
+      "price": 199,
+      "category": "Curries",
+      "description": "Gram flour dumplings in tangy yogurt gravy with rotis."
+    },
+    {
+      "name": "Gujarati Thali",
+      "veg": true,
+      "price": 269,
+      "category": "Thali",
+      "description": "Dal, kadhi, two shaaks, rotlis, rice, farsan and sweet. Sweet-savoury and complete."
+    },
+    {
+      "name": "Khaman Dhokla",
+      "veg": true,
+      "price": 89,
+      "category": "Snacks",
+      "description": "Soft, spongy steamed gram flour cakes with green chutney. Light, tangy snack."
+    },
+    {
+      "name": "Thepla with Chunda",
+      "veg": true,
+      "price": 99,
+      "category": "Breakfast",
+      "description": "Fenugreek flatbreads with sweet mango pickle. Light, travel-friendly."
+    },
+    {
+      "name": "Laal Maas",
+      "veg": false,
+      "price": 389,
+      "category": "Curries",
+      "description": "Rajasthani mutton in a fiery red mathania chilli gravy. Extremely spicy and rich."
+    }
+  ],
+  "bengali": [
+    {
+      "name": "Kosha Mangsho with Luchi",
+      "veg": false,
+      "price": 349,
+      "category": "Combos",
+      "description": "Slow cooked dark, spicy mutton with puffed luchis. Rich Sunday special."
+    },
+    {
+      "name": "Shorshe Ilish",
+      "veg": false,
+      "price": 449,
+      "category": "Curries",
+      "description": "Hilsa in pungent mustard gravy. Sharp, bold and premium."
+    },
+    {
+      "name": "Macher Jhol with Rice",
+      "veg": false,
+      "price": 249,
+      "category": "Curries",
+      "description": "Light, homely fish curry with potatoes and rice. Mild and comforting."
+    },
+    {
+      "name": "Aloo Posto",
+      "veg": true,
+      "price": 159,
+      "category": "Curries",
+      "description": "Potatoes in poppy seed paste. Mild, nutty and simple."
+    },
+    {
+      "name": "Mishti Doi",
+      "veg": true,
+      "price": 79,
+      "category": "Desserts",
+      "description": "Caramelised sweet set curd in a clay pot. Cool and creamy."
+    },
+    {
+      "name": "Rosogolla (2 pcs)",
+      "veg": true,
+      "price": 69,
+      "category": "Desserts",
+      "description": "Spongy cottage cheese balls in light sugar syrup."
+    }
+  ],
+  "pizza_classic": [
+    {
+      "name": "Margherita Pizza",
+      "veg": true,
+      "price": 249,
+      "category": "Pizza",
+      "description": "Classic tomato sauce and mozzarella. Cheesy, simple and kid-friendly."
+    },
+    {
+      "name": "Farmhouse Pizza",
+      "veg": true,
+      "price": 329,
+      "category": "Pizza",
+      "description": "Onion, capsicum, tomato and mushroom with mozzarella."
+    },
+    {
+      "name": "Double Cheese Pizza",
+      "veg": true,
+      "price": 349,
+      "category": "Pizza",
+      "description": "Loaded with extra mozzarella and cheddar. Very cheesy, indulgent."
+    },
+    {
+      "name": "Peri Peri Paneer Pizza",
+      "veg": true,
+      "price": 359,
+      "category": "Pizza",
+      "description": "Spicy peri peri paneer, onion and jalapeños. Hot and tangy."
+    },
+    {
+      "name": "Chicken Tikka Pizza",
+      "veg": false,
+      "price": 379,
+      "category": "Pizza",
+      "description": "Tandoori chicken tikka, onions and green chillies on a cheesy base. Spicy desi fusion."
+    },
+    {
+      "name": "Chicken Pepperoni Pizza",
+      "veg": false,
+      "price": 399,
+      "category": "Pizza",
+      "description": "Chicken pepperoni slices with mozzarella. Meaty and savoury."
+    },
+    {
+      "name": "BBQ Chicken Pizza",
+      "veg": false,
+      "price": 389,
+      "category": "Pizza",
+      "description": "Smoky BBQ chicken with onions and cheese. Sweet-smoky and satisfying."
+    },
+    {
+      "name": "Cheese Burst Garlic Bread",
+      "veg": true,
+      "price": 169,
+      "category": "Sides",
+      "description": "Garlic bread stuffed with molten cheese. Gooey sharing side."
+    },
+    {
+      "name": "Potato Wedges",
+      "veg": true,
+      "price": 129,
+      "category": "Sides",
+      "description": "Seasoned crispy potato wedges with dip."
+    },
+    {
+      "name": "Chicken Wings (6 pcs)",
+      "veg": false,
+      "price": 229,
+      "category": "Sides",
+      "description": "Spicy glazed chicken wings. Great for movie night sharing."
+    }
+  ],
+  "pizza_gourmet": [
+    {
+      "name": "Sourdough Margherita",
+      "veg": true,
+      "price": 449,
+      "category": "Pizza",
+      "description": "Naturally leavened, wood-fired crust with San Marzano tomato, fior di latte and basil. Light, airy and premium."
+    },
+    {
+      "name": "Burrata and Pesto Pizza",
+      "veg": true,
+      "price": 549,
+      "category": "Pizza",
+      "description": "Wood-fired pizza with basil pesto, cherry tomatoes and creamy burrata. Fresh and indulgent."
+    },
+    {
+      "name": "Truffle Mushroom Pizza",
+      "veg": true,
+      "price": 529,
+      "category": "Pizza",
+      "description": "Wild mushrooms, mozzarella and truffle oil. Earthy, rich and gourmet."
+    },
+    {
+      "name": "Spicy Salami Pizza",
+      "veg": false,
+      "price": 549,
+      "category": "Pizza",
+      "description": "Spicy pork salami, chilli flakes and hot honey. Sweet heat, premium."
+    },
+    {
+      "name": "Smoked Chicken and Jalapeño",
+      "veg": false,
+      "price": 499,
+      "category": "Pizza",
+      "description": "Smoked chicken, jalapeños and red onion. Smoky and spicy."
+    },
+    {
+      "name": "Millet Crust Veggie Pizza",
+      "veg": true,
+      "price": 429,
+      "category": "Pizza",
+      "description": "Healthier millet crust with grilled vegetables and low-fat cheese. Light and guilt-free."
+    }
+  ],
+  "pasta": [
+    {
+      "name": "Penne Arrabbiata",
+      "veg": true,
+      "price": 279,
+      "category": "Pasta",
+      "description": "Penne in spicy, garlicky tomato sauce with chilli flakes. Tangy and light."
+    },
+    {
+      "name": "Creamy Alfredo Pasta",
+      "veg": true,
+      "price": 299,
+      "category": "Pasta",
+      "description": "Penne in rich parmesan cream sauce. Mild, creamy comfort food."
+    },
+    {
+      "name": "Pink Sauce Pasta",
+      "veg": true,
+      "price": 289,
+      "category": "Pasta",
+      "description": "Tomato and cream sauce with vegetables. Creamy with a mild tang."
+    },
+    {
+      "name": "Chicken Alfredo Pasta",
+      "veg": false,
+      "price": 349,
+      "category": "Pasta",
+      "description": "Grilled chicken in creamy parmesan sauce. Rich and filling."
+    },
+    {
+      "name": "Spaghetti Aglio Olio",
+      "veg": true,
+      "price": 269,
+      "category": "Pasta",
+      "description": "Spaghetti with garlic, olive oil, chilli and parsley. Light and simple."
+    },
+    {
+      "name": "Mac and Cheese",
+      "veg": true,
+      "price": 279,
+      "category": "Pasta",
+      "description": "Baked macaroni in gooey cheddar sauce. Ultimate cheesy comfort."
+    },
+    {
+      "name": "Lasagna",
+      "veg": false,
+      "price": 399,
+      "category": "Pasta",
+      "description": "Layered pasta with chicken bolognese, béchamel and cheese. Hearty and indulgent."
+    }
+  ],
+  "burgers": [
+    {
+      "name": "Classic Chicken Burger",
+      "veg": false,
+      "price": 179,
+      "category": "Burgers",
+      "description": "Crispy fried chicken patty, lettuce and mayo. Quick and satisfying."
+    },
+    {
+      "name": "Crispy Veg Burger",
+      "veg": true,
+      "price": 129,
+      "category": "Burgers",
+      "description": "Spiced potato-veg patty with lettuce, tomato and sauce. Budget friendly."
+    },
+    {
+      "name": "Double Smash Burger",
+      "veg": false,
+      "price": 329,
+      "category": "Burgers",
+      "description": "Two smashed chicken patties, cheese, pickles and burger sauce. Juicy and indulgent."
+    },
+    {
+      "name": "Paneer Makhani Burger",
+      "veg": true,
+      "price": 199,
+      "category": "Burgers",
+      "description": "Crispy paneer patty in makhani sauce. Desi, creamy, mildly spicy."
+    },
+    {
+      "name": "Spicy Zinger-Style Burger",
+      "veg": false,
+      "price": 219,
+      "category": "Burgers",
+      "description": "Fiery crispy chicken fillet with spicy mayo. Hot and crunchy."
+    },
+    {
+      "name": "French Fries",
+      "veg": true,
+      "price": 99,
+      "category": "Sides",
+      "description": "Salted crispy fries."
+    },
+    {
+      "name": "Peri Peri Fries",
+      "veg": true,
+      "price": 129,
+      "category": "Sides",
+      "description": "Fries tossed in tangy peri peri spice."
+    },
+    {
+      "name": "Chicken Nuggets (6 pcs)",
+      "veg": false,
+      "price": 159,
+      "category": "Sides",
+      "description": "Crispy bite-sized chicken nuggets with dip."
+    }
+  ],
+  "american_grill": [
+    {
+      "name": "BBQ Pork Ribs",
+      "veg": false,
+      "price": 649,
+      "category": "Grill",
+      "description": "Slow cooked ribs glazed with smoky BBQ sauce. Fall-off-the-bone, indulgent."
+    },
+    {
+      "name": "Buffalo Wings",
+      "veg": false,
+      "price": 399,
+      "category": "Starters",
+      "description": "Wings tossed in buttery hot sauce with blue cheese dip. Spicy bar food, great for game night."
+    },
+    {
+      "name": "Loaded Nachos",
+      "veg": true,
+      "price": 349,
+      "category": "Starters",
+      "description": "Tortilla chips with cheese sauce, jalapeños, salsa and sour cream. Sharing platter."
+    },
+    {
+      "name": "Fish and Chips",
+      "veg": false,
+      "price": 449,
+      "category": "Mains",
+      "description": "Beer-battered fish with fries and tartar sauce. Crispy classic."
+    },
+    {
+      "name": "Philly Cheesesteak Sandwich",
+      "veg": false,
+      "price": 479,
+      "category": "Sandwiches",
+      "description": "Shaved chicken, peppers and melted cheese in a hoagie. Hearty and cheesy."
+    },
+    {
+      "name": "Loaded Cheese Fries",
+      "veg": true,
+      "price": 299,
+      "category": "Sides",
+      "description": "Fries smothered in cheese sauce and jalapeños."
+    },
+    {
+      "name": "Classic Cold Coffee",
+      "veg": true,
+      "price": 179,
+      "category": "Beverages",
+      "description": "Thick blended iced coffee."
+    }
+  ],
+  "sandwiches": [
+    {
+      "name": "Grilled Veg Cheese Sandwich",
+      "veg": true,
+      "price": 149,
+      "category": "Sandwiches",
+      "description": "Toasted sandwich with veggies and molten cheese. Quick, light lunch."
+    },
+    {
+      "name": "Bombay Masala Toast",
+      "veg": true,
+      "price": 129,
+      "category": "Sandwiches",
+      "description": "Spiced potato, chutney and veggies grilled in bread. Street style."
+    },
+    {
+      "name": "Chicken Club Sandwich",
+      "veg": false,
+      "price": 229,
+      "category": "Sandwiches",
+      "description": "Triple-decker with chicken, egg, lettuce and mayo. Filling lunch."
+    },
+    {
+      "name": "Pesto Mozzarella Focaccia",
+      "veg": true,
+      "price": 279,
+      "category": "Sandwiches",
+      "description": "Fresh focaccia with basil pesto, tomato and mozzarella. Light and fresh."
+    },
+    {
+      "name": "Egg Mayo Sandwich",
+      "veg": false,
+      "price": 139,
+      "category": "Sandwiches",
+      "description": "Creamy egg mayo on soft bread. Mild and quick."
+    }
+  ],
+  "healthy_bowls": [
+    {
+      "name": "Grilled Chicken Quinoa Bowl",
+      "veg": false,
+      "price": 329,
+      "category": "Healthy Bowl",
+      "description": "Grilled chicken, quinoa, roasted veggies and tahini. High protein, light and clean."
+    },
+    {
+      "name": "Paneer Tikka Millet Bowl",
+      "veg": true,
+      "price": 299,
+      "category": "Healthy Bowl",
+      "description": "Tandoori paneer over foxtail millet with greens. Protein rich and wholesome."
+    },
+    {
+      "name": "Burrito Bowl",
+      "veg": true,
+      "price": 289,
+      "category": "Healthy Bowl",
+      "description": "Brown rice, rajma, corn, salsa, lettuce and sour cream. Balanced and filling."
+    },
+    {
+      "name": "Chicken Burrito Bowl",
+      "veg": false,
+      "price": 329,
+      "category": "Healthy Bowl",
+      "description": "Mexican spiced chicken with brown rice, beans, salsa and greens."
+    },
+    {
+      "name": "Tofu Teriyaki Bowl",
+      "veg": true,
+      "price": 299,
+      "category": "Healthy Bowl",
+      "description": "Glazed tofu, brown rice, edamame and veggies. Vegan, high protein."
+    },
+    {
+      "name": "Egg White Bhurji Bowl",
+      "veg": false,
+      "price": 249,
+      "category": "Healthy Bowl",
+      "description": "Spiced egg white scramble with multigrain toast. Low fat, high protein."
+    },
+    {
+      "name": "Rajma Brown Rice Bowl",
+      "veg": true,
+      "price": 229,
+      "category": "Healthy Bowl",
+      "description": "Kidney bean curry over brown rice with salad. Wholesome, fibre rich."
+    }
+  ],
+  "salads": [
+    {
+      "name": "Caesar Salad with Chicken",
+      "veg": false,
+      "price": 299,
+      "category": "Salads",
+      "description": "Romaine, grilled chicken, parmesan and caesar dressing. Light yet satisfying."
+    },
+    {
+      "name": "Greek Salad",
+      "veg": true,
+      "price": 259,
+      "category": "Salads",
+      "description": "Cucumber, tomato, olives and feta with oregano vinaigrette. Fresh and crisp."
+    },
+    {
+      "name": "Sprouts Chaat Salad",
+      "veg": true,
+      "price": 179,
+      "category": "Salads",
+      "description": "Moong sprouts with onion, tomato, lemon and chaat masala. Light, tangy, guilt-free."
+    },
+    {
+      "name": "Quinoa Avocado Salad",
+      "veg": true,
+      "price": 329,
+      "category": "Salads",
+      "description": "Quinoa, avocado, greens and citrus dressing. Clean eating, refreshing."
+    },
+    {
+      "name": "Watermelon Feta Salad",
+      "veg": true,
+      "price": 249,
+      "category": "Salads",
+      "description": "Juicy watermelon, feta and mint. Cool and summery."
+    }
+  ],
+  "keto": [
+    {
+      "name": "Keto Butter Chicken with Cauli Rice",
+      "veg": false,
+      "price": 349,
+      "category": "Keto",
+      "description": "Butter chicken with cauliflower rice. Low carb, rich and creamy."
+    },
+    {
+      "name": "Keto Paneer Steak",
+      "veg": true,
+      "price": 319,
+      "category": "Keto",
+      "description": "Grilled paneer slab with sautéed greens and herb butter. Low carb, high fat."
+    },
+    {
+      "name": "Zucchini Noodles Pesto",
+      "veg": true,
+      "price": 299,
+      "category": "Keto",
+      "description": "Spiralised zucchini in basil pesto with parmesan. Light and low carb."
+    },
+    {
+      "name": "Grilled Fish with Greens",
+      "veg": false,
+      "price": 379,
+      "category": "Keto",
+      "description": "Herb-grilled fish fillet with buttery greens. Clean and high protein."
+    }
+  ],
+  "juices_smoothies": [
+    {
+      "name": "Watermelon Juice",
+      "veg": true,
+      "price": 99,
+      "category": "Juices",
+      "description": "Fresh pressed watermelon. Cooling summer refresher."
+    },
+    {
+      "name": "ABC Detox Juice",
+      "veg": true,
+      "price": 149,
+      "category": "Juices",
+      "description": "Apple, beetroot and carrot. Healthy detox drink."
+    },
+    {
+      "name": "Mango Smoothie",
+      "veg": true,
+      "price": 169,
+      "category": "Smoothies",
+      "description": "Thick Alphonso mango smoothie with yogurt. Sweet and filling."
+    },
+    {
+      "name": "Peanut Butter Banana Protein Shake",
+      "veg": true,
+      "price": 199,
+      "category": "Smoothies",
+      "description": "Banana, peanut butter, oats and whey. Post-workout protein."
+    },
+    {
+      "name": "Green Detox Smoothie",
+      "veg": true,
+      "price": 179,
+      "category": "Smoothies",
+      "description": "Spinach, apple, cucumber and lime. Light and refreshing."
+    },
+    {
+      "name": "Fresh Lime Soda",
+      "veg": true,
+      "price": 79,
+      "category": "Beverages",
+      "description": "Sweet or salted lime soda. Fizzy and cooling."
+    }
+  ],
+  "cafe": [
+    {
+      "name": "Cappuccino",
+      "veg": true,
+      "price": 149,
+      "category": "Coffee",
+      "description": "Espresso with velvety steamed milk foam. Hot and cosy."
+    },
+    {
+      "name": "Iced Americano",
+      "veg": true,
+      "price": 159,
+      "category": "Coffee",
+      "description": "Espresso over ice and water. Strong, cold and refreshing."
+    },
+    {
+      "name": "Hazelnut Cold Brew",
+      "veg": true,
+      "price": 199,
+      "category": "Coffee",
+      "description": "Slow steeped cold brew with hazelnut. Smooth and chilled."
+    },
+    {
+      "name": "Hot Chocolate",
+      "veg": true,
+      "price": 179,
+      "category": "Beverages",
+      "description": "Rich, thick hot chocolate. Warm treat for cold or rainy days."
+    },
+    {
+      "name": "Avocado Toast",
+      "veg": true,
+      "price": 279,
+      "category": "Breakfast",
+      "description": "Sourdough with smashed avocado, chilli flakes and seeds. Light brunch."
+    },
+    {
+      "name": "English Breakfast Platter",
+      "veg": false,
+      "price": 349,
+      "category": "Breakfast",
+      "description": "Eggs, chicken sausages, beans, hash brown and toast. Hearty brunch."
+    },
+    {
+      "name": "Butter Croissant",
+      "veg": true,
+      "price": 129,
+      "category": "Bakery",
+      "description": "Flaky, buttery French croissant."
+    },
+    {
+      "name": "Masala Omelette with Toast",
+      "veg": false,
+      "price": 149,
+      "category": "Breakfast",
+      "description": "Fluffy omelette with onion, chilli and coriander."
+    }
+  ],
+  "shakes": [
+    {
+      "name": "Classic Chocolate Shake",
+      "veg": true,
+      "price": 179,
+      "category": "Shakes",
+      "description": "Thick chocolate milkshake. Sweet and indulgent."
+    },
+    {
+      "name": "Oreo Shake",
+      "veg": true,
+      "price": 199,
+      "category": "Shakes",
+      "description": "Blended cookies and cream shake."
+    },
+    {
+      "name": "Cold Coffee with Ice Cream",
+      "veg": true,
+      "price": 189,
+      "category": "Shakes",
+      "description": "Iced coffee topped with vanilla ice cream."
+    },
+    {
+      "name": "Strawberry Shake",
+      "veg": true,
+      "price": 179,
+      "category": "Shakes",
+      "description": "Creamy strawberry milkshake. Sweet and fruity."
+    },
+    {
+      "name": "Kitkat Shake",
+      "veg": true,
+      "price": 209,
+      "category": "Shakes",
+      "description": "Chocolate wafer shake with crunchy bits."
+    }
+  ],
+  "desserts_indian": [
+    {
+      "name": "Gulab Jamun (2 pcs)",
+      "veg": true,
+      "price": 79,
+      "category": "Desserts",
+      "description": "Soft fried milk dumplings in warm rose-cardamom syrup."
+    },
+    {
+      "name": "Rasmalai (2 pcs)",
+      "veg": true,
+      "price": 119,
+      "category": "Desserts",
+      "description": "Cottage cheese discs in chilled saffron milk. Light and creamy."
+    },
+    {
+      "name": "Gajar Ka Halwa",
+      "veg": true,
+      "price": 129,
+      "category": "Desserts",
+      "description": "Slow cooked carrot halwa with ghee and nuts. Warm winter comfort."
+    },
+    {
+      "name": "Shahi Tukda",
+      "veg": true,
+      "price": 139,
+      "category": "Desserts",
+      "description": "Fried bread soaked in sweet rabri. Rich royal dessert."
+    },
+    {
+      "name": "Kulfi Falooda",
+      "veg": true,
+      "price": 149,
+      "category": "Desserts",
+      "description": "Malai kulfi with falooda, rose syrup and basil seeds. Cold and refreshing."
+    },
+    {
+      "name": "Phirni",
+      "veg": true,
+      "price": 99,
+      "category": "Desserts",
+      "description": "Chilled ground rice pudding set in clay pots."
+    },
+    {
+      "name": "Kaju Katli (250g)",
+      "veg": true,
+      "price": 299,
+      "category": "Sweets",
+      "description": "Classic cashew fudge. Festive gifting favourite."
+    },
+    {
+      "name": "Motichoor Ladoo (4 pcs)",
+      "veg": true,
+      "price": 149,
+      "category": "Sweets",
+      "description": "Ghee boondi ladoos. Festive and celebratory."
+    }
+  ],
+  "desserts_bakery": [
+    {
+      "name": "Chocolate Lava Cake",
+      "veg": true,
+      "price": 129,
+      "category": "Desserts",
+      "description": "Warm cake with a molten chocolate centre. Gooey, indulgent mood-lifter."
+    },
+    {
+      "name": "Walnut Brownie",
+      "veg": true,
+      "price": 119,
+      "category": "Desserts",
+      "description": "Fudgy chocolate brownie with walnuts."
+    },
+    {
+      "name": "Sizzling Brownie with Ice Cream",
+      "veg": true,
+      "price": 229,
+      "category": "Desserts",
+      "description": "Hot brownie on a sizzler with vanilla ice cream and chocolate sauce. Celebration treat."
+    },
+    {
+      "name": "New York Cheesecake",
+      "veg": true,
+      "price": 249,
+      "category": "Desserts",
+      "description": "Creamy baked cheesecake with berry compote. Rich and premium."
+    },
+    {
+      "name": "Tiramisu",
+      "veg": true,
+      "price": 249,
+      "category": "Desserts",
+      "description": "Coffee-soaked ladyfingers with mascarpone cream."
+    },
+    {
+      "name": "Red Velvet Pastry",
+      "veg": true,
+      "price": 109,
+      "category": "Bakery",
+      "description": "Soft red velvet cake with cream cheese frosting."
+    },
+    {
+      "name": "Chocolate Truffle Cake (500g)",
+      "veg": true,
+      "price": 549,
+      "category": "Cakes",
+      "description": "Rich dark chocolate truffle cake. Perfect for birthdays and celebrations."
+    },
+    {
+      "name": "Blueberry Muffin",
+      "veg": true,
+      "price": 99,
+      "category": "Bakery",
+      "description": "Soft muffin loaded with blueberries."
+    },
+    {
+      "name": "Belgian Chocolate Waffle",
+      "veg": true,
+      "price": 189,
+      "category": "Waffles",
+      "description": "Crisp waffle drizzled with Belgian chocolate. Sweet late-night treat."
+    }
+  ],
+  "ice_cream": [
+    {
+      "name": "Belgian Chocolate Scoop",
+      "veg": true,
+      "price": 129,
+      "category": "Ice Cream",
+      "description": "Dense dark chocolate ice cream."
+    },
+    {
+      "name": "Alphonso Mango Scoop",
+      "veg": true,
+      "price": 129,
+      "category": "Ice Cream",
+      "description": "Real Alphonso mango ice cream. Summery and fruity."
+    },
+    {
+      "name": "Sugar-Free Vanilla Scoop",
+      "veg": true,
+      "price": 139,
+      "category": "Ice Cream",
+      "description": "Stevia-sweetened vanilla bean ice cream. Guilt-free dessert."
+    },
+    {
+      "name": "Salted Caramel Scoop",
+      "veg": true,
+      "price": 139,
+      "category": "Ice Cream",
+      "description": "Buttery salted caramel ice cream."
+    },
+    {
+      "name": "Tender Coconut Scoop",
+      "veg": true,
+      "price": 129,
+      "category": "Ice Cream",
+      "description": "Light tender coconut ice cream. Refreshing."
+    },
+    {
+      "name": "Death by Chocolate Sundae",
+      "veg": true,
+      "price": 249,
+      "category": "Sundaes",
+      "description": "Brownie, chocolate ice cream, fudge and nuts. Ultimate chocolate indulgence."
+    },
+    {
+      "name": "Ice Cream Tub - Family Pack",
+      "veg": true,
+      "price": 399,
+      "category": "Ice Cream",
+      "description": "500ml tub of your favourite flavour for sharing."
+    }
+  ],
+  "mexican": [
+    {
+      "name": "Chicken Burrito",
+      "veg": false,
+      "price": 279,
+      "category": "Burritos",
+      "description": "Flour tortilla stuffed with chicken, rice, beans, salsa and cheese. Big and filling."
+    },
+    {
+      "name": "Veg Burrito",
+      "veg": true,
+      "price": 249,
+      "category": "Burritos",
+      "description": "Tortilla with spiced beans, rice, corn, salsa and cheese."
+    },
+    {
+      "name": "Chicken Quesadilla",
+      "veg": false,
+      "price": 259,
+      "category": "Quesadillas",
+      "description": "Grilled tortilla with chicken and melted cheese, with salsa."
+    },
+    {
+      "name": "Cheesy Nachos",
+      "veg": true,
+      "price": 199,
+      "category": "Starters",
+      "description": "Tortilla chips with cheese sauce, jalapeños and salsa. Sharing snack."
+    },
+    {
+      "name": "Crispy Fish Tacos (2 pcs)",
+      "veg": false,
+      "price": 299,
+      "category": "Tacos",
+      "description": "Battered fish, slaw and chipotle mayo in soft tacos."
+    },
+    {
+      "name": "Paneer Tacos (2 pcs)",
+      "veg": true,
+      "price": 229,
+      "category": "Tacos",
+      "description": "Spicy paneer, salsa and cheese in crunchy shells."
+    }
+  ],
+  "lebanese": [
+    {
+      "name": "Chicken Shawarma Platter",
+      "veg": false,
+      "price": 329,
+      "category": "Platters",
+      "description": "Sliced shawarma chicken with hummus, pita, pickles and toum. Garlicky, filling."
+    },
+    {
+      "name": "Falafel Wrap",
+      "veg": true,
+      "price": 189,
+      "category": "Wraps",
+      "description": "Crispy falafel, tahini, salad and pickles in pita. Light vegan meal."
+    },
+    {
+      "name": "Hummus with Pita",
+      "veg": true,
+      "price": 199,
+      "category": "Mezze",
+      "description": "Creamy chickpea hummus with olive oil and warm pita."
+    },
+    {
+      "name": "Chicken Shish Taouk",
+      "veg": false,
+      "price": 349,
+      "category": "Grill",
+      "description": "Grilled garlic-lemon chicken skewers with rice. Light and high protein."
+    },
+    {
+      "name": "Mezze Platter",
+      "veg": true,
+      "price": 399,
+      "category": "Mezze",
+      "description": "Hummus, baba ganoush, falafel, tabbouleh and pita. Sharing platter."
+    },
+    {
+      "name": "Baklava (2 pcs)",
+      "veg": true,
+      "price": 149,
+      "category": "Desserts",
+      "description": "Flaky filo pastry with pistachios and honey syrup."
+    }
+  ],
+  "beverages": [
+    {
+      "name": "Coca-Cola (300ml)",
+      "veg": true,
+      "price": 49,
+      "category": "Beverages",
+      "description": "Chilled soft drink."
+    },
+    {
+      "name": "Masala Lemonade",
+      "veg": true,
+      "price": 79,
+      "category": "Beverages",
+      "description": "Fresh lemonade with chaat masala and mint."
+    },
+    {
+      "name": "Mango Lassi",
+      "veg": true,
+      "price": 109,
+      "category": "Beverages",
+      "description": "Thick mango yogurt drink. Sweet and cooling."
+    }
+  ]
+}

@@ -1,0 +1,488 @@
+[
+  {
+    "id": "900001",
+    "name": "Udupi Upahar",
+    "cuisines": [
+      "South Indian",
+      "Breakfast",
+      "Beverages"
+    ],
+    "locality": "Gandhi Bazaar",
+    "area": "Basavanagudi",
+    "costForTwo": 200,
+    "rating": 4.6,
+    "ratingCount": "12K+",
+    "deliveryTime": "15-20 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900002",
+    "name": "Guntur Spice Mess",
+    "cuisines": [
+      "Andhra",
+      "Biryani",
+      "South Indian"
+    ],
+    "locality": "Residency Road",
+    "area": "Central Bangalore",
+    "costForTwo": 500,
+    "rating": 4.4,
+    "ratingCount": "8.5K+",
+    "deliveryTime": "30-35 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900003",
+    "name": "Kappa & Karimeen",
+    "cuisines": [
+      "Kerala",
+      "Seafood",
+      "Biryani"
+    ],
+    "locality": "Ejipura",
+    "area": "Koramangala",
+    "costForTwo": 450,
+    "rating": 4.3,
+    "ratingCount": "3.1K+",
+    "deliveryTime": "35-40 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900004",
+    "name": "Coastal Tide",
+    "cuisines": [
+      "Seafood",
+      "Mangalorean",
+      "Chinese"
+    ],
+    "locality": "Brigade Road",
+    "area": "Central Bangalore",
+    "costForTwo": 700,
+    "rating": 4.4,
+    "ratingCount": "4.2K+",
+    "deliveryTime": "30-40 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900005",
+    "name": "Wok Express Street",
+    "cuisines": [
+      "Chinese",
+      "Asian",
+      "Soups"
+    ],
+    "locality": "5th Block",
+    "area": "Koramangala",
+    "costForTwo": 350,
+    "rating": 4.1,
+    "ratingCount": "6.7K+",
+    "deliveryTime": "25-30 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900006",
+    "name": "Bowl of Ramen",
+    "cuisines": [
+      "Japanese",
+      "Asian",
+      "Sushi"
+    ],
+    "locality": "Indiranagar 100 Ft Road",
+    "area": "Indiranagar",
+    "costForTwo": 900,
+    "rating": 4.5,
+    "ratingCount": "2.4K+",
+    "deliveryTime": "35-45 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900007",
+    "name": "Seoul Bites",
+    "cuisines": [
+      "Korean",
+      "Asian",
+      "Street Food"
+    ],
+    "locality": "12th Main",
+    "area": "Indiranagar",
+    "costForTwo": 650,
+    "rating": 4.4,
+    "ratingCount": "1.8K+",
+    "deliveryTime": "30-35 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900008",
+    "name": "Momo Mountain",
+    "cuisines": [
+      "Momos",
+      "Tibetan",
+      "Chinese"
+    ],
+    "locality": "Koramangala 6th Block",
+    "area": "Koramangala",
+    "costForTwo": 250,
+    "rating": 4.3,
+    "ratingCount": "9.1K+",
+    "deliveryTime": "20-25 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900009",
+    "name": "Roll Call",
+    "cuisines": [
+      "Rolls & Wraps",
+      "Street Food",
+      "Fast Food"
+    ],
+    "locality": "Church Street",
+    "area": "Central Bangalore",
+    "costForTwo": 250,
+    "rating": 4.2,
+    "ratingCount": "5.5K+",
+    "deliveryTime": "20-30 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900010",
+    "name": "Chaat Chowk",
+    "cuisines": [
+      "Chaat",
+      "Street Food",
+      "Snacks",
+      "Beverages"
+    ],
+    "locality": "VV Puram",
+    "area": "Basavanagudi",
+    "costForTwo": 150,
+    "rating": 4.5,
+    "ratingCount": "11K+",
+    "deliveryTime": "15-25 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900011",
+    "name": "Mumbai Tapri",
+    "cuisines": [
+      "Maharashtrian",
+      "Street Food",
+      "Snacks"
+    ],
+    "locality": "HSR Layout Sector 1",
+    "area": "HSR Layout",
+    "costForTwo": 200,
+    "rating": 4.2,
+    "ratingCount": "3.3K+",
+    "deliveryTime": "25-30 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900012",
+    "name": "Rajwada Rasoi",
+    "cuisines": [
+      "Rajasthani",
+      "Gujarati",
+      "Thalis"
+    ],
+    "locality": "Jayanagar 4th Block",
+    "area": "Jayanagar",
+    "costForTwo": 400,
+    "rating": 4.3,
+    "ratingCount": "2.2K+",
+    "deliveryTime": "35-40 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900013",
+    "name": "Kolkata Kitchen",
+    "cuisines": [
+      "Bengali",
+      "Rolls & Wraps",
+      "Biryani"
+    ],
+    "locality": "Bellandur Main Road",
+    "area": "Bellandur",
+    "costForTwo": 450,
+    "rating": 4.2,
+    "ratingCount": "1.6K+",
+    "deliveryTime": "35-45 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900014",
+    "name": "Pind Da Dhaba",
+    "cuisines": [
+      "Punjabi",
+      "North Indian",
+      "Tandoor"
+    ],
+    "locality": "Marathahalli Bridge",
+    "area": "Marathahalli",
+    "costForTwo": 400,
+    "rating": 4.3,
+    "ratingCount": "7.7K+",
+    "deliveryTime": "30-35 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900015",
+    "name": "Seekh & Smoke",
+    "cuisines": [
+      "Kebabs",
+      "Mughlai",
+      "Tandoor"
+    ],
+    "locality": "Frazer Town",
+    "area": "Frazer Town",
+    "costForTwo": 600,
+    "rating": 4.5,
+    "ratingCount": "6.2K+",
+    "deliveryTime": "30-40 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900016",
+    "name": "Beirut Grill House",
+    "cuisines": [
+      "Lebanese",
+      "Arabian",
+      "Rolls & Wraps"
+    ],
+    "locality": "Old Airport Road",
+    "area": "Domlur",
+    "costForTwo": 550,
+    "rating": 4.3,
+    "ratingCount": "2.9K+",
+    "deliveryTime": "30-35 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900017",
+    "name": "Taco Loco",
+    "cuisines": [
+      "Mexican",
+      "Healthy Food",
+      "Fast Food"
+    ],
+    "locality": "Whitefield Main Road",
+    "area": "Whitefield",
+    "costForTwo": 500,
+    "rating": 4.1,
+    "ratingCount": "1.4K+",
+    "deliveryTime": "35-40 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900018",
+    "name": "Smash & Fries",
+    "cuisines": [
+      "Burgers",
+      "American",
+      "Fast Food",
+      "Beverages"
+    ],
+    "locality": "Kalyan Nagar",
+    "area": "Kalyan Nagar",
+    "costForTwo": 400,
+    "rating": 4.2,
+    "ratingCount": "4.8K+",
+    "deliveryTime": "25-30 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900019",
+    "name": "Brew Lane Cafe",
+    "cuisines": [
+      "Cafe",
+      "Coffee",
+      "Bakery",
+      "Breakfast"
+    ],
+    "locality": "Lavelle Road",
+    "area": "Central Bangalore",
+    "costForTwo": 600,
+    "rating": 4.5,
+    "ratingCount": "3.7K+",
+    "deliveryTime": "25-35 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900020",
+    "name": "Sunrise Breakfast Club",
+    "cuisines": [
+      "Breakfast",
+      "Cafe",
+      "Healthy Food"
+    ],
+    "locality": "Sarjapur Road",
+    "area": "Sarjapur",
+    "costForTwo": 450,
+    "rating": 4.3,
+    "ratingCount": "1.2K+",
+    "deliveryTime": "30-35 mins",
+    "isOpen": false
+  },
+  {
+    "id": "900021",
+    "name": "Pressed - Juices & Bowls",
+    "cuisines": [
+      "Juices",
+      "Healthy Food",
+      "Salads"
+    ],
+    "locality": "HSR Layout Sector 2",
+    "area": "HSR Layout",
+    "costForTwo": 350,
+    "rating": 4.4,
+    "ratingCount": "2.0K+",
+    "deliveryTime": "20-25 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900022",
+    "name": "Green Theory Kitchen",
+    "cuisines": [
+      "Healthy Food",
+      "Keto",
+      "Salads",
+      "Vegan"
+    ],
+    "locality": "Indiranagar 2nd Stage",
+    "area": "Indiranagar",
+    "costForTwo": 700,
+    "rating": 4.4,
+    "ratingCount": "1.1K+",
+    "deliveryTime": "30-40 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900023",
+    "name": "Waffle Wala",
+    "cuisines": [
+      "Desserts",
+      "Waffles",
+      "Shakes"
+    ],
+    "locality": "Koramangala 1st Block",
+    "area": "Koramangala",
+    "costForTwo": 300,
+    "rating": 4.4,
+    "ratingCount": "5.1K+",
+    "deliveryTime": "20-30 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900024",
+    "name": "Mithai Mahal",
+    "cuisines": [
+      "Sweets",
+      "Desserts",
+      "Snacks"
+    ],
+    "locality": "Chickpet",
+    "area": "Chickpet",
+    "costForTwo": 250,
+    "rating": 4.5,
+    "ratingCount": "8.8K+",
+    "deliveryTime": "25-35 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900025",
+    "name": "Late Night Cravings",
+    "cuisines": [
+      "Fast Food",
+      "Chinese",
+      "Burgers",
+      "Desserts"
+    ],
+    "locality": "BTM 2nd Stage",
+    "area": "BTM Layout",
+    "costForTwo": 350,
+    "rating": 4.0,
+    "ratingCount": "6.0K+",
+    "deliveryTime": "30-40 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900026",
+    "name": "Trattoria Nonna",
+    "cuisines": [
+      "Italian",
+      "Pastas",
+      "Pizzas",
+      "Desserts"
+    ],
+    "locality": "St. Marks Road",
+    "area": "Central Bangalore",
+    "costForTwo": 1100,
+    "rating": 4.6,
+    "ratingCount": "2.6K+",
+    "deliveryTime": "35-45 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900027",
+    "name": "Cheese Pull Pizzeria",
+    "cuisines": [
+      "Pizzas",
+      "Fast Food",
+      "Pastas"
+    ],
+    "locality": "JP Nagar 6th Phase",
+    "area": "JP Nagar",
+    "costForTwo": 400,
+    "rating": 4.1,
+    "ratingCount": "3.9K+",
+    "deliveryTime": "25-35 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900028",
+    "name": "Biryani Junction",
+    "cuisines": [
+      "Biryani",
+      "North Indian",
+      "Kebabs"
+    ],
+    "locality": "Electronic City Phase 1",
+    "area": "Electronic City",
+    "costForTwo": 350,
+    "rating": 4.2,
+    "ratingCount": "10K+",
+    "deliveryTime": "30-40 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900029",
+    "name": "Amma's Kitchen",
+    "cuisines": [
+      "South Indian",
+      "Home Food",
+      "Andhra"
+    ],
+    "locality": "Malleshwaram 8th Cross",
+    "area": "Malleshwaram",
+    "costForTwo": 250,
+    "rating": 4.6,
+    "ratingCount": "4.4K+",
+    "deliveryTime": "25-30 mins",
+    "isOpen": true
+  },
+  {
+    "id": "900030",
+    "name": "Chai & Pakoda Point",
+    "cuisines": [
+      "Snacks",
+      "Beverages",
+      "Street Food"
+    ],
+    "locality": "Banashankari 2nd Stage",
+    "area": "Banashankari",
+    "costForTwo": 150,
+    "rating": 4.3,
+    "ratingCount": "2.8K+",
+    "deliveryTime": "20-25 mins",
+    "isOpen": false
+  }
+]

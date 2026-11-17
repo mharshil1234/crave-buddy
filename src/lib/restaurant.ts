@@ -1,7 +1,7 @@
 import { getRestaurant, listRestaurants, toRestaurantWithMenu } from "@/lib/catalogue";
 
 export async function getRestaurants({ lat, lng }: { lat: string, lng: string }) {
-    const restaurants = await listRestaurants({ limit: 20 });
+    const restaurants = await listRestaurants({ limit: 100 });
 
     return {
         RestaurantsData: restaurants.map((restaurant) => ({
