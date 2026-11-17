@@ -5,6 +5,7 @@ import { useParams } from "next/navigation";
 import type { RestaurantDetails, MenuItem } from "@/types/restaurant";
 import { MainCard } from "@/components/RestaurantPage/MainCard";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { Search } from "@/components/RestaurantPage/Search";
 import { MenuList } from "@/components/RestaurantPage/MenuList";
 
@@ -61,9 +62,9 @@ export default function RestaurantPage() {
 
     if (loading) {
         return (
-            <main>
+            <div className="flex min-h-screen flex-col">
                 <Header />
-                <div className="mx-auto w-full max-w-3xl px-4 py-6 sm:px-6 sm:py-8">
+                <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-6 sm:px-6 sm:py-8">
                     <div className="w-full">
                         <div className="h-8 w-64 bg-gray-200 rounded animate-pulse" />
 
@@ -106,17 +107,18 @@ export default function RestaurantPage() {
                             </div>
                         ))}
                     </div>
-                </div>
-            </main>
+                </main>
+                <Footer />
+            </div>
         )
     }
 
     return (
-        <main>
+        <div className="flex min-h-screen flex-col">
 
             <Header />
 
-            <div className="mx-auto w-full max-w-3xl px-4 py-6 sm:px-6 sm:py-8">
+            <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-6 sm:px-6 sm:py-8">
                 <div className="w-full">
 
                     <h1 className="text-2xl font-bold">{restaurantDetails?.name}</h1>
@@ -137,8 +139,10 @@ export default function RestaurantPage() {
                     )}
 
                 </div>
-            </div>
+            </main>
 
-        </main>
+            <Footer />
+
+        </div>
     )
 }

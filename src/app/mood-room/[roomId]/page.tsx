@@ -4,6 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useSession } from "@/lib/auth-client";
 import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { RoomHeader } from "@/components/MoodRoom/RoomHeader";
 import { MemberList } from "@/components/MoodRoom/MemberList";
 import { HostControls } from "@/components/MoodRoom/HostControls";
@@ -198,6 +199,8 @@ export default function MoodRoomPage() {
           </div>
         </div>
       </main>
+
+      <Footer />
 
       {/* <LoaderModal isLoading={isLoading} /> */}
     </div>
