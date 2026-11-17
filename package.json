@@ -9,7 +9,8 @@
     "lint": "eslint",
     "build": "prisma generate && next build",
     "postinstall": "prisma generate",
-    "seed": "tsx scripts/seedCatalogue.ts"
+    "seed": "tsx scripts/seedCatalogue.ts",
+    "test": "vitest run"
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.80",
@@ -41,6 +42,7 @@
     "prisma": "^7.8.0",
     "tailwindcss": "^4.3.0",
     "tsx": "^4.22.4",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "4.1.12"
   }
 }
