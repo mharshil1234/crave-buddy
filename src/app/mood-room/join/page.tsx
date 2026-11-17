@@ -6,7 +6,7 @@ export default function JoinMoodRoomPage() {
     return (
         <div className="flex min-h-screen flex-col">
             <Header />
-            <main className="flex-1">
+            <main className="min-h-dvh">
                 <JoinMoodRoomForm />
             </main>
             <Footer />

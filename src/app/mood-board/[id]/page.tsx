@@ -12,7 +12,7 @@ export default function UserMoodBoard() {
     return (
         <div className="flex min-h-screen flex-col">
             <Header />
-            <main className="flex-1">
+            <main className="min-h-dvh">
                 <MoodBoardDisplay id={id} />
             </main>
             <Footer />

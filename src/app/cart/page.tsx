@@ -8,7 +8,7 @@ export default function cartPage() {
     return (
         <div className="flex min-h-screen flex-col bg-gray-200">
             <Header />
-            <main className="flex-1">
+            <main className="min-h-dvh">
                 <MainCart />
             </main>
             <Footer />

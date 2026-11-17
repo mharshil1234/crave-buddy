@@ -58,7 +58,7 @@ export function MoodRoomForm() {
 
     return (
         <div
-            className="flex min-h-[calc(100vh-4.5rem)] items-center justify-center p-6"
+            className="flex min-h-dvh items-center justify-center p-6"
             style={{
                 background: "radial-gradient(circle at 15% 20%, #ffd6b8, transparent 50%), radial-gradient(circle at 85% 80%, #c8e2ff, transparent 50%), #fff8f3"
             }}
