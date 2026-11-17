@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth";
 import { checkRoomMembership } from "@/lib/db/mood-room";
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 
 export async function GET(
   req: NextRequest,
@@ -17,6 +18,13 @@ export async function GET(
     }
 
     const { roomId } = await params;
+
+    if (!z.uuid().safeParse(roomId).success) {
+      return NextResponse.json(
+        { error: "Invalid room id" },
+        { status: 400 }
+      );
+    }
 
     const isMember = await checkRoomMembership({
       roomId,
