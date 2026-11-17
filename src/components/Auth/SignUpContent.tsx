@@ -6,20 +6,21 @@ import { authClient, signUp, useSession } from "@/lib/auth-client";
 import { Eye, EyeOff } from "lucide-react";
 import { useEffect } from "react";
 import { toast } from "sonner";
+import { safeCallbackUrl } from "@/lib/safe-redirect";
 
 export function SignUpContent() {
 
     const searchParams = useSearchParams();
-    const callbackUrl = searchParams.get("callbackUrl");
+    const callbackUrl = safeCallbackUrl(searchParams.get("callbackUrl"));
 
     const router = useRouter();
 
     const { data: session, isPending } = useSession();
     useEffect(() => {
         if (session?.user) {
-            router.push("/");
+            router.push(callbackUrl);
         }
-    }, [isPending, session, router]);
+    }, [isPending, session, router, callbackUrl]);
 
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -57,14 +58,14 @@ export function SignUpContent() {
             toast.error(res.error.message || "Something went wrong.");
         } else {
             toast.success("Welcome to Crave Buddy!")
-            router.push("/");
+            router.push(callbackUrl);
         }
     }
 
     async function handleGoogleSignIn() {
         await authClient.signIn.social({
             provider: "google",
-            callbackURL: callbackUrl || "/"
+            callbackURL: callbackUrl
         });
     }
 
@@ -165,7 +166,7 @@ export function SignUpContent() {
                     <p className="mt-6 text-center text-neutral-400">
                         Already have an account?{" "}
                         <a
-                            href={`/signin?callbackUrl=${encodeURIComponent(callbackUrl ?? "/")}`}
+                            href={`/signin?callbackUrl=${encodeURIComponent(callbackUrl)}`}
                             className="text-orange-400 hover:text-orange-300"
                         >
                             Sign in

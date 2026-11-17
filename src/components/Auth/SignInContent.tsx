@@ -4,12 +4,13 @@ import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
+import { safeCallbackUrl } from "@/lib/safe-redirect";
 import { authClient, signIn, useSession } from "@/lib/auth-client";
 
 export function SignInContent() {
 
     const searchParams = useSearchParams();
-    const callbackUrl = searchParams.get("callbackUrl");
+    const callbackUrl = safeCallbackUrl(searchParams.get("callbackUrl"));
 
     const router = useRouter();
 
@@ -19,9 +20,9 @@ export function SignInContent() {
 
     useEffect(() => {
         if (session?.user) {
-            router.push("/");
+            router.push(callbackUrl);
         }
-    }, [session, isPending, router]);
+    }, [isPending, session, router, callbackUrl]);
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -45,14 +46,14 @@ export function SignInContent() {
             toast.error(res.error.message || "Invalid email or password");
         } else {
             toast.success("Welcome back!");
-            router.push("/");
+            router.push(callbackUrl);
         }
     }
 
     const handleGoogleSignIn = async () => {
         await authClient.signIn.social({
             provider: "google",
-            callbackURL: callbackUrl || "/"
+            callbackURL: callbackUrl
         });
     }
 
@@ -124,7 +125,7 @@ export function SignInContent() {
                     <p className="mt-6 text-center text-neutral-400">
                         Don't have an account?{" "}
                         <a
-                            href={`/signup?callbackUrl=${encodeURIComponent(callbackUrl ?? "/")}`}
+                            href={`/signup?callbackUrl=${encodeURIComponent(callbackUrl)}`}
                             className="text-orange-400 hover:text-orange-300"
                         >
                             Sign up
