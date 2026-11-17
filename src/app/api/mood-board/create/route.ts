@@ -2,22 +2,48 @@ import { getMoodBoard } from "@/lib/mood-board";
 import { createMoodBoard } from "@/lib/db/mood-board";
 import { NextRequest, NextResponse } from "next/server";
 import { cookies, headers } from "next/headers";
+import { z } from "zod";
 import { auth } from "@/lib/auth";
+import { clientIp, rateLimit } from "@/lib/rate-limit";
+
+const MOOD_BOARD_LIMIT = 10;
+const MOOD_BOARD_WINDOW_SECONDS = 10 * 60;
+
+const moodBoardParamsSchema = z.object({
+    lat: z.string().min(1),
+    lng: z.string().min(1),
+    isVeg: z.enum(["true", "false"]),
+    query: z.string().trim().min(1).max(200),
+});
 
 export async function POST(request: NextRequest) {
     const { searchParams } = new URL(request.url);
-    const lat = searchParams.get("lat");
-    const lng = searchParams.get("lng");
-    const isVeg = searchParams.get("isVeg");
-    const query = searchParams.get("query");
-
-    const session = await auth.api.getSession({
-        headers: await headers(),
+    const parsed = moodBoardParamsSchema.safeParse({
+        lat: searchParams.get("lat"),
+        lng: searchParams.get("lng"),
+        isVeg: searchParams.get("isVeg"),
+        query: searchParams.get("query"),
     });
+
+    if (!parsed.success) {
+        return NextResponse.json({ error: "Missing or invalid parameters" }, { status: 400 });
+    }
+    const { lat, lng, isVeg, query } = parsed.data;
+
+    const requestHeaders = await headers();
+    const session = await auth.api.getSession({ headers: requestHeaders });
     const userId = session?.user?.id || null;
 
-    if (!lat || !lng || !isVeg || !query) {
-        return NextResponse.json({ error: "Missing required parameters" }, { status: 400 });
+    const limit = await rateLimit(
+        `mood-board:${userId ?? `ip:${clientIp(requestHeaders)}`}`,
+        MOOD_BOARD_LIMIT,
+        MOOD_BOARD_WINDOW_SECONDS,
+    );
+    if (!limit.allowed) {
+        return NextResponse.json(
+            { error: "You're generating mood boards too quickly. Please try again in a few minutes." },
+            { status: 429, headers: { "Retry-After": String(limit.retryAfterSeconds) } },
+        );
     }
 
     try {
@@ -35,6 +61,6 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ id });
     } catch (error) {
         console.error("Error to create mood board:", error);
-        return NextResponse.json({ error: "Failed to to create mood board" }, { status: 500 });
+        return NextResponse.json({ error: "Failed to create mood board" }, { status: 500 });
     }
 }
