@@ -49,8 +49,8 @@ export function MainCart() {
     }, [setCart]);
 
     return (
-        <div className="p-8 px-40 flex justify-center items-center">
-            <div className="w-200 py-8 bg-white p-4 flex flex-col gap-4">
+        <div className="mx-auto w-full max-w-3xl px-4 py-6 sm:px-6 sm:py-8">
+            <div className="w-full rounded-xl bg-white p-4 flex flex-col gap-4 sm:p-6">
                 {Object.keys(cart).length === 0 ? (
                     <p>Your cart is empty.</p>
                 ) : (

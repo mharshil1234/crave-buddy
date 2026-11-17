@@ -11,7 +11,7 @@ export function MenuItemCard({ item, restaurantId }: { item: MenuItem; restauran
 
     return (
         <div className="w-full flex mt-4 border-t-1 py-4">
-            <div className="w-[70%] mt-2">
+            <div className="min-w-0 flex-1 mt-2 pr-4">
                 <div className="w-full flex items-center gap-4 font-bold">
                     <VegNonVegIcon veg={item.veg} />
                 </div>
@@ -33,7 +33,7 @@ export function MenuItemCard({ item, restaurantId }: { item: MenuItem; restauran
                 )}
 
             </div>
-            <div className="w-45 h-45 relative">
+            <div className="relative size-28 shrink-0 sm:size-40">
                 <Image src="/restaurant.jpeg" alt={item.name} className="w-full h-full object-cover rounded-lg" width={128} height={128} />
                 <QuantityButton itemId={item.id} restaurantId={restaurantId} />
             </div>

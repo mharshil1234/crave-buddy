@@ -46,10 +46,10 @@ export function MoodBoardForm() {
                 background: "radial-gradient(circle at 15% 20%, #ffd6b8, transparent 50%), radial-gradient(circle at 85% 80%, #c8e2ff, transparent 50%), #fff8f3"
             }}
         >
-            <div className="shadow-xl rounded-4xl p-8 w-150 flex justify-center items-center flex-col gap-4 bg-white mb-50">
+            <div className="shadow-xl rounded-4xl w-full max-w-xl p-6 sm:p-8 flex justify-center items-center flex-col gap-4 bg-white mb-24 sm:mb-50">
                 <h1 className="font-bold text-2xl">What do you feel like?</h1>
                 <form
-                    className="flex flex-col gap-4 justify-center"
+                    className="flex w-full flex-col items-center gap-4 justify-center"
                     onSubmit={handleSubmit}
                 >
                     <input
@@ -57,7 +57,7 @@ export function MoodBoardForm() {
                         placeholder="e.g. something spicy"
                         value={query}
                         onChange={(e) => setQuery(e.target.value)}
-                        className="w-100 h-10 text-xl p-5 rounded-xl text-center border border-black focus:outline-none ring-2 ring-transparent focus:ring-[#ff5200] focus:border-transparent"
+                        className="w-full max-w-md h-10 text-xl p-5 rounded-xl text-center border border-black focus:outline-none ring-2 ring-transparent focus:ring-[#ff5200] focus:border-transparent"
                     />
                     <div className="flex items-center gap-2 justify-center mt-2">
                         {!isVeg && (

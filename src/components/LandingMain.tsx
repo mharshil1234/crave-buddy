@@ -70,11 +70,11 @@ export function LandingMain() {
     
     return (
 
-        <div className="px-15 py-10">
+        <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
 
             <h1 className="text-2xl font-bold">Discover the best restaurants</h1>
 
-            <div className="my-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 justify-center">
+            <div className="my-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
 
                 {restaurants.map((restaurant) => {
 

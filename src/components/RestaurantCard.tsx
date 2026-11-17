@@ -20,7 +20,7 @@ export function RestaurantCard({ id, image, name, cuisine, rating, location }: C
     return (
 
         <div
-        className="bg-white rounded-xl shadow-md w-90 hover:shadow-lg transition-shadow duration-200 hover:cursor-pointer"
+        className="w-full bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-200 hover:cursor-pointer"
         onClick={() => router.push(`/restaurant/${id}`)}
         >
             

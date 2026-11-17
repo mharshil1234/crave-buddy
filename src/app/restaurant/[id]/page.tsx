@@ -63,8 +63,8 @@ export default function RestaurantPage() {
         return (
             <main>
                 <Header />
-                <div className="p-8 px-40 flex justify-center items-center">
-                    <div className="w-200 py-8">
+                <div className="mx-auto w-full max-w-3xl px-4 py-6 sm:px-6 sm:py-8">
+                    <div className="w-full">
                         <div className="h-8 w-64 bg-gray-200 rounded animate-pulse" />
 
                         <div className="w-full rounded-2xl my-8 p-6 border border-gray-200 bg-white">
@@ -95,14 +95,14 @@ export default function RestaurantPage() {
 
                         {[1, 2, 3].map((i) => (
                             <div key={i} className="w-full flex mt-4 border-t-1 py-4">
-                                <div className="w-[70%] mt-2">
+                                <div className="min-w-0 flex-1 mt-2 pr-4">
                                     <div className="h-4 w-8 bg-gray-200 rounded animate-pulse mb-2" />
                                     <div className="h-6 w-48 bg-gray-200 rounded animate-pulse mb-2" />
                                     <div className="h-4 w-12 bg-gray-200 rounded animate-pulse mb-2" />
                                     <div className="h-5 w-16 bg-gray-200 rounded animate-pulse mb-2" />
                                     <div className="h-4 w-full bg-gray-200 rounded animate-pulse" />
                                 </div>
-                                <div className="ml-auto w-45 h-45 bg-gray-200 rounded-lg animate-pulse" />
+                                <div className="ml-auto size-28 shrink-0 bg-gray-200 rounded-lg animate-pulse sm:size-40" />
                             </div>
                         ))}
                     </div>
@@ -116,8 +116,8 @@ export default function RestaurantPage() {
 
             <Header />
 
-            <div className="p-8 px-40 flex justify-center items-center">
-                <div className="w-200 py-8">
+            <div className="mx-auto w-full max-w-3xl px-4 py-6 sm:px-6 sm:py-8">
+                <div className="w-full">
 
                     <h1 className="text-2xl font-bold">{restaurantDetails?.name}</h1>
                     <MainCard restaurantDetails={restaurantDetails} />
