@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ShoppingBag } from "lucide-react";
+import { ArrowLeft, Info, ShieldCheck, ShoppingBag } from "lucide-react";
 import { toast } from "sonner";
 import { useCartStore } from "@/stores/cartStore";
 import { RestaurantCartCard } from "./RestaurantCartCard";
@@ -97,47 +97,97 @@ export function MainCart() {
         );
     }
 
-    return (
-        <div className="mx-auto w-full max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-            <h1 className="text-2xl font-extrabold tracking-tight text-neutral-900">Your cart</h1>
-            <p className="mt-1 text-sm text-neutral-500">
-                {itemCount} {itemCount === 1 ? "item" : "items"} from {restaurants.length} {restaurants.length === 1 ? "restaurant" : "restaurants"}
-            </p>
+    const activeRestaurants = restaurants
+        .map(([restaurantId, restaurantData]) => ({
+            restaurantId,
+            name: restaurantData.restaurantName,
+            total: restaurantData.items.reduce((sum, item) => sum + item.price * (cart[item.id] ?? 0), 0),
+        }))
+        .filter((restaurant) => restaurant.total > 0);
 
-            <div className="mt-6 grid items-start gap-6 lg:grid-cols-[1fr_320px]">
+    function handleCheckout() {
+        toast.info("Checkout is coming soon!");
+    }
+
+    return (
+        <div className="mx-auto w-full max-w-5xl px-4 py-6 sm:px-6 lg:px-8 lg:pb-12">
+            <Link href="/" className="inline-flex items-center gap-1.5 text-sm font-semibold text-neutral-500 hover:text-brand">
+                <ArrowLeft size={16} aria-hidden="true" />
+                Continue shopping
+            </Link>
+
+            <div className="mt-3 flex flex-wrap items-end justify-between gap-2">
+                <h1 className="text-3xl font-extrabold tracking-tight text-neutral-900">Your cart</h1>
+                <p className="text-sm text-neutral-500">
+                    {itemCount} {itemCount === 1 ? "item" : "items"} from {activeRestaurants.length} {activeRestaurants.length === 1 ? "restaurant" : "restaurants"}
+                </p>
+            </div>
+
+            {activeRestaurants.length > 1 && (
+                <p className="mt-4 flex items-start gap-2 rounded-xl bg-brand-soft px-4 py-3 text-sm text-brand-ink">
+                    <Info size={16} aria-hidden="true" className="mt-0.5 shrink-0" />
+                    Your cart has dishes from {activeRestaurants.length} restaurants, so they&apos;ll arrive as separate deliveries.
+                </p>
+            )}
+
+            <div className="mt-6 grid items-start gap-6 lg:grid-cols-[1fr_340px]">
                 <div className="space-y-4">
                     {restaurants.map(([restaurantId, restaurantData]) => (
                         <RestaurantCartCard key={restaurantId} restaurantId={restaurantId} restaurantData={restaurantData} />
                     ))}
                 </div>
 
-                <aside className="card p-5 lg:sticky lg:top-24" aria-label="Order summary">
+                <aside className="card p-5 sm:p-6 lg:sticky lg:top-24" aria-label="Order summary">
                     <h2 className="text-lg font-extrabold text-neutral-900">Order summary</h2>
+
+                    {activeRestaurants.length > 1 && (
+                        <ul className="mt-4 space-y-2 border-b border-neutral-100 pb-4 text-sm">
+                            {activeRestaurants.map((restaurant) => (
+                                <li key={restaurant.restaurantId} className="flex justify-between gap-4 text-neutral-600">
+                                    <span className="truncate">{restaurant.name}</span>
+                                    <span className="shrink-0 tabular-nums">₹{restaurant.total}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+
                     <dl className="mt-4 space-y-2 text-sm">
                         <div className="flex justify-between text-neutral-600">
-                            <dt>Items ({itemCount})</dt>
-                            <dd>₹{subtotal}</dd>
+                            <dt>Item total ({itemCount})</dt>
+                            <dd className="tabular-nums">₹{subtotal}</dd>
                         </div>
-                        <div className="flex justify-between text-neutral-600">
+                        <div className="flex justify-between gap-4 text-neutral-600">
                             <dt>Delivery & taxes</dt>
-                            <dd>Calculated at checkout</dd>
+                            <dd className="text-right text-neutral-400">At checkout</dd>
                         </div>
-                        <div className="flex justify-between border-t border-neutral-200 pt-3 text-base font-extrabold text-neutral-900">
-                            <dt>Subtotal</dt>
-                            <dd>₹{subtotal}</dd>
+                        <div className="flex justify-between border-t border-neutral-200 pt-3 text-lg font-extrabold text-neutral-900">
+                            <dt>To pay</dt>
+                            <dd className="tabular-nums">₹{subtotal}</dd>
                         </div>
                     </dl>
-                    <button
-                        type="button"
-                        onClick={() => toast.info("Checkout is coming soon!")}
-                        className="btn btn-primary mt-5 w-full"
-                    >
+
+                    <button type="button" onClick={handleCheckout} className="btn btn-primary mt-5 hidden w-full py-3.5 text-base lg:flex">
                         Proceed to checkout
                     </button>
-                    <Link href="/" className="mt-3 block text-center text-sm font-semibold text-brand hover:text-brand-hover">
-                        Add more items
-                    </Link>
+
+                    <p className="mt-4 flex items-center gap-2 text-xs text-neutral-500">
+                        <ShieldCheck size={14} aria-hidden="true" className="shrink-0 text-rating" />
+                        You won&apos;t be charged until you place the order.
+                    </p>
                 </aside>
+            </div>
+
+            {/* Phone/tablet: checkout stays reachable without scrolling to the summary */}
+            <div data-checkout-bar className="fixed inset-x-0 bottom-0 z-40 border-t border-neutral-200 bg-white/95 px-4 py-3 shadow-[0_-4px_20px_rgba(0,0,0,0.06)] backdrop-blur lg:hidden">
+                <div className="mx-auto flex max-w-5xl items-center gap-4">
+                    <div className="min-w-0">
+                        <p className="text-xs text-neutral-500">{itemCount} {itemCount === 1 ? "item" : "items"}</p>
+                        <p className="text-lg font-extrabold tabular-nums text-neutral-900">₹{subtotal}</p>
+                    </div>
+                    <button type="button" onClick={handleCheckout} className="btn btn-primary ml-auto flex-1 py-3 sm:max-w-xs">
+                        Proceed to checkout
+                    </button>
+                </div>
             </div>
         </div>
     )

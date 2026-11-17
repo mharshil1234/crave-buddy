@@ -10,7 +10,7 @@ function isRenderableImage(img?: string): img is string {
     return !!img && (img.startsWith("/") || img.startsWith("https://media-assets.swiggy.com/"));
 }
 
-export function DishTile({ name, img, veg, className = "" }: { name: string; img?: string; veg: boolean; className?: string }) {
+export function DishTile({ name, img, veg, compact = false, className = "" }: { name: string; img?: string; veg: boolean; compact?: boolean; className?: string }) {
     if (isRenderableImage(img)) {
         return (
             <Image
@@ -18,7 +18,7 @@ export function DishTile({ name, img, veg, className = "" }: { name: string; img
                 alt={name}
                 fill
                 sizes="144px"
-                className={`rounded-2xl object-cover ${className}`}
+                className={`${compact ? "rounded-xl" : "rounded-2xl"} object-cover ${className}`}
             />
         );
     }
@@ -27,13 +27,13 @@ export function DishTile({ name, img, veg, className = "" }: { name: string; img
         <div
             role="img"
             aria-label={name}
-            className={`flex size-full flex-col items-center justify-center gap-1 rounded-2xl px-2 text-center ${veg
+            className={`flex size-full flex-col items-center justify-center gap-1 px-2 text-center ${compact ? "rounded-xl" : "rounded-2xl"} ${veg
                 ? "bg-linear-to-br from-green-50 to-emerald-100 text-green-700"
                 : "bg-linear-to-br from-orange-50 to-red-100 text-brand-ink"
                 } ${className}`}
         >
-            <UtensilsCrossed size={22} aria-hidden="true" className="opacity-60" />
-            <span className="line-clamp-2 text-xs font-bold leading-tight opacity-80">{name}</span>
+            <UtensilsCrossed size={compact ? 18 : 22} aria-hidden="true" className="opacity-60" />
+            {!compact && <span className="line-clamp-2 text-xs font-bold leading-tight opacity-80">{name}</span>}
         </div>
     );
 }
