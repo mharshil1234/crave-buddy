@@ -21,7 +21,14 @@ function settle(itemId: string): boolean {
 /** Quantity of one cart item plus an optimistic, atomic +1/-1 updater. */
 export function useCartItem(restaurantId: string, itemId: string) {
     const quantity = useCartStore((state) => state.cart[itemId] ?? 0);
-    const updateQuantity = useCartStore((state) => state.updateQuantity);
+    const updateItemQuantity = useCartStore((state) => state.updateQuantity);
+    const setRestaurantItemQuantity = useCartStore((state) => state.setRestaurantItemQuantity);
+
+    // Keep the per-item view and the per-restaurant view (header badge) in step.
+    function updateQuantity(id: string, next: number) {
+        updateItemQuantity(id, next);
+        setRestaurantItemQuantity(restaurantId, id, next);
+    }
 
     async function change(delta: 1 | -1) {
         const current = useCartStore.getState().cart[itemId] ?? 0;

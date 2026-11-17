@@ -7,6 +7,7 @@ import { ShoppingCart, Compass, Users, Menu, X, LogOut } from "lucide-react";
 import { toast } from "sonner";
 import { signOut, useSession } from "@/lib/auth-client";
 import { AccountMenu } from "./AccountMenu";
+import { countCartRestaurants, useCartStore } from "@/stores/cartStore";
 
 export function Header() {
   const pathname = usePathname();
@@ -15,6 +16,31 @@ export function Header() {
   const isMoodRoomPage = pathname.startsWith("/mood-room");
   const isCartPage = pathname === "/cart";
   const callback = encodeURIComponent(pathname);
+
+  const restaurantCount = useCartStore((state) => countCartRestaurants(state.cartByRestaurant));
+  const setCartByRestaurant = useCartStore((state) => state.setCartByRestaurant);
+  const cartLabel = restaurantCount > 0
+    ? `View cart, ${restaurantCount} ${restaurantCount === 1 ? "restaurant" : "restaurants"}`
+    : "View cart";
+
+  // Load the whole cart once per page so the badge is right after a reload; useCartItem keeps it live after that.
+  useEffect(() => {
+    let cancelled = false;
+    async function loadCart() {
+      try {
+        const response = await fetch("/api/cart/get");
+        if (!response.ok) return;
+        const data = await response.json();
+        if (!cancelled && data?.cart && typeof data.cart === "object") setCartByRestaurant(data.cart);
+      } catch {
+        // The badge is a nice-to-have; ignore failures.
+      }
+    }
+    loadCart();
+    return () => {
+      cancelled = true;
+    };
+  }, [setCartByRestaurant]);
 
   // The mobile menu remembers the path it was opened on, so navigating closes it automatically.
   const [menuOpenedOn, setMenuOpenedOn] = useState<string | null>(null);
@@ -82,8 +108,9 @@ export function Header() {
             )}
 
             {!isCartPage && (
-              <Link href="/cart" aria-label="View cart" className={iconButtonClass}>
+              <Link href="/cart" aria-label={cartLabel} className={`relative ${iconButtonClass}`}>
                 <ShoppingCart size={22} aria-hidden="true" />
+                {restaurantCount > 0 && <CartBadge count={restaurantCount} />}
               </Link>
             )}
 
@@ -113,8 +140,9 @@ export function Header() {
           {/* Mobile controls */}
           <div className="ml-auto flex items-center gap-1 md:hidden">
             {!isCartPage && (
-              <Link href="/cart" aria-label="View cart" className={iconButtonClass}>
+              <Link href="/cart" aria-label={cartLabel} className={`relative ${iconButtonClass}`}>
                 <ShoppingCart size={22} aria-hidden="true" />
+                {restaurantCount > 0 && <CartBadge count={restaurantCount} />}
               </Link>
             )}
             <button
@@ -153,6 +181,11 @@ export function Header() {
                 <Link href="/cart" onClick={closeMenu} className={mobileLinkClass}>
                   <ShoppingCart size={20} aria-hidden="true" className="text-brand" />
                   Cart
+                  {restaurantCount > 0 && (
+                    <span className="ml-auto rounded-full bg-brand px-2 py-0.5 text-xs font-bold text-white">
+                      {restaurantCount} {restaurantCount === 1 ? "restaurant" : "restaurants"}
+                    </span>
+                  )}
                 </Link>
               )}
             </div>
@@ -210,5 +243,16 @@ export function Header() {
         />
       )}
     </>
+  );
+}
+
+function CartBadge({ count }: { count: number }) {
+  return (
+    <span
+      aria-hidden="true"
+      className="absolute -top-0.5 -right-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-white px-1 text-[11px] font-extrabold leading-none text-brand shadow-sm ring-2 ring-brand"
+    >
+      {count > 9 ? "9+" : count}
+    </span>
   );
 }
