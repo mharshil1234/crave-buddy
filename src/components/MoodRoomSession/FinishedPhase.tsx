@@ -31,7 +31,7 @@ export default function FinishedPhase({ roomId, sessionId, result, isHost }: { r
     if (!result) return <section className="mx-auto max-w-2xl rounded-2xl border border-gray-200 bg-white p-7 text-center shadow-sm">
         <h2 className="text-2xl font-bold text-gray-950">Session ended early</h2>
         <p className="mt-3 text-sm leading-6 text-gray-600">The host ended this session before finalizing an order. Saved votes and chat remain available for review.</p>
-        {isHost && <button type="button" onClick={() => router.push(`/mood-room/${roomId}`)} className="mt-5 rounded-xl bg-orange-600 px-5 py-3 text-sm font-semibold text-white hover:bg-orange-700">Return to room</button>}
+        {isHost && <button type="button" onClick={() => router.push(`/mood-room/${roomId}`)} className="mt-5 rounded-xl bg-brand px-5 py-3 text-sm font-semibold text-white hover:bg-brand-hover">Return to room</button>}
     </section>;
 
     return <section className="mx-auto max-w-3xl space-y-5">
@@ -59,7 +59,7 @@ export default function FinishedPhase({ roomId, sessionId, result, isHost }: { r
                 </li>)}</ul>
                 <div className="flex justify-between border-t border-gray-200 pt-4 text-lg font-bold text-gray-950"><span>Estimated total</span><span>₹{result.totalAmount}</span></div>
                 {error && <p role="alert" className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-700">{error}</p>}
-                <button type="button" onClick={addToCart} disabled={pending} className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-orange-600 px-5 py-3.5 font-semibold text-white hover:bg-orange-700 disabled:opacity-50"><ShoppingCart size={18} />{pending ? "Adding order…" : "Add to My Cart"}</button>
+                <button type="button" onClick={addToCart} disabled={pending} className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-brand px-5 py-3.5 font-semibold text-white hover:bg-brand-hover disabled:opacity-50"><ShoppingCart size={18} />{pending ? "Adding order…" : "Add to My Cart"}</button>
                 <p className="mt-3 flex items-center justify-center gap-1.5 text-center text-xs text-gray-500"><Check size={14} />Adds the agreed quantities to your personal cart.</p>
                 {isHost && <button type="button" onClick={() => router.push(`/mood-room/${roomId}`)} className="mt-4 w-full rounded-xl border border-gray-200 px-5 py-3 text-sm font-semibold text-gray-700 hover:bg-gray-50">Start another session</button>}
             </div>

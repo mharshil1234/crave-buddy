@@ -104,13 +104,13 @@ export default function ItemVotingPhase({ roomId, state, memberId, isHost, conne
                                 <div className="flex items-center gap-2"><span className={`h-3 w-3 shrink-0 border-2 ${item.veg ? "border-green-600" : "border-red-600"}`}><span className={`m-auto block h-1.5 w-1.5 rounded-full ${item.veg ? "bg-green-600" : "bg-red-600"}`} /></span><h4 className="font-semibold text-gray-900">{item.name}</h4></div>
                                 <p className="mt-1 text-sm font-semibold text-gray-700">₹{item.price}</p>
                                 <p className="mt-1 line-clamp-2 text-xs leading-5 text-gray-500">{item.description}</p>
-                                {tally?.quantity ? <p className="mt-2 text-xs text-orange-700">Group tray: {tally.quantity} · {tally.voters.length} {tally.voters.length === 1 ? "member" : "members"}</p> : null}
+                                {tally?.quantity ? <p className="mt-2 text-xs text-brand-hover">Group tray: {tally.quantity} · {tally.voters.length} {tally.voters.length === 1 ? "member" : "members"}</p> : null}
                                 </div>
                             </div>
                             <div className="flex shrink-0 items-center gap-2 rounded-lg border border-gray-200 p-1">
-                                <button type="button" aria-label={`Remove one ${item.name}`} onClick={() => onQuantityChange(item.id, Math.max(0, ownQuantity - 1))} disabled={locked || !connected || pending || ownQuantity === 0} className="rounded p-1 text-orange-700 hover:bg-orange-50 disabled:opacity-40"><Minus size={16} /></button>
+                                <button type="button" aria-label={`Remove one ${item.name}`} onClick={() => onQuantityChange(item.id, Math.max(0, ownQuantity - 1))} disabled={locked || !connected || pending || ownQuantity === 0} className="rounded p-1 text-brand-hover hover:bg-orange-50 disabled:opacity-40"><Minus size={16} /></button>
                                 <span aria-label={`Your quantity: ${ownQuantity}`} className="min-w-5 text-center text-sm font-semibold">{ownQuantity}</span>
-                                <button type="button" aria-label={`Add one ${item.name}`} onClick={() => onQuantityChange(item.id, Math.min(20, ownQuantity + 1))} disabled={locked || !connected || pending || ownQuantity >= 20} className="rounded p-1 text-orange-700 hover:bg-orange-50 disabled:opacity-40"><Plus size={16} /></button>
+                                <button type="button" aria-label={`Add one ${item.name}`} onClick={() => onQuantityChange(item.id, Math.min(20, ownQuantity + 1))} disabled={locked || !connected || pending || ownQuantity >= 20} className="rounded p-1 text-brand-hover hover:bg-orange-50 disabled:opacity-40"><Plus size={16} /></button>
                             </div>
                         </article>;
                     })}</div>
@@ -119,12 +119,12 @@ export default function ItemVotingPhase({ roomId, state, memberId, isHost, conne
 
             <aside className="space-y-4 xl:sticky xl:top-6">
                 <section className="rounded-2xl border border-orange-100 bg-white p-5 shadow-sm">
-                    <div className="flex items-center justify-between"><h3 className="text-lg font-bold text-gray-950">Group tray</h3><span className="rounded-full bg-orange-100 px-2.5 py-1 text-xs font-semibold text-orange-800">{tray.length} dishes</span></div>
+                    <div className="flex items-center justify-between"><h3 className="text-lg font-bold text-gray-950">Group tray</h3><span className="rounded-full bg-orange-100 px-2.5 py-1 text-xs font-semibold text-brand-hover">{tray.length} dishes</span></div>
                     <p className="mt-1 text-xs text-gray-500">Shared picks from everyone in the session</p>
                     {tray.length ? <ul className="mt-4 divide-y divide-gray-100">{tray.map(({ item, tally }) => <li key={item.id} className="flex justify-between gap-3 py-3 text-sm"><span className="min-w-0"><span className="block truncate font-medium text-gray-800">{item.name}</span><span className="mt-1 block text-xs text-gray-500">{tally.quantity} × ₹{item.price} · {tally.voters.length} {tally.voters.length === 1 ? "member" : "members"}</span></span><span className="shrink-0 font-semibold">₹{item.price * tally.quantity}</span></li>)}</ul> : <p className="mt-4 rounded-xl bg-gray-50 p-4 text-sm text-gray-500">The tray is empty. Add a dish to get started.</p>}
                     <div className="mt-4 flex justify-between border-t border-gray-200 pt-4 font-bold text-gray-950"><span>Estimated subtotal</span><span>₹{total}</span></div>
                     {locked ? <p role="status" className="mt-4 flex items-center justify-center gap-2 rounded-xl bg-emerald-50 p-3 text-sm font-semibold text-emerald-800"><Check size={17} />Order locked by the host</p>
-                        : isHost ? <button type="button" onClick={onLock} disabled={!connected || pending || !hasItems} className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-orange-600 px-4 py-3 text-sm font-semibold text-white hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-50"><LockKeyhole size={16} />{pending ? "Locking tray…" : "Lock in order"}</button>
+                        : isHost ? <button type="button" onClick={onLock} disabled={!connected || pending || !hasItems} className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-brand px-4 py-3 text-sm font-semibold text-white hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-50"><LockKeyhole size={16} />{pending ? "Locking tray…" : "Lock in order"}</button>
                             : <p className="mt-4 text-center text-xs text-gray-500">The host can lock the order when the group is ready.</p>}
                     {locked && isHost && state.status === "ACTIVE" && <button type="button" onClick={onFinalize} disabled={!connected || pending} className="mt-3 w-full rounded-xl bg-emerald-600 px-4 py-3 text-sm font-semibold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50">{pending ? "Finalizing…" : "Finalize group order"}</button>}
                 </section>

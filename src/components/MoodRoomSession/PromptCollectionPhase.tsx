@@ -28,7 +28,7 @@ export default function PromptCollectionPhase({ state, memberId, isHost, connect
     return (
         <section className="space-y-6">
             <div className="rounded-2xl border border-orange-100 bg-white p-5 shadow-sm sm:p-7">
-                <span className="text-xs font-semibold uppercase tracking-widest text-orange-600">Round 1 · Cravings</span>
+                <span className="text-xs font-semibold uppercase tracking-widest text-brand">Round 1 · Cravings</span>
                 <h2 className="mt-2 text-2xl font-bold text-gray-950">What are you craving?</h2>
                 <p className="mt-2 text-sm leading-6 text-gray-600">Tell us about flavours, cuisines, dietary needs, or your budget. Everyone’s cravings help shape the group’s choices.</p>
                 <form className="mt-5 space-y-4" onSubmit={async (event) => {
@@ -36,13 +36,13 @@ export default function PromptCollectionPhase({ state, memberId, isHost, connect
                     if (await onSubmit(value.trim())) setDraft(null);
                 }}>
                     <label htmlFor="craving-prompt" className="block text-sm font-medium text-gray-800">Your craving</label>
-                    <textarea id="craving-prompt" value={value} onChange={(event) => setDraft(event.target.value)} maxLength={MAX_CRAVING_LENGTH} rows={4} disabled={pending || !connected} placeholder="Something spicy, a vegetarian option, and maybe a little dessert…" className="w-full resize-y rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm leading-6 text-gray-900 outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-100 disabled:opacity-60" />
+                    <textarea id="craving-prompt" value={value} onChange={(event) => setDraft(event.target.value)} maxLength={MAX_CRAVING_LENGTH} rows={4} disabled={pending || !connected} placeholder="Something spicy, a vegetarian option, and maybe a little dessert…" className="w-full resize-y rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm leading-6 text-gray-900 outline-none focus:border-brand focus:ring-2 focus:ring-orange-100 disabled:opacity-60" />
                     <div className="flex flex-wrap gap-2">
-                        {moodChips.map((chip) => <button key={chip} type="button" aria-pressed={value === chip} disabled={pending || !connected} onClick={() => setDraft(chip)} className={`rounded-full border px-3 py-2 text-xs font-medium transition disabled:opacity-50 ${value === chip ? "border-orange-500 bg-orange-100 text-orange-800" : "border-gray-200 text-gray-600 hover:border-orange-300 hover:bg-orange-50"}`}>{chip}</button>)}
+                        {moodChips.map((chip) => <button key={chip} type="button" aria-pressed={value === chip} disabled={pending || !connected} onClick={() => setDraft(chip)} className={`rounded-full border px-3 py-2 text-xs font-medium transition disabled:opacity-50 ${value === chip ? "border-brand bg-orange-100 text-brand-hover" : "border-gray-200 text-gray-600 hover:border-orange-300 hover:bg-orange-50"}`}>{chip}</button>)}
                     </div>
                     <div className="flex flex-wrap items-center justify-between gap-3">
                         <span className="text-xs text-gray-400">{value.length}/{MAX_CRAVING_LENGTH}</span>
-                        <button type="submit" disabled={!connected || pending || !value.trim() || value.trim() === ownPrompt?.prompt} className="rounded-xl bg-orange-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-50">{pending ? "Saving…" : ownPrompt ? "Update craving" : "Share my craving"}</button>
+                        <button type="submit" disabled={!connected || pending || !value.trim() || value.trim() === ownPrompt?.prompt} className="rounded-xl bg-brand px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-50">{pending ? "Saving…" : ownPrompt ? "Update craving" : "Share my craving"}</button>
                     </div>
                     {ownPrompt && <p role="status" className="flex items-center gap-2 text-sm text-emerald-700"><Check size={16} />Your craving is saved. You can edit it until the host moves on.</p>}
                 </form>
@@ -50,7 +50,7 @@ export default function PromptCollectionPhase({ state, memberId, isHost, connect
 
             <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm sm:p-7">
                 <div className="flex items-center justify-between gap-3"><h3 className="font-semibold text-gray-900">Everyone’s cravings</h3><span role="status" aria-live="polite" className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">{state.prompts.length}/{state.members.length} members ready</span></div>
-                <div role="progressbar" aria-label="Craving submissions" aria-valuenow={state.prompts.length} aria-valuemin={0} aria-valuemax={state.members.length} className="mt-4 h-2 overflow-hidden rounded-full bg-gray-100"><div className="h-full rounded-full bg-orange-500 transition-all" style={{ width: `${state.members.length ? state.prompts.length / state.members.length * 100 : 0}%` }} /></div>
+                <div role="progressbar" aria-label="Craving submissions" aria-valuenow={state.prompts.length} aria-valuemin={0} aria-valuemax={state.members.length} className="mt-4 h-2 overflow-hidden rounded-full bg-gray-100"><div className="h-full rounded-full bg-brand transition-all" style={{ width: `${state.members.length ? state.prompts.length / state.members.length * 100 : 0}%` }} /></div>
                 <ul className="mt-5 space-y-3">
                     {state.members.map((member) => {
                         const prompt = submitted.get(member.memberId);
@@ -61,8 +61,8 @@ export default function PromptCollectionPhase({ state, memberId, isHost, connect
                     })}
                 </ul>
                 {isHost ? <div className="mt-5 space-y-3 border-t border-gray-100 pt-5">
-                    {!allReady && <label className="flex cursor-pointer items-start gap-3 text-sm leading-6 text-gray-600"><input type="checkbox" checked={allowPartial} onChange={(event) => setAllowPartial(event.target.checked)} disabled={pending} className="mt-1 accent-orange-600" />Continue with the submitted cravings, even if some members aren’t ready.</label>}
-                    <button type="button" onClick={() => onProceed(allowPartial)} disabled={!connected || pending || state.prompts.length === 0 || (!allReady && !allowPartial)} className="flex w-full items-center justify-center gap-2 rounded-xl bg-orange-600 px-5 py-3 font-semibold text-white transition hover:bg-orange-700 disabled:cursor-not-allowed disabled:opacity-50">{pending ? "Please wait…" : "Find Restaurants"}</button>
+                    {!allReady && <label className="flex cursor-pointer items-start gap-3 text-sm leading-6 text-gray-600"><input type="checkbox" checked={allowPartial} onChange={(event) => setAllowPartial(event.target.checked)} disabled={pending} className="mt-1 accent-brand" />Continue with the submitted cravings, even if some members aren’t ready.</label>}
+                    <button type="button" onClick={() => onProceed(allowPartial)} disabled={!connected || pending || state.prompts.length === 0 || (!allReady && !allowPartial)} className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand px-5 py-3 font-semibold text-white transition hover:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-50">{pending ? "Please wait…" : "Find Restaurants"}</button>
                     {state.prompts.length === 0 && <p className="text-center text-xs text-gray-500">At least one craving is needed to continue.</p>}
                 </div> : <p className="mt-5 text-center text-sm text-gray-500">The host will continue when the group is ready.</p>}
             </div>

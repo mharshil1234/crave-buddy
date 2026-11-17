@@ -53,7 +53,7 @@ export function RestaurantCard({ restaurant }: RestaurantCardProps) {
                             <p className="truncate text-sm text-gray-500">{restaurant.location}</p>
                         </div>
 
-                        <div className="w-fit shrink-0 rounded-full bg-[#256f3a] px-2.5 py-1 text-sm font-bold text-white">
+                        <div className="w-fit shrink-0 rounded-full bg-rating px-2.5 py-1 text-sm font-bold text-white">
                             <span className="inline-flex items-center gap-1">
                                 <Star size={13} fill="white" />
                                 {restaurant.rating}
@@ -70,7 +70,7 @@ export function RestaurantCard({ restaurant }: RestaurantCardProps) {
                             <IndianRupee size={14} />
                             {restaurant.priceForTwo} for two
                         </span>
-                        <span className="rounded-full bg-orange-100 px-2.5 py-1 font-bold text-orange-700">
+                        <span className="rounded-full bg-orange-100 px-2.5 py-1 font-bold text-brand-hover">
                             {restaurant.menu.length} picks
                         </span>
                     </div>

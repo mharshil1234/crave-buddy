@@ -44,7 +44,7 @@ export function HostControls({
           <button
             onClick={() => setIsStartModalOpen(true)}
             disabled={isLoading}
-            className="inline-flex items-center justify-center gap-2 rounded-lg bg-orange-600 px-4 py-3 font-semibold text-white transition-colors hover:bg-orange-700 active:bg-orange-800 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand px-4 py-3 font-semibold text-white transition-colors hover:bg-brand-hover active:bg-brand-hover disabled:opacity-50 disabled:cursor-not-allowed"
             type="button"
           >
             <Play className="h-4 w-4" />
@@ -96,14 +96,14 @@ export function HostControls({
                   onChange={(e) => setSessionName(e.target.value)}
                   placeholder="e.g. Saturday dinner"
                   autoFocus
-                  className="mt-1.5 block w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm outline-none ring-2 ring-transparent transition focus:border-transparent focus:ring-orange-600"
+                  className="mt-1.5 block w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm outline-none ring-2 ring-transparent transition focus:border-transparent focus:ring-brand"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={isLoading || !sessionName.trim()}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-orange-600 px-4 py-3 font-semibold text-white transition-colors hover:bg-orange-700 active:bg-orange-800 disabled:cursor-not-allowed disabled:opacity-50"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand px-4 py-3 font-semibold text-white transition-colors hover:bg-brand-hover active:bg-brand-hover disabled:cursor-not-allowed disabled:opacity-50"
               >
                 <Play className="h-4 w-4" />
                 {isLoading ? "Starting..." : "Start Session"}

@@ -59,7 +59,7 @@ export function AccountMenu({ name, email, variant }: AccountMenuProps) {
                     }`}
             >
                 <span
-                    className={`flex size-9 items-center justify-center rounded-full bg-white text-sm font-extrabold text-[#ff5200] shadow-sm ${variant === "light" ? "ring-1 ring-neutral-200" : ""}`}
+                    className={`flex size-9 items-center justify-center rounded-full bg-white text-sm font-extrabold text-brand shadow-sm ${variant === "light" ? "ring-1 ring-neutral-200" : ""}`}
                 >
                     {initial}
                 </span>

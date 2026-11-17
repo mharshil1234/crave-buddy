@@ -1,50 +1,48 @@
 "use client";
 
+import { Minus, Plus } from "lucide-react";
 import { useCartItem } from "@/hooks/useCartItem";
 
 export function QuantityButton({ itemId, restaurantId }: { itemId: string; restaurantId: string }) {
 
     const { quantity, canIncrease, increase, decrease } = useCartItem(restaurantId, itemId);
 
+    if (quantity === 0) {
+        return (
+            <button
+                type="button"
+                onClick={increase}
+                className="h-9 w-full rounded-lg text-sm font-extrabold text-brand ring-1 ring-neutral-300 transition hover:bg-brand-soft cursor-pointer"
+            >
+                ADD
+            </button>
+        );
+    }
+
     return (
-        <div className="bg-white w-full h-10 flex items-center justify-center border border-[#cccdce]">
+        <div className="flex h-9 w-full items-center justify-between rounded-lg px-1 ring-1 ring-neutral-300">
+            <button
+                type="button"
+                aria-label="Decrease quantity"
+                onClick={decrease}
+                className="flex size-7 items-center justify-center rounded-md text-brand transition hover:bg-brand-soft cursor-pointer"
+            >
+                <Minus size={14} aria-hidden="true" />
+            </button>
 
-            {quantity === 0 && (
-                <button
-                    type="button"
-                    onClick={increase}
-                    className="w-full h-full font-bold text-green-600 rounded-xl hover:cursor-pointer hover:bg-gray-200"
-                >
-                    ADD
-                </button>
-            )}
+            <span className="text-sm font-bold text-neutral-900" aria-live="polite">
+                {quantity}
+            </span>
 
-            {quantity > 0 && (
-                <div className="flex items-center justify-between w-full px-1">
-                    <button
-                        type="button"
-                        aria-label="Decrease quantity"
-                        onClick={decrease}
-                        className="w-8 h-8 flex items-center justify-center text-green-600 font-bold text-xl cursor-pointer transition-colors"
-                    >
-                        -
-                    </button>
-
-                    <span className="font-bold text-green-600">
-                        {quantity}
-                    </span>
-
-                    <button
-                        type="button"
-                        aria-label="Increase quantity"
-                        onClick={increase}
-                        disabled={!canIncrease}
-                        className="w-8 h-8 flex items-center justify-center text-green-600 font-bold text-xl cursor-pointer transition-colors disabled:cursor-not-allowed disabled:opacity-40"
-                    >
-                        +
-                    </button>
-                </div>
-            )}
+            <button
+                type="button"
+                aria-label="Increase quantity"
+                onClick={increase}
+                disabled={!canIncrease}
+                className="flex size-7 items-center justify-center rounded-md text-brand transition hover:bg-brand-soft cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
+            >
+                <Plus size={14} aria-hidden="true" />
+            </button>
         </div>
     )
 }

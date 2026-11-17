@@ -65,7 +65,7 @@ export function PastSessions({ sessions, roomId }: PastSessionsProps) {
 
       <section className="rounded-lg border border-neutral-200 bg-white shadow-sm">
       <div className="flex items-center gap-2 border-b border-neutral-200 px-4 py-3 sm:px-6">
-        <Clock className="h-5 w-5 text-orange-600" />
+        <Clock className="h-5 w-5 text-brand" />
         <h2 className="font-semibold text-neutral-900">
           Past Sessions ({pastSessions.length})
         </h2>
@@ -99,7 +99,7 @@ export function PastSessions({ sessions, roomId }: PastSessionsProps) {
                       minute: "2-digit",
                     })}
                   </p>
-                  {session.restaurantName && <p className="mt-1 truncate text-xs font-medium text-orange-700">{session.restaurantName}</p>}
+                  {session.restaurantName && <p className="mt-1 truncate text-xs font-medium text-brand-hover">{session.restaurantName}</p>}
                   {session.endedEarly && <p className="mt-1 text-xs font-medium text-neutral-500">Ended early · no order finalized</p>}
                 </div>
                 <ChevronRight className="h-5 w-5 text-neutral-400 flex-shrink-0" />

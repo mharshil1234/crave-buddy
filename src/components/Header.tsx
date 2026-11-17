@@ -40,33 +40,26 @@ export function Header() {
     }
   }
 
-  const pillClass = `inline-flex h-10 items-center justify-center gap-2 rounded-xl px-4 text-sm font-bold shadow-sm transition hover:-translate-y-0.5 hover:shadow-md ${isCartPage
-    ? "bg-white text-[#ff5200] shadow-neutral-950/15 ring-1 ring-neutral-200 hover:bg-neutral-50"
-    : "bg-white text-[#ff5200] shadow-orange-950/15 hover:bg-orange-50"
-    }`;
-  const iconButtonClass = `inline-flex size-10 items-center justify-center rounded-xl transition cursor-pointer ${isCartPage
-    ? "text-neutral-900 hover:bg-neutral-100"
-    : "text-white hover:bg-white/15"
-    }`;
-  const mobileLinkClass = "flex items-center gap-3 rounded-xl px-3 py-3 text-base font-semibold text-neutral-900 hover:bg-orange-50";
+  const pillClass =
+    "inline-flex h-10 items-center justify-center gap-2 rounded-xl bg-white px-4 text-sm font-bold text-brand shadow-sm shadow-orange-950/15 transition hover:-translate-y-0.5 hover:bg-brand-soft hover:shadow-md";
+  const iconButtonClass =
+    "inline-flex size-10 items-center justify-center rounded-xl text-white transition cursor-pointer hover:bg-white/15";
+  const mobileLinkClass = "flex items-center gap-3 rounded-xl px-3 py-3 text-base font-semibold text-neutral-900 hover:bg-brand-soft";
 
   return (
     <>
       <header
-        className={`sticky top-0 z-50 border-b shadow-sm backdrop-blur-md ${isCartPage
-          ? "border-neutral-200 bg-white/95 shadow-neutral-950/10"
-          : "border-orange-300/25 bg-[#ff5200]/95 shadow-orange-950/10"
-          }`}
+        className="sticky top-0 z-50 border-b border-orange-300/25 bg-brand/95 shadow-sm shadow-orange-950/10 backdrop-blur-md"
       >
         <div className="mx-auto flex min-h-16 max-w-7xl items-center gap-2 px-4 py-2 sm:min-h-18 sm:gap-4 sm:px-6 sm:py-3 lg:px-8">
           <Link href="/" aria-label="Go to home" className="min-w-0 rounded-xl">
             <span
-              className={`block truncate text-xl font-extrabold tracking-tight sm:text-2xl ${isCartPage ? "text-neutral-950" : "text-white"}`}
+              className="block truncate text-xl font-extrabold tracking-tight text-white sm:text-2xl"
             >
               Crave Buddy
             </span>
             <span
-              className={`hidden text-xs font-medium lg:block ${isCartPage ? "text-neutral-500" : "text-orange-100/90"}`}
+              className="hidden text-xs font-medium text-orange-100/90 lg:block"
             >
               Food that matches your mood
             </span>
@@ -99,16 +92,13 @@ export function Header() {
                 <AccountMenu
                   name={session.user.name}
                   email={session.user.email}
-                  variant={isCartPage ? "light" : "brand"}
+                  variant="brand"
                 />
               ) : (
                 <div className="flex items-center gap-2">
                   <Link
                     href={`/signin?callbackUrl=${callback}`}
-                    className={`inline-flex h-10 items-center rounded-xl border px-4 text-sm font-semibold transition ${isCartPage
-                      ? "border-neutral-300 text-neutral-900 hover:bg-neutral-100"
-                      : "border-white/30 text-white hover:bg-white/15"
-                      }`}
+                    className="inline-flex h-10 items-center rounded-xl border border-white/30 px-4 text-sm font-semibold text-white transition hover:bg-white/15"
                   >
                     Sign In
                   </Link>
@@ -149,19 +139,19 @@ export function Header() {
             <div className="flex flex-col">
               {!isMoodBoardPage && (
                 <Link href="/mood-board" onClick={closeMenu} className={mobileLinkClass}>
-                  <Compass size={20} aria-hidden="true" className="text-[#ff5200]" />
+                  <Compass size={20} aria-hidden="true" className="text-brand" />
                   Mood Board
                 </Link>
               )}
               {!isMoodRoomPage && (
                 <Link href="/mood-room/create" onClick={closeMenu} className={mobileLinkClass}>
-                  <Users size={20} aria-hidden="true" className="text-[#ff5200]" />
+                  <Users size={20} aria-hidden="true" className="text-brand" />
                   Mood Room
                 </Link>
               )}
               {!isCartPage && (
                 <Link href="/cart" onClick={closeMenu} className={mobileLinkClass}>
-                  <ShoppingCart size={20} aria-hidden="true" className="text-[#ff5200]" />
+                  <ShoppingCart size={20} aria-hidden="true" className="text-brand" />
                   Cart
                 </Link>
               )}
@@ -170,7 +160,7 @@ export function Header() {
             <div className="mt-2 border-t border-neutral-100 pt-3">
               {session?.user ? (
                 <div className="flex items-center gap-3 px-3">
-                  <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-orange-50 text-sm font-extrabold text-[#ff5200]">
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-orange-50 text-sm font-extrabold text-brand">
                     {session.user.name?.[0]?.toUpperCase() ?? "U"}
                   </span>
                   <div className="min-w-0 flex-1">
@@ -198,7 +188,7 @@ export function Header() {
                   <Link
                     href={`/signup?callbackUrl=${callback}`}
                     onClick={closeMenu}
-                    className="inline-flex h-11 items-center justify-center rounded-xl bg-[#ff5200] text-sm font-bold text-white hover:bg-[#e64a00]"
+                    className="inline-flex h-11 items-center justify-center rounded-xl bg-brand text-sm font-bold text-white hover:bg-brand-hover"
                   >
                     Sign Up
                   </Link>

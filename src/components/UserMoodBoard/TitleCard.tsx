@@ -75,7 +75,7 @@ export function TitleCard({ userQuery, createdAt, isVeg, restaurantCount, dishCo
     }, [moodBoardId])
 
     return (
-        <div className="mt-2 overflow-hidden rounded-2xl border border-orange-100 border-t-8 border-t-orange-500 bg-white shadow-[0_20px_60px_rgba(15,23,42,0.10)]">
+        <div className="mt-2 overflow-hidden rounded-2xl border border-orange-100 border-t-8 border-t-brand bg-white shadow-[0_20px_60px_rgba(15,23,42,0.10)]">
             <div className="flex flex-col gap-5 p-6 sm:p-8">
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                     <div className="min-w-0">
@@ -100,7 +100,7 @@ export function TitleCard({ userQuery, createdAt, isVeg, restaurantCount, dishCo
 
                         <div className="flex items-center gap-2 justify-center items-center">
                             <button 
-                            className="inline-flex items-center gap-1 text-sm font-medium text-gray-500 hover:text-orange-500"
+                            className="inline-flex items-center gap-1 text-sm font-medium text-gray-500 hover:text-brand"
                             onClick={handleShare}
                             >
                                 <Share2 size={16} />
@@ -109,7 +109,7 @@ export function TitleCard({ userQuery, createdAt, isVeg, restaurantCount, dishCo
 
                             {!isSaved &&
                                 <button
-                                    className="inline-flex items-center gap-1 text-sm font-medium text-gray-500 hover:text-orange-500"
+                                    className="inline-flex items-center gap-1 text-sm font-medium text-gray-500 hover:text-brand"
                                     onClick={handleSave}
                                 >
                                     <Bookmark size={16} />
@@ -123,7 +123,7 @@ export function TitleCard({ userQuery, createdAt, isVeg, restaurantCount, dishCo
 
                 <div className="flex flex-wrap gap-3">
                     <div className="rounded-xl border border-orange-100 bg-orange-50 px-4 py-3">
-                        <p className="text-2xl font-extrabold text-orange-700">{restaurantCount}</p>
+                        <p className="text-2xl font-extrabold text-brand-hover">{restaurantCount}</p>
                         <p className="text-sm font-semibold text-orange-900">
                             {restaurantCount === 1 ? "restaurant" : "restaurants"} matched
                         </p>

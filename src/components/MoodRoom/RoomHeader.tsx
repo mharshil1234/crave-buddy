@@ -48,7 +48,7 @@ export function RoomHeader({
 
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2 rounded-lg bg-white px-4 py-2 shadow-sm">
-              <Users className="h-5 w-5 text-orange-600" />
+              <Users className="h-5 w-5 text-brand" />
               <span className="text-sm font-semibold text-neutral-900">
                 {memberCount} / {maxMembers}
               </span>
@@ -57,7 +57,7 @@ export function RoomHeader({
             {inviteCode && (
               <button
                 onClick={copyInviteCode}
-                className="inline-flex items-center gap-2 rounded-lg bg-orange-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-orange-700 active:bg-orange-800"
+                className="inline-flex items-center gap-2 rounded-lg bg-brand px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-hover active:bg-brand-hover"
                 type="button"
               >
                 {copied ? (
