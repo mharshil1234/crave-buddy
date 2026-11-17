@@ -51,103 +51,96 @@ export function Header() {
   const mobileLinkClass = "flex items-center gap-3 rounded-xl px-3 py-3 text-base font-semibold text-neutral-900 hover:bg-orange-50";
 
   return (
-    <header
-      className={`sticky top-0 z-50 border-b shadow-sm backdrop-blur-md ${isCartPage
-        ? "border-neutral-200 bg-white/95 shadow-neutral-950/10"
-        : "border-orange-300/25 bg-[#ff5200]/95 shadow-orange-950/10"
-        }`}
-    >
-      <div className="mx-auto flex min-h-16 max-w-7xl items-center gap-2 px-4 py-2 sm:min-h-18 sm:gap-4 sm:px-6 sm:py-3 lg:px-8">
-        <Link href="/" aria-label="Go to home" className="min-w-0 rounded-xl">
-          <span
-            className={`block truncate text-xl font-extrabold tracking-tight sm:text-2xl ${isCartPage ? "text-neutral-950" : "text-white"}`}
-          >
-            Crave Buddy
-          </span>
-          <span
-            className={`hidden text-xs font-medium lg:block ${isCartPage ? "text-neutral-500" : "text-orange-100/90"}`}
-          >
-            Food that matches your mood
-          </span>
-        </Link>
+    <>
+      <header
+        className={`sticky top-0 z-50 border-b shadow-sm backdrop-blur-md ${isCartPage
+          ? "border-neutral-200 bg-white/95 shadow-neutral-950/10"
+          : "border-orange-300/25 bg-[#ff5200]/95 shadow-orange-950/10"
+          }`}
+      >
+        <div className="mx-auto flex min-h-16 max-w-7xl items-center gap-2 px-4 py-2 sm:min-h-18 sm:gap-4 sm:px-6 sm:py-3 lg:px-8">
+          <Link href="/" aria-label="Go to home" className="min-w-0 rounded-xl">
+            <span
+              className={`block truncate text-xl font-extrabold tracking-tight sm:text-2xl ${isCartPage ? "text-neutral-950" : "text-white"}`}
+            >
+              Crave Buddy
+            </span>
+            <span
+              className={`hidden text-xs font-medium lg:block ${isCartPage ? "text-neutral-500" : "text-orange-100/90"}`}
+            >
+              Food that matches your mood
+            </span>
+          </Link>
 
-        {/* Desktop navigation */}
-        <nav aria-label="Main" className="ml-auto hidden items-center gap-3 md:flex">
-          {!isMoodBoardPage && (
-            <Link href="/mood-board" className={pillClass}>
-              <Compass size={20} aria-hidden="true" />
-              Mood Board
-            </Link>
-          )}
-
-          {!isMoodRoomPage && (
-            <Link href="/mood-room/create" className={pillClass}>
-              <Users size={18} aria-hidden="true" />
-              Mood Room
-            </Link>
-          )}
-
-          {!isCartPage && (
-            <Link href="/cart" aria-label="View cart" className={iconButtonClass}>
-              <ShoppingCart size={22} aria-hidden="true" />
-            </Link>
-          )}
-
-          <div className="ml-2 lg:ml-6">
-            {session?.user ? (
-              <AccountMenu
-                name={session.user.name}
-                email={session.user.email}
-                variant={isCartPage ? "light" : "brand"}
-              />
-            ) : (
-              <div className="flex items-center gap-2">
-                <Link
-                  href={`/signin?callbackUrl=${callback}`}
-                  className={`inline-flex h-10 items-center rounded-xl border px-4 text-sm font-semibold transition ${isCartPage
-                    ? "border-neutral-300 text-neutral-900 hover:bg-neutral-100"
-                    : "border-white/30 text-white hover:bg-white/15"
-                    }`}
-                >
-                  Sign In
-                </Link>
-                <Link href={`/signup?callbackUrl=${callback}`} className={pillClass}>
-                  Sign Up
-                </Link>
-              </div>
+          {/* Desktop navigation */}
+          <nav aria-label="Main" className="ml-auto hidden items-center gap-3 md:flex">
+            {!isMoodBoardPage && (
+              <Link href="/mood-board" className={pillClass}>
+                <Compass size={20} aria-hidden="true" />
+                Mood Board
+              </Link>
             )}
+
+            {!isMoodRoomPage && (
+              <Link href="/mood-room/create" className={pillClass}>
+                <Users size={18} aria-hidden="true" />
+                Mood Room
+              </Link>
+            )}
+
+            {!isCartPage && (
+              <Link href="/cart" aria-label="View cart" className={iconButtonClass}>
+                <ShoppingCart size={22} aria-hidden="true" />
+              </Link>
+            )}
+
+            <div className="ml-2 lg:ml-6">
+              {session?.user ? (
+                <AccountMenu
+                  name={session.user.name}
+                  email={session.user.email}
+                  variant={isCartPage ? "light" : "brand"}
+                />
+              ) : (
+                <div className="flex items-center gap-2">
+                  <Link
+                    href={`/signin?callbackUrl=${callback}`}
+                    className={`inline-flex h-10 items-center rounded-xl border px-4 text-sm font-semibold transition ${isCartPage
+                      ? "border-neutral-300 text-neutral-900 hover:bg-neutral-100"
+                      : "border-white/30 text-white hover:bg-white/15"
+                      }`}
+                  >
+                    Sign In
+                  </Link>
+                  <Link href={`/signup?callbackUrl=${callback}`} className={pillClass}>
+                    Sign Up
+                  </Link>
+                </div>
+              )}
+            </div>
+          </nav>
+
+          {/* Mobile controls */}
+          <div className="ml-auto flex items-center gap-1 md:hidden">
+            {!isCartPage && (
+              <Link href="/cart" aria-label="View cart" className={iconButtonClass}>
+                <ShoppingCart size={22} aria-hidden="true" />
+              </Link>
+            )}
+            <button
+              type="button"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-menu"
+              onClick={() => setMenuOpenedOn(mobileMenuOpen ? null : pathname)}
+              className={iconButtonClass}
+            >
+              {mobileMenuOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
+            </button>
           </div>
-        </nav>
-
-        {/* Mobile controls */}
-        <div className="ml-auto flex items-center gap-1 md:hidden">
-          {!isCartPage && (
-            <Link href="/cart" aria-label="View cart" className={iconButtonClass}>
-              <ShoppingCart size={22} aria-hidden="true" />
-            </Link>
-          )}
-          <button
-            type="button"
-            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={mobileMenuOpen}
-            aria-controls="mobile-menu"
-            onClick={() => setMenuOpenedOn(mobileMenuOpen ? null : pathname)}
-            className={iconButtonClass}
-          >
-            {mobileMenuOpen ? <X size={24} aria-hidden="true" /> : <Menu size={24} aria-hidden="true" />}
-          </button>
         </div>
-      </div>
 
-      {mobileMenuOpen && (
-        <>
-          <button
-            type="button"
-            aria-label="Close menu"
-            tabIndex={-1}
-            onClick={closeMenu}
-            className="fixed inset-0 top-16 z-40 bg-neutral-950/30 md:hidden"
-          />
+        {mobileMenuOpen && (
           <nav
             id="mobile-menu"
             aria-label="Mobile"
@@ -213,8 +206,19 @@ export function Header() {
               )}
             </div>
           </nav>
-        </>
+        )}
+      </header>
+
+      {/* Outside the header: its backdrop-blur would otherwise trap this fixed overlay inside the header box. */}
+      {mobileMenuOpen && (
+        <button
+          type="button"
+          aria-label="Close menu"
+          tabIndex={-1}
+          onClick={closeMenu}
+          className="fixed inset-0 z-40 bg-neutral-950/30 md:hidden"
+        />
       )}
-    </header>
+    </>
   );
 }
