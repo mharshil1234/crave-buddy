@@ -9,7 +9,8 @@
     "start": "next start",
     "lint": "eslint",
     "build": "prisma generate && next build",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "seed": "tsx scripts/seedCatalogue.ts"
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.80",

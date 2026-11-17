@@ -31,12 +31,33 @@ model saved_mood_boards {
 }
 
 model restaurants {
-  id                  String  @id
+  id                  String       @id
   name                String
   cloudinary_image_id String?
+  locality            String?
   area_name           String?
-  cuisines            String?
-  avg_rating_string   String?
+  cuisines            String[]     @default([])
+  rating              Float?
+  rating_count        String?
+  cost_for_two        Int?
+  delivery_time       String?
+  is_open             Boolean      @default(true)
+  menu_items          menu_items[]
+}
+
+model menu_items {
+  id            String      @id
+  restaurant_id String
+  restaurant    restaurants @relation(fields: [restaurant_id], references: [id], onDelete: Cascade)
+  name          String
+  description   String      @default("")
+  price         Int
+  veg           Boolean
+  category      String      @default("")
+  rating        Float?
+  img           String      @default("")
+
+  @@index([restaurant_id])
 }
 
 model User {
