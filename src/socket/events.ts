@@ -61,9 +61,11 @@ export function createMoodRoomSocketServer({ nominateRestaurants = getGroupNomin
     });
     const sessionUsers = new Map<string, Map<string, SessionMember>>();
     const roomUsers = new Map<string, Map<string, SessionMember>>();
+    const sessionPhases = new Map<string, string>();
     const sessionChannel = (sessionId: string) => `session:${sessionId}`;
 
     const publishState = (state: SessionState, change: "phase" | "prompt" | "restaurant") => {
+        sessionPhases.set(state.sessionId, state.phase);
         const channel = io.to(sessionChannel(state.sessionId));
         channel.emit("session:state", state);
         if (change === "phase") {
@@ -126,24 +128,22 @@ export function createMoodRoomSocketServer({ nominateRestaurants = getGroupNomin
         const leaveSession = async () => {
             const { scope, member } = socket.data;
             if (!scope || !member) return;
-            let sessionEnded = false;
-            try {
-                sessionEnded = (await getSessionState({ ...scope, userId: member.userId })).status === "ENDED";
-            } catch (error) {
-                console.error("Unable to check session status before leaving:", error);
-            }
             delete socket.data.scope;
             delete socket.data.member;
             await socket.leave(sessionChannel(scope.sessionId));
 
             const users = sessionUsers.get(scope.sessionId);
             users?.delete(socket.id);
-            if (users?.size === 0) sessionUsers.delete(scope.sessionId);
+            if (users?.size === 0) {
+                sessionUsers.delete(scope.sessionId);
+                sessionPhases.delete(scope.sessionId);
+            }
             const roomMembers = roomUsers.get(scope.roomId);
             roomMembers?.delete(socket.id);
             if (roomMembers?.size === 0) roomUsers.delete(scope.roomId);
 
-            if (!sessionEnded && ![...(users?.values() ?? [])].some((user) => user.memberId === member.memberId)) {
+            const phase = sessionPhases.get(scope.sessionId);
+            if (phase !== "FINISHED" && ![...(users?.values() ?? [])].some((user) => user.memberId === member.memberId)) {
                 io.to(sessionChannel(scope.sessionId)).emit("chat:message", {
                     id: randomUUID(), sessionId: scope.sessionId, type: "leave",
                     message: `${member.displayName} left the session`, username: member.displayName,
