@@ -12,9 +12,11 @@ model mood_boards {
   created_at DateTime @default(now()) @db.Timestamptz(6)
 
   creator_id String?
+  creator    User?               @relation(fields: [creator_id], references: [id], onDelete: SetNull)
   query      String
   is_veg     Boolean
   mood_board Json
+  saved_by   saved_mood_boards[]
 
   @@index([creator_id])
   @@index([created_at])
@@ -22,8 +24,10 @@ model mood_boards {
 
 model saved_mood_boards {
   user_id       String
-  mood_board_id String   @db.Uuid
-  created_at    DateTime @default(now()) @db.Timestamptz(6)
+  user          User        @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  mood_board_id String      @db.Uuid
+  mood_board    mood_boards @relation(fields: [mood_board_id], references: [id], onDelete: Cascade)
+  created_at    DateTime    @default(now()) @db.Timestamptz(6)
 
   @@id([user_id, mood_board_id])
   @@index([user_id])
@@ -61,17 +65,19 @@ model menu_items {
 }
 
 model User {
-  id                  String           @id
+  id                  String              @id
   name                String
   email               String
-  emailVerified       Boolean          @default(false)
+  emailVerified       Boolean             @default(false)
   image               String?
-  createdAt           DateTime         @default(now())
-  updatedAt           DateTime         @updatedAt
+  createdAt           DateTime            @default(now())
+  updatedAt           DateTime            @updatedAt
   sessions            Session[]
   accounts            Account[]
   hostedMoodRooms     MoodRoom[]
   moodRoomMemberships MoodRoomMember[]
+  createdMoodBoards   mood_boards[]
+  savedMoodBoards     saved_mood_boards[]
 
   @@unique([email])
   @@map("user")
