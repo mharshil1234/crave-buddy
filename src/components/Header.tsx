@@ -2,14 +2,13 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { ShoppingCart, Compass, Users } from "lucide-react";
-import { useSession, signOut } from "@/lib/auth-client";
-import { toast } from "sonner";
+import { useSession } from "@/lib/auth-client";
+import { AccountMenu } from "./AccountMenu";
 
 export function Header() {
   const router = useRouter();
   const pathname = usePathname();
   const { data: session } = useSession();
-  const userInitial = session?.user?.name?.[0]?.toUpperCase() ?? "U";
   const isMoodBoardPage = pathname.startsWith("/mood-board");
   const isMoodRoomPage = pathname.startsWith("/mood-room");
   const isCartPage = pathname === "/cart";
@@ -86,28 +85,11 @@ export function Header() {
 
           <div className="ml-4 sm:ml-6 lg:ml-8">
             {session?.user ? (
-              <div
-                className={`flex items-center gap-2 rounded-full py-1 pl-1 pr-2 hover:cursor-pointer ${isCartPage
-                  ? "bg-neutral-100 text-neutral-900"
-                  : "bg-white/10 text-white"
-                  }`}
-                onClick={() => {
-                  signOut();
-                  toast.success("Signed Out")
-                }}
-              >
-                <div
-                  className={`flex size-9 items-center justify-center rounded-full text-sm font-extrabold shadow-sm ${isCartPage
-                    ? "bg-white text-[#ff5200] ring-1 ring-neutral-200"
-                    : "bg-white text-[#ff5200]"
-                    }`}
-                >
-                  {userInitial}
-                </div>
-                <span className="hidden max-w-28 truncate text-sm font-semibold md:block">
-                  {session.user.name}
-                </span>
-              </div>
+              <AccountMenu
+                name={session.user.name}
+                email={session.user.email}
+                variant={isCartPage ? "light" : "brand"}
+              />
             ) : (
               <div className="flex items-center gap-2">
                 <button
