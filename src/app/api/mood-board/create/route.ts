@@ -6,6 +6,7 @@ import { z } from "zod";
 import { auth } from "@/lib/auth";
 import { clientIp, rateLimit } from "@/lib/rate-limit";
 import { EmptyRecommendationError } from "@/lib/recommender/validate";
+import { appendGeneratedMoodBoard, GENERATED_MOOD_BOARDS_COOKIE } from "@/lib/mood-board-cookie";
 
 const MOOD_BOARD_LIMIT = 10;
 const MOOD_BOARD_WINDOW_SECONDS = 10 * 60;
@@ -54,9 +55,11 @@ export async function POST(request: NextRequest) {
 
         if (!userId) {
             const cookieStore = await cookies();
-            const generatedMoodBoards: string[] = JSON.parse(cookieStore.get("generatedMoodBoards")?.value ?? "[]");
-            generatedMoodBoards.push(id);
-            cookieStore.set("generatedMoodBoards", JSON.stringify(generatedMoodBoards.slice(-20)));
+            cookieStore.set(
+                GENERATED_MOOD_BOARDS_COOKIE,
+                appendGeneratedMoodBoard(cookieStore.get(GENERATED_MOOD_BOARDS_COOKIE)?.value, id),
+                { path: "/", httpOnly: true, sameSite: "lax", maxAge: 60 * 60 * 24 * 30 },
+            );
         }
 
         return NextResponse.json({ id });

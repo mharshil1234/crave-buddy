@@ -3,15 +3,7 @@ import { auth } from "@/lib/auth";
 import { headers, cookies } from "next/headers";
 import prisma from "@/lib/prisma";
 import { getMoodBoard, isMoodBoardId } from "@/lib/db/mood-board";
-
-function readGeneratedMoodBoards(value: string | undefined): string[] {
-    try {
-        const parsed: unknown = JSON.parse(value || "[]");
-        return Array.isArray(parsed) ? parsed.filter((id): id is string => typeof id === "string") : [];
-    } catch {
-        return [];
-    }
-}
+import { GENERATED_MOOD_BOARDS_COOKIE, readGeneratedMoodBoards } from "@/lib/mood-board-cookie";
 
 export async function POST(request: NextRequest) {
     const session = await auth.api.getSession({
@@ -46,7 +38,7 @@ export async function POST(request: NextRequest) {
         }
 
         const cookieStore = await cookies();
-        const generatedMoodBoards = readGeneratedMoodBoards(cookieStore.get("generatedMoodBoards")?.value);
+        const generatedMoodBoards = readGeneratedMoodBoards(cookieStore.get(GENERATED_MOOD_BOARDS_COOKIE)?.value);
         const canClaim = !moodBoard.creator_id && generatedMoodBoards.includes(moodBoard.id);
 
         await prisma.$transaction([
