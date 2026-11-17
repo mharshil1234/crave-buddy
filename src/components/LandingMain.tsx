@@ -6,7 +6,8 @@ import { RestaurantCard } from "./RestaurantCard"
 type Restaurant = {
         id: string;
         name: string;
-        cloudinary_image_id: string;
+        cloudinary_image_id: string | null;
+        image: string;
         area_name: string;
         cuisines: string;
         avg_rating_string: string;
@@ -84,7 +85,7 @@ export function LandingMain() {
                         <RestaurantCard
                             key={info.id}
                             id={info.id}
-                            image={`/restaurantImage.jpeg`}
+                            image={info.image}
                             name={info.name}
                             cuisine={info.cuisines}
                             location={info.area_name}

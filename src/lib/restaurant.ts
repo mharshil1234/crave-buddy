@@ -1,4 +1,4 @@
-import { getRestaurant, listRestaurants, toRestaurantWithMenu } from "@/lib/catalogue";
+import { getRestaurant, listRestaurants, restaurantImageUrl, toRestaurantWithMenu } from "@/lib/catalogue";
 
 export async function getRestaurants({ lat, lng }: { lat: string, lng: string }) {
     const restaurants = await listRestaurants({ limit: 100 });
@@ -8,6 +8,7 @@ export async function getRestaurants({ lat, lng }: { lat: string, lng: string })
             id: restaurant.id,
             name: restaurant.name,
             cloudinary_image_id: restaurant.cloudinary_image_id,
+            image: restaurantImageUrl(restaurant.cloudinary_image_id),
             area_name: restaurant.area_name,
             cuisines: restaurant.cuisines.join(", "),
             avg_rating_string: restaurant.rating?.toString() ?? null,

@@ -36,7 +36,7 @@ export function RestaurantCard({ restaurant }: RestaurantCardProps) {
                 />
 
                 <Image
-                    src="/restaurant.jpeg"
+                    src={restaurant.restaurantImg}
                     alt={restaurant.name}
                     width={96}
                     height={80}

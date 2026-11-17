@@ -71,7 +71,7 @@ export default function ItemVotingPhase({ roomId, state, memberId, isHost, conne
     return <div className="space-y-5">
         <section className="overflow-hidden rounded-2xl border border-orange-100 bg-white shadow-sm">
             <div className="relative h-40 bg-orange-50">
-                <Image src={restaurant.restaurantImg.startsWith("http") ? restaurant.restaurantImg : `https://media-assets.swiggy.com/swiggy/image/upload/${restaurant.restaurantImg}`} alt={restaurant.name} fill sizes="100vw" className="object-cover" />
+                <Image src={restaurant.restaurantImg} alt={restaurant.name} fill sizes="100vw" className="object-cover" />
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-5 pt-12 text-white">
                     <span className="text-xs font-semibold uppercase tracking-wider">The group picked</span>
                     <h2 className="mt-1 text-2xl font-bold">{restaurant.name}</h2>
