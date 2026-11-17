@@ -30,27 +30,31 @@ interface ItemVotingPhaseProps {
 }
 
 export default function ItemVotingPhase({ roomId, state, memberId, isHost, connected, pending, onQuantityChange, onLock, onFinalize }: ItemVotingPhaseProps) {
-    const [restaurant, setRestaurant] = useState<RestaurantMenu | null>(null);
-    const [loading, setLoading] = useState(true);
-    const [loadError, setLoadError] = useState<string | null>(null);
     const locked = Boolean(state.itemVotingLockedAt) || state.status === "ENDED";
+
+    // One state object keyed by session + winning restaurant, so "loading" is derived
+    // instead of being set synchronously inside the effect.
+    const menuKey = `${state.sessionId}:${state.selectedRestaurantId ?? ""}`;
+    const [loaded, setLoaded] = useState<{ key: string; restaurant: RestaurantMenu | null; error: string | null } | null>(null);
+    const current = loaded?.key === menuKey ? loaded : null;
+    const loading = current === null;
+    const restaurant = current?.restaurant ?? null;
+    const loadError = current?.error ?? null;
 
     useEffect(() => {
         const controller = new AbortController();
-        setLoading(true);
         fetch(`/api/mood-room/${roomId}/session/${state.sessionId}/vote/item`, { signal: controller.signal, cache: "no-store" })
             .then(async (response) => {
                 const data = await response.json();
                 if (!response.ok || !data.success) throw new Error(data.message || "Could not load the restaurant menu");
-                setRestaurant(data.restaurant as RestaurantMenu);
-                setLoadError(null);
+                setLoaded({ key: menuKey, restaurant: data.restaurant as RestaurantMenu, error: null });
             })
             .catch((error: unknown) => {
-                if (!controller.signal.aborted) setLoadError(error instanceof Error ? error.message : "Could not load the restaurant menu");
-            })
-            .finally(() => { if (!controller.signal.aborted) setLoading(false); });
+                if (controller.signal.aborted) return;
+                setLoaded({ key: menuKey, restaurant: null, error: error instanceof Error ? error.message : "Could not load the restaurant menu" });
+            });
         return () => controller.abort();
-    }, [roomId, state.sessionId, state.selectedRestaurantId]);
+    }, [roomId, state.sessionId, menuKey]);
 
     const categories = useMemo(() => {
         const grouped = new Map<string, MenuItem[]>();
