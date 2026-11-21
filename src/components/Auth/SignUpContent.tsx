@@ -1,25 +1,27 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { authClient, signUp, useSession } from "@/lib/auth-client";
 import { Eye, EyeOff } from "lucide-react";
 import { useEffect } from "react";
 import { toast } from "sonner";
+import { safeCallbackUrl } from "@/lib/safe-redirect";
 
 export function SignUpContent() {
 
     const searchParams = useSearchParams();
-    const callbackUrl = searchParams.get("callbackUrl");
+    const callbackUrl = safeCallbackUrl(searchParams.get("callbackUrl"));
 
     const router = useRouter();
 
     const { data: session, isPending } = useSession();
     useEffect(() => {
         if (session?.user) {
-            router.push("/");
+            router.push(callbackUrl);
         }
-    }, [isPending, session, router]);
+    }, [isPending, session, router, callbackUrl]);
 
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -57,14 +59,14 @@ export function SignUpContent() {
             toast.error(res.error.message || "Something went wrong.");
         } else {
             toast.success("Welcome to Crave Buddy!")
-            router.push("/");
+            router.push(callbackUrl);
         }
     }
 
     async function handleGoogleSignIn() {
         await authClient.signIn.social({
             provider: "google",
-            callbackURL: callbackUrl || "/"
+            callbackURL: callbackUrl
         });
     }
 
@@ -72,14 +74,17 @@ export function SignUpContent() {
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
     return (
-        <main className="min-h-screen flex items-center justify-center bg-gradient-to-br from-orange-950 via-neutral-950 to-red-950 p-6">
+        <main className="mood-backdrop flex min-h-screen flex-col items-center justify-center p-6">
+            <Link href="/" className="mb-6 text-2xl font-extrabold tracking-tight text-neutral-900">
+                Crave <span className="text-brand">Buddy</span>
+            </Link>
             <div className="w-full max-w-md">
-                <div className="backdrop-blur-xl bg-white/10 border border-white/10 rounded-3xl p-8 shadow-2xl">
+                <div className="card p-8 shadow-xl">
                     <div className="mb-8 text-center">
-                        <h1 className="text-4xl font-bold text-white">
+                        <h1 className="text-3xl font-extrabold tracking-tight text-neutral-900">
                             Join Crave Buddy
                         </h1>
-                        <p className="text-neutral-400 mt-2">
+                        <p className="mt-2 text-neutral-500">
                             Discover food that matches your mood.
                         </p>
                     </div>
@@ -87,30 +92,36 @@ export function SignUpContent() {
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <input
                             name="name"
+                            aria-label="Full name"
+                            autoComplete="name"
                             placeholder="Full Name"
-                            className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-neutral-500 outline-none focus:border-orange-500 transition"
+                            className="input-field"
                         />
 
                         <input
                             name="email"
+                            aria-label="Email address"
+                            autoComplete="email"
                             type="email"
                             placeholder="Email Address"
-                            className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder:text-neutral-500 outline-none focus:border-orange-500 transition"
+                            className="input-field"
                         />
 
                         <div className="relative">
                             <input
                                 name="password"
+                                aria-label="Password"
                                 type={showPassword ? "text" : "password"}
                                 placeholder="Password"
                                 minLength={8}
-                                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 pr-12 text-white placeholder:text-neutral-500 outline-none focus:border-orange-500 transition"
+                                className="input-field pr-12"
                             />
 
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white cursor-pointer"
+                                aria-label={showPassword ? "Hide password" : "Show password"}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-700 cursor-pointer"
                             >
                                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                             </button>
@@ -119,10 +130,12 @@ export function SignUpContent() {
                         <div className="relative">
                             <input
                                 name="confirmPassword"
+                                aria-label="Confirm password"
+                                autoComplete="new-password"
                                 type={showConfirmPassword ? "text" : "password"}
                                 placeholder="Confirm Password"
                                 minLength={8}
-                                className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 pr-12 text-white placeholder:text-neutral-500 outline-none focus:border-orange-500 transition"
+                                className="input-field pr-12"
                             />
 
                             <button
@@ -130,7 +143,8 @@ export function SignUpContent() {
                                 onClick={() =>
                                     setShowConfirmPassword(!showConfirmPassword)
                                 }
-                                className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white cursor-pointer"
+                                aria-label={showConfirmPassword ? "Hide password" : "Show password"}
+                                className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-700 cursor-pointer"
                             >
                                 {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                             </button>
@@ -138,7 +152,7 @@ export function SignUpContent() {
 
                         <button
                             type="submit"
-                            className="w-full rounded-xl bg-gradient-to-r from-orange-500 to-red-500 py-3 font-semibold text-white hover:scale-[1.02] transition hover:cursor-pointer"
+                            className="btn btn-primary w-full"
                         >
                             Create Account
                         </button>
@@ -146,27 +160,28 @@ export function SignUpContent() {
 
                     <div className="relative my-6">
                         <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-white/10" />
+                            <div className="w-full border-t border-neutral-200" />
                         </div>
                         <div className="relative flex justify-center">
-                            <span className="bg-neutral-950 px-4 text-sm text-neutral-500">
+                            <span className="bg-white px-4 text-xs font-semibold uppercase tracking-wide text-neutral-400">
                                 OR
                             </span>
                         </div>
                     </div>
 
                     <button
-                        className="w-full rounded-xl border border-white/10 bg-white/5 py-3 text-white hover:bg-white/10 transition hover:cursor-pointer"
+                        type="button"
+                        className="btn btn-secondary w-full"
                         onClick={handleGoogleSignIn}
                     >
                         Continue with Google
                     </button>
 
-                    <p className="mt-6 text-center text-neutral-400">
+                    <p className="mt-6 text-center text-sm text-neutral-500">
                         Already have an account?{" "}
                         <a
-                            href={`/signin?callbackUrl=${encodeURIComponent(callbackUrl ?? "/")}`}
-                            className="text-orange-400 hover:text-orange-300"
+                            href={`/signin?callbackUrl=${encodeURIComponent(callbackUrl)}`}
+                            className="font-semibold text-brand hover:text-brand-hover"
                         >
                             Sign in
                         </a>

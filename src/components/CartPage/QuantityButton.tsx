@@ -1,63 +1,54 @@
 "use client";
 
-import { useCartStore } from "@/stores/cartStore";
+import { Minus, Plus, Trash2 } from "lucide-react";
+import { useCartItem } from "@/hooks/useCartItem";
 
-export function QuantityButton({ itemId, restaurantId }: { itemId: string; restaurantId: string }) {
+export function QuantityButton({ itemId, restaurantId, itemName }: { itemId: string; restaurantId: string; itemName?: string }) {
 
-    const quantity = useCartStore((state) => state.cart[itemId] ?? 0);
-    const updateQuantity = useCartStore((state) => state.updateQuantity)
+    const { quantity, canIncrease, increase, decrease } = useCartItem(restaurantId, itemId);
+    const label = itemName ? ` ${itemName}` : "";
 
-    const updateItemQuantity = async (newQuantity: number) => {
-        const previousQuantity = quantity;
-        updateQuantity(itemId, newQuantity);
-        try {
-            const response = await fetch("/api/cart/update", {
-                method: "POST",
-                body: JSON.stringify({ restaurantId, itemId, newQuantity })
-            })
-
-            if (!response.ok) {
-                throw new Error("Failed to update cart");
-            }
-        } catch (error) {
-            console.error("Error updating item quantity:", error);
-            updateQuantity(itemId, previousQuantity);
-        }
+    if (quantity === 0) {
+        return (
+            <button
+                type="button"
+                onClick={increase}
+                className="h-9 w-full rounded-lg text-sm font-extrabold text-brand ring-1 ring-neutral-300 transition hover:bg-brand-soft cursor-pointer"
+            >
+                ADD
+            </button>
+        );
     }
 
+    const removes = quantity === 1;
+
     return (
-        <div className="bg-white w-full h-10 flex items-center justify-center border border-[#cccdce]">
+        <div className="flex h-9 w-full items-center justify-between rounded-lg bg-white px-1 ring-1 ring-neutral-300">
+            <button
+                type="button"
+                aria-label={removes ? `Remove${label}` : `Decrease quantity${label}`}
+                onClick={decrease}
+                className={`flex size-7 items-center justify-center rounded-md transition cursor-pointer ${removes
+                    ? "text-neutral-500 hover:bg-red-50 hover:text-red-600"
+                    : "text-brand hover:bg-brand-soft"
+                    }`}
+            >
+                {removes ? <Trash2 size={14} aria-hidden="true" /> : <Minus size={14} aria-hidden="true" />}
+            </button>
 
-            {quantity === 0 && (
-                <button
-                    onClick={() => updateItemQuantity(1)}
-                    className="w-full h-full font-bold text-green-600 rounded-xl hover:cursor-pointer hover:bg-gray-200"
-                >
-                    ADD
-                </button>
-            )}
+            <span className="text-sm font-bold tabular-nums text-neutral-900" aria-live="polite">
+                {quantity}
+            </span>
 
-            {quantity > 0 && (
-                <div className="flex items-center justify-between w-full px-1">
-                    <button
-                        onClick={() => updateItemQuantity(quantity - 1)}
-                        className="w-8 h-8 flex items-center justify-center text-green-600 font-bold text-xl cursor-pointer transition-colors"
-                    >
-                        -
-                    </button>
-
-                    <span className="font-bold text-green-600">
-                        {quantity}
-                    </span>
-
-                    <button
-                        onClick={() => updateItemQuantity(quantity + 1)}
-                        className="w-8 h-8 flex items-center justify-center text-green-600 font-bold text-xl cursor-pointer transition-colors"
-                    >
-                        +
-                    </button>
-                </div>
-            )}
+            <button
+                type="button"
+                aria-label={`Increase quantity${label}`}
+                onClick={increase}
+                disabled={!canIncrease}
+                className="flex size-7 items-center justify-center rounded-md text-brand transition hover:bg-brand-soft cursor-pointer disabled:cursor-not-allowed disabled:opacity-40"
+            >
+                <Plus size={14} aria-hidden="true" />
+            </button>
         </div>
     )
 }

@@ -183,12 +183,12 @@ export default function SessionPhaseManager({ roomId, roomName, sessionTitle, in
     return (
         <div>
             <header className="mb-6 rounded-2xl border border-orange-100 bg-white p-5 shadow-sm sm:p-6">
-                <Link href={`/mood-room/${roomId}`} className="inline-flex items-center gap-2 text-sm font-semibold text-orange-700 transition hover:text-orange-900">
+                <Link href={`/mood-room/${roomId}`} className="inline-flex items-center gap-2 text-sm font-semibold text-brand-hover transition hover:text-orange-900">
                     <ArrowLeft size={16} aria-hidden="true" />Back to {roomName}
                 </Link>
                 <div className="mt-5 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                     <div className="min-w-0">
-                        <p className="text-xs font-bold uppercase tracking-[0.18em] text-orange-600">Mood Room session</p>
+                        <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand">Mood Room session</p>
                         <h1 className="mt-1 break-words text-2xl font-bold tracking-tight text-neutral-950 sm:text-3xl">{sessionTitle}</h1>
                     </div>
                     <div className="flex flex-wrap items-center gap-2">
@@ -199,7 +199,7 @@ export default function SessionPhaseManager({ roomId, roomName, sessionTitle, in
                         {state.status === "ACTIVE" && <span className={`inline-flex items-center gap-2 rounded-full px-3 py-2 text-xs font-semibold ${connected ? "bg-emerald-50 text-emerald-800" : "bg-amber-50 text-amber-800"}`}>
                             {connected ? <Wifi size={14} /> : <WifiOff size={14} />}{connected ? "Live" : "Reconnecting"}
                         </span>}
-                        <span className="inline-flex items-center gap-2 rounded-full bg-orange-50 px-3 py-2 text-xs font-semibold text-orange-800"><Users size={14} />{state.members.length} {state.members.length === 1 ? "member" : "members"}</span>
+                        <span className="inline-flex items-center gap-2 rounded-full bg-orange-50 px-3 py-2 text-xs font-semibold text-brand-hover"><Users size={14} />{state.members.length} {state.members.length === 1 ? "member" : "members"}</span>
                     </div>
                 </div>
             </header>

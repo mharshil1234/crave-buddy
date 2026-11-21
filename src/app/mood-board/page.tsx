@@ -1,12 +1,16 @@
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { MoodBoardForm } from "@/components/MoodBoard/MoodBoardForm";
 
 export default function MoodBoard() {
 
     return (
-        <main>
+        <div className="flex min-h-screen flex-col">
             <Header />
-            <MoodBoardForm />
-        </main>
+            <main className="min-h-dvh">
+                <MoodBoardForm />
+            </main>
+            <Footer />
+        </div>
     )
 }

@@ -1,70 +1,41 @@
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
+import { auth } from "@/lib/auth";
 import { joinRoom } from "@/lib/db/mood-room";
-import type { joinRoomProps } from "@/types/mood-room";
+
+const joinRoomSchema = z.object({
+    inviteCode: z.string().trim().min(1).max(12),
+    displayName: z.string().trim().min(1).max(50),
+});
+
+const CLIENT_ERRORS = [
+    "Invalid invite code",
+    "Invite code expired",
+    "Mood room is not active",
+    "Mood room is full",
+];
 
 export async function POST(req: NextRequest) {
     try {
-        const body: joinRoomProps = await req.json();
-        const { inviteCode, userId, displayName } = body;
-
-        if (!inviteCode || !userId || !displayName) {
-            return NextResponse.json(
-                {
-                    success: false,
-                    message: "Missing required fields",
-                },
-                {
-                    status: 400,
-                }
-            );
+        const session = await auth.api.getSession({ headers: req.headers });
+        if (!session) {
+            return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });
         }
 
-        const room = await joinRoom({
-            inviteCode,
-            userId,
-            displayName,
-        });
+        const parsed = joinRoomSchema.safeParse(await req.json().catch(() => null));
+        if (!parsed.success) {
+            return NextResponse.json({ success: false, message: "Missing or invalid fields" }, { status: 400 });
+        }
 
-        return NextResponse.json(
-            {
-                success: true,
-                room,
-            },
-            {
-                status: 200,
-            }
-        );
+        const room = await joinRoom({ ...parsed.data, userId: session.user.id });
+
+        return NextResponse.json({ success: true, room }, { status: 200 });
     } catch (error) {
-        console.error("Error joining mood room:", error);
-
-        if (
-            error instanceof Error &&
-            [
-                "Invalid invite code",
-                "Invite code expired",
-                "Mood room is not active",
-                "Mood room is full",
-            ].includes(error.message)
-        ) {
-            return NextResponse.json(
-                {
-                    success: false,
-                    message: error.message,
-                },
-                {
-                    status: 400,
-                }
-            );
+        if (error instanceof Error && CLIENT_ERRORS.includes(error.message)) {
+            return NextResponse.json({ success: false, message: error.message }, { status: 400 });
         }
 
-        return NextResponse.json(
-            {
-                success: false,
-                error: error instanceof Error ? error.message : "Unknown error",
-            },
-            {
-                status: 500,
-            }
-        );
+        console.error("Error joining mood room:", error);
+        return NextResponse.json({ success: false, message: "Failed to join mood room" }, { status: 500 });
     }
 }

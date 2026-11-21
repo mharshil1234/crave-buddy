@@ -1,34 +1,63 @@
+import Image from "next/image";
 import type { RestaurantDetails } from "@/types/restaurant";
-import { Star } from "lucide-react";
+import { Clock, IndianRupee, MapPin, Star } from "lucide-react";
 
 export function MainCard({ restaurantDetails }: { restaurantDetails: RestaurantDetails | null }) {
 
+    if (!restaurantDetails) return null;
+
     return (
-        <div className="w-full rounded-2xl my-8 shadow-lg p-6 border border-gray-200 bg-white">
-
-            <div className="w-full flex items-center mb-4 gap-4 font-bold">
-
-                <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-[#256f3a] gap-1 text-white"><Star size={15} fill="white"/>{restaurantDetails?.rating}</span>
-                <span className="w-2 h-2 bg-gray-400 rounded-full" />
-                <span className="">₹{restaurantDetails?.priceForTwo} for two</span>
-                
+        <div className="card overflow-hidden">
+            <div className="relative h-40 bg-neutral-200 sm:h-52">
+                {restaurantDetails.restaurantImg && (
+                    <Image
+                        src={restaurantDetails.restaurantImg}
+                        alt=""
+                        fill
+                        priority
+                        sizes="(max-width: 768px) 100vw, 768px"
+                        className="object-cover"
+                    />
+                )}
+                <div aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-black/70 via-black/10 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-5">
+                    <h1 className="text-2xl font-extrabold tracking-tight text-white sm:text-3xl">{restaurantDetails.name}</h1>
+                    <p className="mt-1 truncate text-sm font-medium text-orange-100">{restaurantDetails.cuisines.join(", ")}</p>
+                </div>
             </div>
 
-            <div className="mb-4">
-                <span className="text-sm text-[#ff5200] font-bold">{restaurantDetails?.cuisines.join(", ")}</span>
-            </div>
-
-            <div className="w-full flex items-center mb-4 gap-4">
-                <span className="w-2 h-2 bg-gray-400 rounded-full" />
-                <span className="text-[15px] font-bold">Outlet</span>
-                <span className="text-[15px] text-[#676a6d]">{restaurantDetails?.location}</span>
-            </div>
-        
-            <div className="w-full flex items-center gap-4">
-                <span className="w-2 h-2 bg-gray-400 rounded-full" />
-                <span className="text-[15px] font-bold">{restaurantDetails?.deliveryTime}</span>
-            </div>
-
+            <dl className="grid grid-cols-2 gap-4 p-5 text-sm sm:grid-cols-4">
+                <div>
+                    <dt className="text-xs font-semibold uppercase tracking-wide text-neutral-400">Rating</dt>
+                    <dd className="mt-1">
+                        <span className="inline-flex items-center gap-1 rounded-md bg-rating px-2 py-0.5 font-bold text-white">
+                            <Star size={13} fill="white" aria-hidden="true" />
+                            {restaurantDetails.rating}
+                        </span>
+                    </dd>
+                </div>
+                <div>
+                    <dt className="text-xs font-semibold uppercase tracking-wide text-neutral-400">Cost</dt>
+                    <dd className="mt-1 flex items-center gap-1 font-semibold text-neutral-900">
+                        <IndianRupee size={14} aria-hidden="true" className="text-brand" />
+                        {restaurantDetails.priceForTwo} for two
+                    </dd>
+                </div>
+                <div>
+                    <dt className="text-xs font-semibold uppercase tracking-wide text-neutral-400">Delivery</dt>
+                    <dd className="mt-1 flex items-center gap-1 font-semibold text-neutral-900">
+                        <Clock size={14} aria-hidden="true" className="text-brand" />
+                        {restaurantDetails.deliveryTime}
+                    </dd>
+                </div>
+                <div className="col-span-2 sm:col-span-1">
+                    <dt className="text-xs font-semibold uppercase tracking-wide text-neutral-400">Outlet</dt>
+                    <dd className="mt-1 flex items-center gap-1 font-semibold text-neutral-900">
+                        <MapPin size={14} aria-hidden="true" className="shrink-0 text-brand" />
+                        <span className="truncate">{restaurantDetails.location}</span>
+                    </dd>
+                </div>
+            </dl>
         </div>
     )
 }

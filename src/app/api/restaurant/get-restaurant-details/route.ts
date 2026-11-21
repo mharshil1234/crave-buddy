@@ -21,7 +21,10 @@ export async function GET(req: NextRequest) {
 
         return NextResponse.json({ data });
     } catch (err) {
-        console.log("Error: ", err);
+        if (err instanceof Error && err.message === "Restaurant not found") {
+            return NextResponse.json({ error: "Restaurant not found" }, { status: 404 });
+        }
+        console.error("Error fetching restaurant details:", err);
         return NextResponse.json({ error: "Failed to fetch restaurant details" }, { status: 500 });
     }
 

@@ -1,4 +1,9 @@
 import prisma from "@/lib/prisma";
+import { z } from "zod";
+
+export function isMoodBoardId(value: unknown): value is string {
+    return z.uuid().safeParse(value).success;
+}
 
 export async function createMoodBoard({
     userId,
@@ -17,38 +22,27 @@ export async function createMoodBoard({
             query,
             is_veg: isVeg === "true",
             mood_board: moodBoard,
+            ...(userId ? { saved_by: { create: { user_id: userId } } } : {}),
         },
         select: {
             id: true,
         }
     });
 
-    if (userId) {
-        await prisma.saved_mood_boards.create({
-            data: {
-                user_id: userId,
-                mood_board_id: result.id,
-            }
-        });
-    }
-
     return result.id;
 }
 
+/** Returns the mood board, or null when the id is malformed or doesn't exist. */
 export async function getMoodBoard({
     moodBoardId,
 }: {
     moodBoardId: string;
 }) {
-    const result = await prisma.mood_boards.findUnique({
+    if (!isMoodBoardId(moodBoardId)) return null;
+
+    return prisma.mood_boards.findUnique({
         where: {
             id: moodBoardId,
         },
     });
-
-    if (!result) {
-        throw new Error("Mood board not found");
-    }
-
-    return result;
 }

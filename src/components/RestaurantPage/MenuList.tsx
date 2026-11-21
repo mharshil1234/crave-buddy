@@ -27,7 +27,7 @@ export function MenuList({ menu, restaurantId }: { menu: MenuItem[] | null; rest
     }, [restaurantId, setCart])
 
     return (
-        <div className="w-full mt-8">
+        <div className="w-full">
             {menu?.map((item) => (
                 <MenuItemCard key={item.id} item={item} restaurantId={restaurantId} />
             ))}

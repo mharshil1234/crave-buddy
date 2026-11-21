@@ -36,7 +36,6 @@ export function JoinMoodRoomForm() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                     inviteCode: inviteCode.trim().toUpperCase(),
-                    userId: session.user.id,
                     displayName: finalDisplayName,
                 }),
             });
@@ -58,13 +57,8 @@ export function JoinMoodRoomForm() {
     }
 
     return (
-        <div
-            className="flex min-h-[calc(100vh-4.5rem)] items-center justify-center p-6"
-            style={{
-                background: "radial-gradient(circle at 15% 20%, #ffd6b8, transparent 50%), radial-gradient(circle at 85% 80%, #c8e2ff, transparent 50%), #fff8f3"
-            }}
-        >
-            <div className="mb-24 w-full max-w-md rounded-3xl bg-white p-8 shadow-xl">
+        <div className="mood-backdrop flex min-h-dvh items-center justify-center p-6">
+            <div className="mb-24 w-full max-w-md card p-8 shadow-xl">
                 <div className="mb-8 text-center">
                     <h1 className="text-3xl font-extrabold tracking-tight text-neutral-900">
                         Join a Mood Room
@@ -88,7 +82,7 @@ export function JoinMoodRoomForm() {
                             placeholder="e.g. F7K2M9QX"
                             value={inviteCode}
                             onChange={(e) => setInviteCode(e.target.value.toUpperCase())}
-                            className="mt-1.5 block w-full rounded-xl border border-neutral-300 px-4 py-3 text-sm uppercase tracking-widest outline-none ring-2 ring-transparent transition focus:border-transparent focus:ring-[#ff5200]"
+                            className="input-field mt-1.5 uppercase tracking-widest"
                         />
                     </div>
 
@@ -105,14 +99,14 @@ export function JoinMoodRoomForm() {
                             placeholder={session?.user?.name?.split(" ")[0] || "How others see you"}
                             value={displayName}
                             onChange={(e) => setDisplayName(e.target.value)}
-                            className="mt-1.5 block w-full rounded-xl border border-neutral-300 px-4 py-3 text-sm outline-none ring-2 ring-transparent transition focus:border-transparent focus:ring-[#ff5200]"
+                            className="input-field mt-1.5"
                         />
                     </div>
 
                     <button
                         type="submit"
                         disabled={loading}
-                        className="flex w-full cursor-pointer items-center justify-center rounded-xl bg-[#ff5200] px-4 py-3 text-sm font-bold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+                        className="btn btn-primary w-full"
                     >
                         {loading ? "Joining..." : "Join Room"}
                     </button>
@@ -121,7 +115,7 @@ export function JoinMoodRoomForm() {
                 <button
                     type="button"
                     onClick={() => router.push("/mood-room/create")}
-                    className="mt-5 w-full text-center text-sm font-semibold text-[#ff5200] transition hover:text-orange-700"
+                    className="mt-5 w-full text-center text-sm font-semibold text-brand transition hover:text-brand-hover"
                 >
                     Need a new room? Create one
                 </button>

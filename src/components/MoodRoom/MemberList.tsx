@@ -45,7 +45,7 @@ export function MemberList({ members, isHost, roomId, currentUserId, onMemberRem
   return (
     <div className="rounded-lg border border-neutral-200 bg-white shadow-sm">
       <div className="flex items-center gap-2 border-b border-neutral-200 px-4 py-3 sm:px-6">
-        <Users className="h-5 w-5 text-orange-600" />
+        <Users className="h-5 w-5 text-brand" />
         <h2 className="font-semibold text-neutral-900">
           Members ({activemembers.length})
         </h2>
@@ -73,7 +73,7 @@ export function MemberList({ members, isHost, roomId, currentUserId, onMemberRem
                     {member.displayName}
                   </p>
                   {member.isHost && (
-                    <span className="inline-flex items-center gap-1 rounded-full bg-orange-100 px-2 py-0.5 text-xs font-semibold text-orange-700">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-orange-100 px-2 py-0.5 text-xs font-semibold text-brand-hover">
                       <UserCheck className="h-3 w-3" />
                       Host
                     </span>

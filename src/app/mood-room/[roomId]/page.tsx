@@ -4,6 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useSession } from "@/lib/auth-client";
 import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { RoomHeader } from "@/components/MoodRoom/RoomHeader";
 import { MemberList } from "@/components/MoodRoom/MemberList";
 import { HostControls } from "@/components/MoodRoom/HostControls";
@@ -117,10 +118,7 @@ export default function MoodRoomPage() {
       const res = await fetch(`/api/mood-room/${roomId}/session`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          hostId: session.user.id,
-          title: sessionName,
-        }),
+        body: JSON.stringify({ title: sessionName }),
       });
       if (res.ok) {
         const data = await res.json();
@@ -168,7 +166,7 @@ export default function MoodRoomPage() {
         inviteCode={roomData.inviteCode}
       />
 
-      <main className="flex-1 px-4 py-8 sm:px-6 lg:px-8">
+      <main className="min-h-dvh px-4 py-8 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-6 lg:grid-cols-3">
             {/* Main Content */}
@@ -201,6 +199,8 @@ export default function MoodRoomPage() {
           </div>
         </div>
       </main>
+
+      <Footer />
 
       {/* <LoaderModal isLoading={isLoading} /> */}
     </div>
